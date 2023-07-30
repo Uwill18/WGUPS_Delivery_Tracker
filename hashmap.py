@@ -138,12 +138,17 @@ myHash.remove(11)  # Key=11, item="STAR WARS - 1977" to remove
 print(myHash.table)
 
 
-#https://www.youtube.com/watch?v=ojjnd5gEMuk
+# https://www.youtube.com/watch?v=4HKqjENq9OU
+
+# https://www.youtube.com/watch?v=ojjnd5gEMuk
 
 # https://youtu.be/rTEtEy5o3X0
 
 # https://www.youtube.com/watch?v=xtaom__-drE
+# https://www.neuralnine.com/k-nearest-neighbors-classification-from-scratch-in-python/
 
-# https://www.youtube.com/watch?v=4HKqjENq9OU
 
 # https://www.youtube.com/watch?v=KURydVL0kGQ
+
+
+
