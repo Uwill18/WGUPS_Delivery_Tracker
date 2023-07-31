@@ -1,0 +1,28 @@
+# https://www.youtube.com/watch?v=4HKqjENq9OU
+"Because KNN is based on feature similarity, we can do classification using KNN classifier."
+KNN is a Supervised Machine Learning Algorithm that classifies a data point according to its similarity to its neighbors.
+parameter tuning is used to improve accuracy. where k is drastically changes the answer.
+choosing to high or low a "k-value" distorts the value.
+sqrt k
+if even make an odd k number by adding one or subtracting one from the root
+be specific with the data needed
+knn may struggle to extract the correct patterns
+nearest neighbors can be found using the Euclidean distance formula:
+d = √[(x2 – x1)^2 + (y2 – y1)^2]
+
+
+
+14-15m example
+
+
+
+
+# https://www.youtube.com/watch?v=ojjnd5gEMuk
+
+# https://youtu.be/rTEtEy5o3X0
+
+# https://www.youtube.com/watch?v=xtaom__-drE
+# https://www.neuralnine.com/k-nearest-neighbors-classification-from-scratch-in-python/
+
+
+# https://www.youtube.com/watch?v=KURydVL0kGQ
