@@ -10,6 +10,8 @@ knn may struggle to extract the correct patterns
 nearest neighbors can be found using the Euclidean distance formula:
 d = √[(x2 – x1)^2 + (y2 – y1)^2]
 
+Test for Euclidean distance --(1)
+
 
 
 14-15m example
@@ -24,6 +26,8 @@ then cross out the rows
 find nearest bound using nearest neighbor method to know what optimal solution
 may be
 
+Find MST (0)
+
 # https://youtu.be/rTEtEy5o3X0
 fit functions train the datasets
 
@@ -37,6 +41,8 @@ with help of numpy
 https://github.com/AssemblyAI-Examples/Machine-Learning-From-Scratch
 was able to get a .92 accuracy rate
 
+Test for most accurate path(3)
+
 
 # https://www.youtube.com/watch?v=xtaom__-drE
 # https://www.neuralnine.com/k-nearest-neighbors-classification-from-scratch-in-python/
@@ -45,9 +51,10 @@ subtract one numpy array from another numpy array, is every val in p minus every
 square the result, sum it, then sqrt it, finally return it
 
 fit function is used for training the points
-
+Color points(2)
 
 # https://www.youtube.com/watch?v=KURydVL0kGQ
+See if self-adjusting algorithm aligns(4)
 
 
-at end, compare djikstra and genetic, stating in the future you would use genetic
+at end, compare djikstra and genetic algorithms, stating in the future you would use genetic
