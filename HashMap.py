@@ -4,6 +4,20 @@
 # Modified for Key:Value
 
 # HashTable class using chaining.
+# Develop a hash table, without using any additional libraries or classes,
+# that has an insertion function that takes the following components as input and inserts the components into the hash table:
+#
+# •   package ID number, package_id
+# all "delivery properties will  output delivery + property name when called"
+# •   delivery address,  address
+# •   delivery deadline, deadline
+# •   delivery city    , city
+# •   delivery zip code, zip
+# •   package weight   , weight
+# •   delivery status (e.g., delivered, en route) , status
+#https://realpython.com/python-pep8/#naming-styles
+
+
 class ChainingHashTable:
     # Constructor with optional initial capacity parameter.
     # Assigns all buckets with an empty list.

@@ -1,4 +1,21 @@
+
+# https://www.youtube.com/watch?v=ojjnd5gEMuk
+
+find minimum spanning tree using the graph of data per column
+then cross out the rows
+find nearest bound using nearest neighbor method to know what optimal solution
+may be
+
+Find MST (0)
+
+
+
+
+
+
+
 # https://www.youtube.com/watch?v=4HKqjENq9OU
+
 "Because KNN is based on feature similarity, we can do classification using KNN classifier."
 KNN is a Supervised Machine Learning Algorithm that classifies a data point according to its similarity to its neighbors.
 parameter tuning is used to improve accuracy. where k is drastically changes the answer.
@@ -12,21 +29,20 @@ d = √[(x2 – x1)^2 + (y2 – y1)^2]
 
 Test for Euclidean distance --(1)
 
-
-
 14-15m example
 
+# https://www.youtube.com/watch?v=xtaom__-drE
+# https://www.neuralnine.com/k-nearest-neighbors-classification-from-scratch-in-python/
+euclidean formula can go in multiple dimensions to find the nearest neighbor
+subtract one numpy array from another numpy array, is every val in p minus every val in q is the result
+square the result, sum it, then sqrt it, finally return it
+
+fit function is used for training the points
+Color points(2)
 
 
 
-# https://www.youtube.com/watch?v=ojjnd5gEMuk
 
-find minimum spanning tree using the graph of data per column
-then cross out the rows
-find nearest bound using nearest neighbor method to know what optimal solution
-may be
-
-Find MST (0)
 
 # https://youtu.be/rTEtEy5o3X0
 fit functions train the datasets
@@ -44,17 +60,98 @@ was able to get a .92 accuracy rate
 Test for most accurate path(3)
 
 
-# https://www.youtube.com/watch?v=xtaom__-drE
-# https://www.neuralnine.com/k-nearest-neighbors-classification-from-scratch-in-python/
-euclidean formula can go in multiple dimensions to find the nearest neighbor
-subtract one numpy array from another numpy array, is every val in p minus every val in q is the result
-square the result, sum it, then sqrt it, finally return it
 
-fit function is used for training the points
-Color points(2)
 
 # https://www.youtube.com/watch?v=KURydVL0kGQ
 See if self-adjusting algorithm aligns(4)
 
 
 at end, compare djikstra and genetic algorithms, stating in the future you would use genetic
+
+
+
+
+# A.  Identify a named self-adjusting algorithm (e.g., “Nearest Neighbor algorithm,” “Greedy algorithm”) that you used to create your program to deliver the packages.
+# Nearest Neighbor (sololearn)
+#
+#
+
+# B.  Write an overview of your program, in which you do the following:
+#
+# 1.  Explain the algorithm’s logic using pseudocode.
+#
+#
+#
+# Note: You may refer to the attached “Sample Core Algorithm Overview” to complete part B1.
+#
+#
+#
+# 2.  Describe the programming environment you used to create the Python application.
+#
+# 3.  Evaluate the space-time complexity of each major segment of the program, and the entire program, using big-O notation.
+#
+# 4.  Explain the capability of your solution to scale and adapt to a growing number of packages.
+#
+# 5.  Discuss why the software is efficient and easy to maintain.
+# Commenting, and modular programming by defining a class for  specific function set, and using the naming conventions for python
+https://realpython.com/python-pep8/#naming-styles
+
+# 6.  Discuss the strengths and weaknesses of the self-adjusting data structures (e.g., the hash table).
+
+# D.  Identify a self-adjusting data structure, such as a hash table, that can be used with the algorithm identified in part A to store the package data.
+#
+# 1.  Explain how your data structure accounts for the relationship between the data points you are storing.
+#
+#
+#
+# Note: Use only appropriate built-in data structures, except dictionaries. You must design, write, implement, and debug all code that you turn in for this assessment.
+# Code downloaded from the Internet or acquired from another student or any other source may not be submitted and will result in automatic failure of this assessment.
+
+
+#
+# I.  Justify the core algorithm you identified in part A and used in the solution by doing the following:
+#
+# 1.  Describe at least two strengths of the algorithm used in the solution.
+#
+# 2.  Verify that the algorithm used in the solution meets all requirements in the scenario.
+#
+# 3.  Identify two other named algorithms, different from the algorithm implemented in the solution, that would meet the requirements in the scenario.
+https://www.youtube.com/watch?v=GiDsjIBOVoA&t=748s
+Christofides Algorithm
+https://www.youtube.com/watch?v=ayIsRZAGyi4, https://www.youtube.com/watch?v=GiDsjIBOVoA&t=748s
+2-Opt algorithm
+#
+# a.  Describe how each algorithm identified in part I3 is different from the algorithm used in the solution.
+
+
+
+# J.  Describe what you would do differently, other than the two algorithms identified in I3, if you did this project again.
+# Genetic Algorithm
+#
+#
+# K.  Justify the data structure you identified in part D by doing the following:
+#
+# 1.  Verify that the data structure used in the solution meets all requirements in the scenario.
+#
+# a.  Explain how the time needed to complete the look-up function is affected by changes in the number of packages to be delivered.
+#
+# b.  Explain how the data structure space usage is affected by changes in the number of packages to be delivered.
+#
+# c.  Describe how changes to the number of trucks or the number of cities would affect the look-up time and the space usage of the data structure.
+#
+# 2.  Identify two other data structures that could meet the same requirements in the scenario.
+#
+# a.  Describe how each data structure identified in part K2 is different from the data structure used in the solution.
+#
+#
+#
+# L.  Acknowledge sources, using in-text citations and references, for content that is quoted, paraphrased, or summarized.
+
+
+
+
+
+
+
+
+
