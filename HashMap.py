@@ -9,13 +9,31 @@
 #
 # •   package ID number, package_id
 # all "delivery properties will  output delivery + property name when called"
-# •   delivery address,  address
-# •   delivery deadline, deadline
-# •   delivery city    , city
-# •   delivery zip code, zip
-# •   package weight   , weight
-# •   delivery status (e.g., delivered, en route) , status
+# •   delivery address,  address string
+# •   delivery deadline, deadline string because of EOD
+# •   delivery city    , city string
+# •   delivery zip code, zip int
+# •   package weight   , weight int
+# •   delivery status (e.g., delivered, en route) , status  comparison function
+                    #   special_message
 #https://realpython.com/python-pep8/#naming-styles
+
+#1. pull attributes from csv file
+#2. use Let's go Hashing: https://wgu.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f08d7871-d57a-496e-a6a1-ac7601308c71
+#3. Modify this using:
+#https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-functions?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+#https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-tables?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+#https://www.linkedin.com/learning/programming-foundations-data-structures-2/using-dictionaries-in-python?autoSkip=true&contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+
+#4. Modify one more time using:
+#https://www.linkedin.com/learning/programming-foundations-algorithms/unique-filtering-with-hash-table?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+#https://learn.zybooks.com/zybook/WGUC950AY20182019/chapter/9/section/3
+
+
+
+
+
+
 
 
 class ChainingHashTable:
@@ -126,6 +144,13 @@ bestMovies = [
     [10, "SINGIN' IN THE RAIN - 1952"],
     [11, "STAR WARS - 1977"]
 ]
+
+# packages = [
+#     [1, "CITIZEN KANE - 1941"]
+#     ]
+
+
+
 
 myHash = ChainingHashTable()
 

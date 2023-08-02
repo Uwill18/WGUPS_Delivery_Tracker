@@ -22,4 +22,30 @@
 # 3.  Provide screenshots to show the status of all packages at a time between 12:03 p.m. and 1:12 p.m.
 
 #https://realpython.com/python-pep8/#naming-styles
+import csv
 
+f = open('WGUPSPackageFile.csv', 'r')
+for line in f.readlines():
+    print(line.strip())
+
+f = open('WGUPSPackageFileOutput.txt', 'w')
+print(f)
+
+with open('WGUPSPackageFile.csv', 'r') as f:
+    reader = list(csv.reader(f))
+    for row in reader[1:]:
+        print(row)
+# print(f)
+# print(f.readline())
+# print(f.readlines())
+
+# with open('10_02_us.csv', 'r') as f:
+#     reader = csv.reader(f, delimiter='\t')
+#     for row in reader:
+#         print(row)
+#
+# import csv
+# with open('some.csv', newline='', encoding='utf-8') as f:
+#     reader = csv.reader(f)
+#     for row in reader:
+#         print(row)
