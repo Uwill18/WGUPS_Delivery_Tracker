@@ -2,6 +2,10 @@
 # W-1_ChainingHashTable_zyBooks_Key-Value.py
 # Ref: zyBooks: Figure 7.8.2: Hash table using chaining.
 # Modified for Key:Value
+import csv
+
+from Package import Package
+
 
 # HashTable class using chaining.
 # Develop a hash table, without using any additional libraries or classes,
@@ -15,25 +19,19 @@
 # •   delivery zip code, zip int
 # •   package weight   , weight int
 # •   delivery status (e.g., delivered, en route) , status  comparison function
-                    #   special_message
-#https://realpython.com/python-pep8/#naming-styles
+#   special_message
+# https://realpython.com/python-pep8/#naming-styles
 
-#1. pull attributes from csv file
-#2. use Let's go Hashing: https://wgu.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f08d7871-d57a-496e-a6a1-ac7601308c71
-#3. Modify this using:
-#https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-functions?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
-#https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-tables?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
-#https://www.linkedin.com/learning/programming-foundations-data-structures-2/using-dictionaries-in-python?autoSkip=true&contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# 1. pull attributes from csv file
+# 2. use Let's go Hashing: https://wgu.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f08d7871-d57a-496e-a6a1-ac7601308c71
+# 3. Modify this using:
+# https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-functions?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-tables?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# https://www.linkedin.com/learning/programming-foundations-data-structures-2/using-dictionaries-in-python?autoSkip=true&contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 
-#4. Modify one more time using:
-#https://www.linkedin.com/learning/programming-foundations-algorithms/unique-filtering-with-hash-table?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
-#https://learn.zybooks.com/zybook/WGUC950AY20182019/chapter/9/section/3
-
-
-
-
-
-
+# 4. Modify one more time using:
+# https://www.linkedin.com/learning/programming-foundations-algorithms/unique-filtering-with-hash-table?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# https://learn.zybooks.com/zybook/WGUC950AY20182019/chapter/9/section/3
 
 
 class ChainingHashTable:
@@ -145,14 +143,40 @@ bestMovies = [
     [11, "STAR WARS - 1977"]
 ]
 
-# packages = [
-#     [1, "CITIZEN KANE - 1941"]
-#     ]
+
+def load_package_data(hashmap):
+    with open('csv_files/packageCSV.csv', 'r') as f:
+        reader = list(csv.reader(f))
+        for row in reader[0:]:
+            print(row)
 
 
 
+
+
+print("\n\n package data below: \n\n")
+
+
+class HashMap:
+    pass
+
+
+load_package_data(HashMap)
+
+package = Package()
+
+package_info = [package.address, package.city, package.state, package.zipcode, package.deadline, package.date,
+                package.status]
+
+packages = [
+    [package.package_id, package_info]
+]
+
+print("testing the function\n")
+print(packages)
 
 myHash = ChainingHashTable()
+testHash = ChainingHashTable()
 
 print("\nInsert:")
 myHash.insert(bestMovies[0][0], bestMovies[0][1])  # 2nd bucket; Key=1, item="CITIZEN KANE - 1941"
@@ -176,7 +200,6 @@ print(myHash.table)
 myHash.remove(11)  # Key=11, item="STAR WARS - 1977" to remove
 print(myHash.table)
 
-
 # https://www.youtube.com/watch?v=4HKqjENq9OU
 
 # https://www.youtube.com/watch?v=ojjnd5gEMuk
@@ -188,6 +211,3 @@ print(myHash.table)
 
 
 # https://www.youtube.com/watch?v=KURydVL0kGQ
-
-
-
