@@ -10,7 +10,6 @@ def load_distance_data():
             distance_data.append(row)
 
 
-
 address_data = []
 
 

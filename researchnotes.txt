@@ -87,7 +87,8 @@ at end, compare djikstra and genetic algorithms, stating in the future you would
 #
 #
 # 2.  Describe the programming environment you used to create the Python application.
-#
+# Pycharm 2023.2,
+# Python 3.10
 # 3.  Evaluate the space-time complexity of each major segment of the program, and the entire program, using big-O notation.
 #
 # 4.  Explain the capability of your solution to scale and adapt to a growing number of packages.
