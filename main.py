@@ -27,27 +27,43 @@
 import csv
 
 import HashMap
-
-f = open('csv_files/WGUPSPackageFile.csv', 'r')
-for line in f.readlines():
-    print(line.strip())
-
-f = open('WGUPSPackageFileOutput.txt', 'w')
-print(f)
-
-with open('csv_files/WGUPSPackageFile.csv', 'r') as f:
-    reader = list(csv.reader(f))
-    for row in reader[1:]:
-        print(row)
+from Package import Package
 
 
-def load_col_data(hashmap):
+# f = open('csv_files/WGUPSPackageFile.csv', 'r')
+# for line in f.readlines():
+#     print(line.strip())
+#
+# f = open('WGUPSPackageFileOutput.txt', 'w')
+# print(f)
+#
+# with open('csv_files/WGUPSPackageFile.csv', 'r') as f:
+#     reader = list(csv.reader(f))
+#     for row in reader[1:]:
+#         print(row)
+
+
+def load_package_data(hashmap):
     with open('csv_files/packageCSV.csv', 'r') as f:
-        reader_two = list(csv.reader(f))
-        for column in reader_two[2:]:
-            print(column)
+        reader = list(csv.reader(f))
+        for row in reader[0:]:
+            print(row)
+            p: Package = row
+            hashmap: HashMap
+            hashmap.insert(p)
+            print(p)
+            # instantiate package object and insert into hash
+
+load_package_data(HashMap)
+
+# def load_col_data(hashmap):
+#     with open('csv_files/packageCSV.csv', 'r') as f:
+#         reader_two = list(csv.reader(f))
+#         for column in reader_two[2:]:
+#             print(column)
 
 
-print("\n\n package data below: \n\n")
-load_col_data(HashMap)
-
+#
+# print("\n\n package data below: \n\n")
+# load_col_data(HashMap)
+#practicing
