@@ -4,13 +4,16 @@ import HashMap
 
 
 class Package:
-    def __init__(self, package_id, address, city, state, zipcode, status):
-        super.__init__()
+    def __init__(self, package_id, address, city, state, zipcode, delivery_time, mass, special_msg, status):
+        # super.__init__()
         self.package_id = package_id
         self.address = address
         self.city = city
         self.state = state
         self.zipcode = zipcode
+        self.delivery_time = delivery_time
+        self.mass = mass
+        self.special_msg = special_msg
         self.status = status
 
         #by comparison, use python datetime for relational operators

@@ -30,6 +30,7 @@ import HashMap
 from Package import Package
 
 
+
 # f = open('csv_files/WGUPSPackageFile.csv', 'r')
 # for line in f.readlines():
 #     print(line.strip())
@@ -46,9 +47,21 @@ from Package import Package
 def load_package_data(hashmap):
     with open('csv_files/packageCSV.csv', 'r') as f:
         reader = list(csv.reader(f))
-        for row in reader[0:]:
-            print(row)
-            p: Package = row
+        for pkg_row in reader[0:]:
+            pkg_id = pkg_row[0]
+            pkg_address = pkg_row[1]
+            pkg_city = pkg_row[2]
+            pkg_state = pkg_row[3]
+            pkg_zipcode = pkg_row[4]
+            pkg_dt = pkg_row[5]
+            pkg_mass = pkg_row[6]
+            pkg_msg = pkg_row[7]
+            pkg_status = "Loaded"
+
+            p = Package(pkg_id, pkg_address, pkg_city,
+                        pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
+                        pkg_msg, pkg_status)
+
             hashmap: HashMap
             hashmap.insert(p)
             print(p)
