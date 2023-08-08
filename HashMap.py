@@ -4,8 +4,6 @@
 # Modified for Key:Value
 import csv
 
-from Package import Package
-
 
 # HashTable class using chaining.
 # Develop a hash table, without using any additional libraries or classes,
@@ -34,6 +32,11 @@ from Package import Package
 # https://learn.zybooks.com/zybook/WGUC950AY20182019/chapter/9/section/3
 
 
+# https://www.geeksforgeeks.org/implementation-of-hashing-with-chaining-in-python/
+# Hashing is a data structure that is used to store a large amount of data,
+# which can be accessed in O(1) time by operations such as search, insert and delete.
+
+
 class ChainingHashTable:
     # Constructor with optional initial capacity parameter.
     # Assigns all buckets with an empty list.
@@ -47,17 +50,17 @@ class ChainingHashTable:
 class HashMap:
     def __init__(self):
         self.package_list = []
-        #setting up the inner lists for hashmap
-        #i.e. for each bucket this function creates ten inner arrays
+        # setting up the inner lists for hashmap
+        # i.e. for each bucket this function creates ten inner arrays
         for i in range(10):
             self.package_list.append([])
 
     def insert(self, package):
-        #this function is picking the right bucket, then putting the package in that bucket
-        hashIndex = package.package_id % 10
-        self.package_list[hashIndex].append(package)
+        # this function is picking the right bucket, then putting the package in that bucket
+        hash_index = package.package_id % 10
+        self.package_list[hash_index].append(package)
 
-    #the lookup loop through inner bucket to search for object with hash that has been passed
+    # the lookup loop through inner bucket to search for object with hash that has been passed
 
     def lookup(self, packageID: int):
         hashIndex = packageID % 10
@@ -67,6 +70,12 @@ class HashMap:
         return None
 
 
+
+    def __str__(self):
+        pairs = []
+        for key, value in self.pairs:
+            pairs.append(f"{key!r}: {value!r}")
+        return "{" + ", ".join(pairs) + "}"
 
 # https://www.youtube.com/watch?v=4HKqjENq9OU
 

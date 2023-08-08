@@ -25,26 +25,13 @@
 # https://www.linkedin.com/learning/python-essential-training-18764650/csv?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
+import string
 
 import HashMap
 from Package import Package
+from HashMap import ChainingHashTable
 
-
-
-# f = open('csv_files/WGUPSPackageFile.csv', 'r')
-# for line in f.readlines():
-#     print(line.strip())
-#
-# f = open('WGUPSPackageFileOutput.txt', 'w')
-# print(f)
-#
-# with open('csv_files/WGUPSPackageFile.csv', 'r') as f:
-#     reader = list(csv.reader(f))
-#     for row in reader[1:]:
-#         print(row)
-
-
-def load_package_data(hashmap):
+def load_package_data():
     with open('csv_files/packageCSV.csv', 'r') as f:
         reader = list(csv.reader(f))
         for pkg_row in reader[0:]:
@@ -58,25 +45,14 @@ def load_package_data(hashmap):
             pkg_msg = pkg_row[7]
             pkg_status = "Loaded"
 
-            p = Package(pkg_id, pkg_address, pkg_city,
-                        pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
-                        pkg_msg, pkg_status)
+            pkg = Package(int(pkg_id), pkg_address, pkg_city,
+                          pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
+                          pkg_msg, pkg_status)
 
-            hashmap: HashMap
-            hashmap.insert(p)
-            print(p)
-            # instantiate package object and insert into hash
-
-load_package_data(HashMap)
-
-# def load_col_data(hashmap):
-#     with open('csv_files/packageCSV.csv', 'r') as f:
-#         reader_two = list(csv.reader(f))
-#         for column in reader_two[2:]:
-#             print(column)
+            # instantiate hashtable and call insert f(x) to add packages by id
+            pkg_hash_table.table.insert(int(pkg_id), pkg)
 
 
-#
-# print("\n\n package data below: \n\n")
-# load_col_data(HashMap)
-#practicing
+pkg_hash_table = ChainingHashTable()
+load_package_data()
+

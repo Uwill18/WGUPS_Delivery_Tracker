@@ -73,7 +73,9 @@ at end, compare djikstra and genetic algorithms, stating in the future you would
 
 # A.  Identify a named self-adjusting algorithm (e.g., “Nearest Neighbor algorithm,” “Greedy algorithm”) that you used to create your program to deliver the packages.
 # Nearest Neighbor (sololearn)
-#
+#The K-Nearest Neighbor Algorithm was elected in this program as the solution for this traveling salesman problem.
+K-Nearest Neighbor uses the hyperparameter k to group sets of data points for classifications and predictions.
+
 #
 
 # B.  Write an overview of your program, in which you do the following:

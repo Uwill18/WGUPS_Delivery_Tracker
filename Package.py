@@ -16,10 +16,10 @@ class Package:
         self.special_msg = special_msg
         self.status = status
 
-        #by comparison, use python datetime for relational operators
-        #time loaded
-        #time unloaded
-        #time delivered
+        # by comparison, use python datetime for relational operators
+        # time loaded
+        # time unloaded
+        # time delivered
 
 
 # def load_package_data(hashmap):
