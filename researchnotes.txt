@@ -154,7 +154,77 @@ https://www.youtube.com/watch?v=ayIsRZAGyi4, https://www.youtube.com/watch?v=GiD
 
 
 
+route 2, truck 2
+3,36,20,40,
+29,10,38,5,
+8,27,36,40
+4,1,19
 
+
+route 2, truck 1
+7,30,33,37,
+35,6,12,17,
+32,21,28
+
+
+linked deliveries
+13,14,15,16,19
+
+delays
+Packages #6, #25, #28, #32 arrived late on a flight and are not available to leave the hub before 9:05 a.m.
+The wrong delivery address for package #9, Third District Juvenile Court, will be corrected at 10:20 a.m.
+
+truck 2
+
+
+-----route 1,truck 1--------
+
+truck 1, r1
+20,13,14,15,
+16,19,34,26,
+22,11,23,31,
+36,24,17
+--84119 fin, continue from there in the map
+----------------------------------------------------
+truck 2, r1
+
+18,25,32,6
+------------------------------------------------------
+
+
+
+
+---------------------------------------------------
+
+
+
+
+
+
+
+----------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+How should I be thinking about inserting these packages in the hashmap?
+
+What is missing with how I have instantiated these objects?
+
+What does loading and unloading the truck look like in theory,
+just storing an array, and popping off packages once a string location matches,
+or once a distance matches?
+
+With the trucks delivering packages, what is the best suggestion for time emulation?
+I have hear if time delta, but I am unsure if that is best method and/or if it is
+what this course is looking for.
 
 
 

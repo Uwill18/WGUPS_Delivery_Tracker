@@ -69,8 +69,6 @@ class HashMap:
                 return p
         return None
 
-
-
     def __str__(self):
         pairs = []
         for key, value in self.pairs:

@@ -31,6 +31,7 @@ import HashMap
 from Package import Package
 from HashMap import ChainingHashTable
 
+
 def load_package_data():
     with open('csv_files/packageCSV.csv', 'r') as f:
         reader = list(csv.reader(f))
@@ -55,4 +56,3 @@ def load_package_data():
 
 pkg_hash_table = ChainingHashTable()
 load_package_data()
-
