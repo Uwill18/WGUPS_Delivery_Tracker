@@ -54,7 +54,7 @@ euclidean distance global function is used
 with help of numpy
 
 #https://www.youtube.com/watch?v=YYEJ_GUguHw
-https://github.com/AssemblyAI-Examples/Machine-Learning-From-Scratch
+#https://github.com/AssemblyAI-Examples/Machine-Learning-From-Scratch
 was able to get a .92 accuracy rate
 
 Test for most accurate path(3)

@@ -1,6 +1,6 @@
 import csv
 
-import HashMap
+import MyHashMap
 
 
 class Package:
@@ -16,10 +16,26 @@ class Package:
         self.special_msg = special_msg
         self.status = status
 
-        # by comparison, use python datetime for relational operators
+ # by comparison, use python datetime for relational operators
         # time loaded
         # time unloaded
         # time delivered
+
+
+    #runs when debugging
+    def __repr__(self):
+        return str(self.package_id) +" "+ self.address
+
+    #runs in prod
+    def __str__(self):
+        return str(self.package_id) +" "+ self.address
+
+
+
+
+
+
+
 
 
 # def load_package_data(hashmap):

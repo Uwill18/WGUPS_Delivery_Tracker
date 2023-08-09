@@ -27,9 +27,9 @@
 import csv
 import string
 
-import HashMap
+from MyHashMap import MyHashMap
 from Package import Package
-from HashMap import ChainingHashTable
+
 
 
 def load_package_data():
@@ -49,10 +49,12 @@ def load_package_data():
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
                           pkg_msg, pkg_status)
-
+            print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
-            pkg_hash_table.table.insert(int(pkg_id), pkg)
+            pkg_hash_table.insert(pkg) #review later
+            #print(str(pkg_id))
 
 
-pkg_hash_table = ChainingHashTable()
+pkg_hash_table = MyHashMap()
 load_package_data()
+print(pkg_hash_table)

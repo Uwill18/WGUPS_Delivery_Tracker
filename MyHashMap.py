@@ -37,17 +37,9 @@ import csv
 # which can be accessed in O(1) time by operations such as search, insert and delete.
 
 
-class ChainingHashTable:
-    # Constructor with optional initial capacity parameter.
-    # Assigns all buckets with an empty list.
-    def __init__(self, initial_capacity=40):
-        # initialize the hash table with empty bucket list entries.
-        self.table = []
-        for i in range(initial_capacity):
-            self.table.append([])
 
 
-class HashMap:
+class MyHashMap:
     def __init__(self):
         self.package_list = []
         # setting up the inner lists for hashmap
@@ -70,10 +62,12 @@ class HashMap:
         return None
 
     def __str__(self):
-        pairs = []
-        for key, value in self.pairs:
-            pairs.append(f"{key!r}: {value!r}")
-        return "{" + ", ".join(pairs) + "}"
+        retstr = ""
+        for i in range(10):
+            retstr += str(i) + ":" + str(self.package_list[i])
+            retstr += '\n'
+        return retstr
+
 
 # https://www.youtube.com/watch?v=4HKqjENq9OU
 
