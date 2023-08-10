@@ -90,7 +90,9 @@ K-Nearest Neighbor uses the hyperparameter k to group sets of data points for cl
 #
 # 2.  Describe the programming environment you used to create the Python application.
 # Pycharm 2023.2,
-# Python 3.10
+# Python 3.10.7
+
+pip 23.2.1 to install numpy 1.25.2 for knn implementation
 # 3.  Evaluate the space-time complexity of each major segment of the program, and the entire program, using big-O notation.
 #
 # 4.  Explain the capability of your solution to scale and adapt to a growing number of packages.
