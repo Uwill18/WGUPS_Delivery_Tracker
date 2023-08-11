@@ -66,6 +66,9 @@ Test for most accurate path(3)
 See if self-adjusting algorithm aligns(4)
 
 
+
+
+#in-text citation and where you got your data from
 at end, compare djikstra and genetic algorithms, stating in the future you would use genetic
 
 
@@ -91,8 +94,11 @@ K-Nearest Neighbor uses the hyperparameter k to group sets of data points for cl
 # 2.  Describe the programming environment you used to create the Python application.
 # Pycharm 2023.2,
 # Python 3.10.7
-
 pip 23.2.1 to install numpy 1.25.2 for knn implementation
+
+no pandas, numpy or third-party libraries
+can use csv library, reader or dictionary reader
+
 # 3.  Evaluate the space-time complexity of each major segment of the program, and the entire program, using big-O notation.
 #
 # 4.  Explain the capability of your solution to scale and adapt to a growing number of packages.
