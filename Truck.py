@@ -34,7 +34,7 @@ def __lt__(self, package, next_address):
         raise ValueError("Can't compare truck to non-truck type")
     return calc_distance(address_index(self.address), address_index(package.address)) < next_address
 
-
+#should not be needed to compare objects
 # def __eq__(self, package):
 #     if not isinstance(self, package):
 #         raise ValueError("Can't compare book to non-truck type")
