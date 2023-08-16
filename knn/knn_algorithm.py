@@ -33,3 +33,5 @@
 #
 #
 #
+
+#still studying next steps
