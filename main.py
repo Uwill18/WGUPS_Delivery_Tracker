@@ -1,4 +1,10 @@
+# Proverbs 16:9
+# Psalm 32: 8
+# Proverbs 3:5-6
+
+
 # This is a sample Python script.
+
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -30,7 +36,7 @@ import string
 
 from MyHashMap import MyHashMap
 from Package import Package
-from Truck import calc_distance, address_index
+from Truck import calc_distance, address_index, Truck
 
 
 def load_package_data():
@@ -52,14 +58,24 @@ def load_package_data():
                           pkg_msg, pkg_status)
             print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
-            pkg_hash_table.insert(pkg) #review later
-            #print(str(pkg_id))
+            pkg_hash_table.insert(pkg)  # review later
+            # print(str(pkg_id))
+
+            first_truck = Truck(16, 18, [20, 13, 14, 15,
+                                         16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17], 0.0, "4001 South 700 East",
+                                datetime.timedelta(hours=8))
+            second_truck = Truck(16, 18, [3, 36, 20, 40,
+                                          29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
+                                 "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
+
+            pkg_hash_table = MyHashMap()
+            load_package_data()
 
             def pkg_distribution(truck):
                 # Define an array of undelivered packages for distribution
                 pkg_inventory = []
-                for pkg_id in truck.pkg_load:
-                    pkg_item = pkg_hash_table.lookup(pkg_id)
+                for pid in truck.pkg_load:
+                    pkg_item = pkg_hash_table.lookup(pid)
                     pkg_inventory.append(pkg_item)
                 # Clear the package list of a given truck so the packages can be placed back into the truck in the order
                 # of the nearest neighbor
@@ -72,16 +88,16 @@ def load_package_data():
                     next_pkg = None
                     for pkg in pkg_inventory:
                         if calc_distance(address_index(truck.address),
-                                               address_index(pkg.address)) <= next_address:
+                                         address_index(pkg.address)) <= next_address:
                             next_address = calc_distance(address_index(truck.address),
-                                                               address_index(pkg.address))
+                                                         address_index(pkg.address))
                             next_pkg = pkg
                     # Adds next closest package to the truck package list
                     truck.pkg_load.append(next_pkg.ID)
                     # Removes the same package from the not_delivered list
                     pkg_inventory.remove(next_pkg)
                     # Takes the mileage driven to this packaged into the truck.mileage attribute
-                    truck.avg_mph += next_address
+                    truck.tot_miles += next_address
                     # Updates truck's current address attribute to the package it drove to
                     truck.address = next_pkg.address
                     # Updates the time it took for the truck to drive to the nearest package
@@ -89,7 +105,7 @@ def load_package_data():
                     next_pkg.delivery_time = truck.time
                     next_pkg.departure_time = truck.depart_time
 
+            # print(pkg_distribution(first_truck))
+            # print(pkg_distribution(second_truck))
 
-pkg_hash_table = MyHashMap()
-load_package_data()
-print(pkg_hash_table)
+            print(first_truck.pkg_load)
