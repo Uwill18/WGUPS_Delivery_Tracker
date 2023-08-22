@@ -68,6 +68,8 @@ def load_package_data():
                                           29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
                                  "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
 
+            print(first_truck.pkg_load)
+
             pkg_hash_table = MyHashMap()
             load_package_data()
 
@@ -86,12 +88,12 @@ def load_package_data():
                 while len(pkg_inventory) > 0:
                     next_address = 2000
                     next_pkg = None
-                    for pkg in pkg_inventory:
+                    for p in pkg_inventory:
                         if calc_distance(address_index(truck.address),
-                                         address_index(pkg.address)) <= next_address:
+                                         address_index(p.address)) <= next_address:
                             next_address = calc_distance(address_index(truck.address),
-                                                         address_index(pkg.address))
-                            next_pkg = pkg
+                                                         address_index(p.address))
+                            next_pkg = p
                     # Adds next closest package to the truck package list
                     truck.pkg_load.append(next_pkg.ID)
                     # Removes the same package from the not_delivered list
