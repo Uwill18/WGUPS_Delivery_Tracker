@@ -69,7 +69,7 @@ second_truck = Truck(16, 18, [3, 36, 20, 40,
                               29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
                      "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
 
-print(first_truck.pkg_load)
+print(second_truck.pkg_load)
 
 pkg_hash_table = MyHashMap()
 load_package_data()
@@ -108,9 +108,10 @@ def pkg_distribution(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
-
+        print(truck.tot_miles)
         # print(pkg_distribution(first_truck))
         # print(pkg_distribution(second_truck))
 
 
 print(first_truck.pkg_load)
+print(first_truck.tot_miles)

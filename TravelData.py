@@ -31,16 +31,9 @@ load_address_data()
 
 # https://www.linkedin.com/learning/python-object-oriented-programming/equality-and-comparison?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 
-def distance_in_between(xpos, ypos):
-    distance = distance_data[xpos][ypos]
-    if distance == '':
-        distance = distance_data[ypos][xpos]
 
-    return float(distance)
 
 
 # Method to get address number from string literal of address
-def address_index(address):
-    for row in address_data:
-        if address in row[2]:
-            return int(row[0])
+
+
