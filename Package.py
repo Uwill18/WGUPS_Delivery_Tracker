@@ -24,11 +24,22 @@ class Package:
 
     #runs when debugging
     def __repr__(self):
-        return str(self.package_id) +" "+ self.address
+        return "PACKAGE #" + str(self.package_id) +": "+ self.address
 
     #runs in prod
     def __str__(self):
-        return str(self.package_id) +" "+ self.address
+        return ("PACKAGE #" + str(self.package_id) +": < "+
+                self.address + " , " +
+                self.delivery_time + " ," +
+                self.city + " , " +
+                self.zipcode + " , " +
+                self.mass + " , " +
+                self.status + " > "
+
+
+
+
+                )
 
 
 

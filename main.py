@@ -1,23 +1,11 @@
+# Name: Uri W. Easter
+# Student ID: 001433968
+
+
 # Proverbs 16:9
 # Psalm 32: 8
 # Proverbs 3:5-6
 
-
-# This is a sample Python script.
-
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-# def print_hi(name):
-# Use a breakpoint in the code line below to debug your script.
-# print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-# if __name__ == '__main__':
-#     print_hi('PyCharm')
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
@@ -59,6 +47,7 @@ def load_package_data():
             print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
             pkg_hash_table.insert(pkg)  # review later
+
             # print(str(pkg_id))
 
 
