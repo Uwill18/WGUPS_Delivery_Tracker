@@ -3,11 +3,28 @@ import csv
 distance_data = []
 
 
-def load_distance_data():
-    with open('csv_files/distanceCSV.csv', 'r') as f:
-        reader = list(csv.reader(f))
-        for row in reader[0:]:
-            distance_data.append(row)
+# def load_distance_data():
+#     with open('csv_files/distanceCSV.csv', 'r') as f:
+#         reader = list(csv.reader(f))
+#         for row in reader[0:]:
+#             distance_data.append(row)
+
+
+def loadDistanceData2(fileName):
+
+    distanceData = []
+
+    with open(fileName) as csv_file:
+
+        csv_reader = csv.reader(csv_file, delimiter = ',')
+
+        for row in csv_reader:
+
+            distList = [float(x) for x in row[0 : :] if x != ""]
+
+            distanceData.append(distList)
+
+    return distanceData
 
 
 address_data = []
@@ -20,10 +37,11 @@ def load_address_data():
             address_data.append(row)
 
 
-load_distance_data()
+# load_distance_data()
 load_address_data()
-
-
+print(loadDistanceData2('csv_files/distanceCSV.csv'))
+distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
+print(distance_data[10][1])
 # get adressname, and position for comparison
 
 # Method for finding distance between two addresses

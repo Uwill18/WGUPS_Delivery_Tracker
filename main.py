@@ -64,43 +64,5 @@ pkg_hash_table = MyHashMap()
 load_package_data()
 
 
-def pkg_distribution(truck):
-    # Define an array of undelivered packages for distribution
-    pkg_inventory = []
-    for pid in truck.pkg_load:
-        pkg_item = pkg_hash_table.lookup(pid)
-        pkg_inventory.append(pkg_item)
-    # Clear the package list of a given truck so the packages can be placed back into the truck in the order
-    # of the nearest neighbor
-    truck.pkg_load.clear()
-
-    # Cycle through the list of not_delivered until none remain in the list
-    # Adds the nearest package into the truck.packages list one by one
-    while len(pkg_inventory) > 0:
-        next_address = 2000
-        next_pkg = None
-        for p in pkg_inventory:
-            if calc_distance(address_index(truck.address),
-                             address_index(p.address)) <= next_address:
-                next_address = calc_distance(address_index(truck.address),
-                                             address_index(p.address))
-                next_pkg = p
-        # Adds next closest package to the truck package list
-        truck.pkg_load.append(next_pkg.ID)
-        # Removes the same package from the not_delivered list
-        pkg_inventory.remove(next_pkg)
-        # Takes the mileage driven to this packaged into the truck.mileage attribute
-        truck.tot_miles += next_address
-        # Updates truck's current address attribute to the package it drove to
-        truck.address = next_pkg.address
-        # Updates the time it took for the truck to drive to the nearest package
-        truck.time += datetime.timedelta(hours=next_address / 18)
-        next_pkg.delivery_time = truck.time
-        next_pkg.departure_time = truck.depart_time
-        print(truck.tot_miles)
-        # print(pkg_distribution(first_truck))
-        # print(pkg_distribution(second_truck))
-
-
 print(first_truck.pkg_load)
 print(first_truck.tot_miles)

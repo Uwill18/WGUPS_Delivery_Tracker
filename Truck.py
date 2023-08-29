@@ -5,10 +5,17 @@ from TravelData import distance_data, address_data
 
 
 def calc_distance(x_position, y_position):
-    distance = distance_data[x_position][y_position]
-    if distance == '':
-        distance = distance_data[y_position][x_position]
-    return float(distance)
+    if(x_position >= y_position):
+        return distance_data[x_position][y_position]
+    else:
+        return distance_data[y_position][x_position]
+
+
+#print(distance_data[1])
+calc_distance(10,12)
+
+
+
 
 
 def address_index(address):
