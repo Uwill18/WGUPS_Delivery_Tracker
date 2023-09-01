@@ -21,7 +21,9 @@
 import csv
 import datetime
 import string
+import sys
 
+import TravelData
 from MyHashMap import MyHashMap
 from Package import Package
 from Truck import calc_distance, address_index, Truck
@@ -63,6 +65,26 @@ print(second_truck.pkg_load)
 pkg_hash_table = MyHashMap()
 load_package_data()
 
+a = []
+
+#how to get minimum distance formula to return minimum from x-dimension?
+def minimum_distance(a):
+    distance = sys.maxsize
+    for i in range(len(TravelData.distance_data)):
+        for j in range(i+1, len(TravelData.distance_data[i])):
+            if a[i] == a[j]:
+                distance = min(distance, j - i)
+
+    if distance == sys.maxsize:
+        return -1
+    else:
+        return distance
+
 
 print(first_truck.pkg_load)
 print(first_truck.tot_miles)
+print(range(len(TravelData.distance_data)))
+print(len(TravelData.distance_data[3]))
+print(TravelData.distance_data[5])
+print(minimum_distance(TravelData.distance_data[5]))
+
