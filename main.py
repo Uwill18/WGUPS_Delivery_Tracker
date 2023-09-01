@@ -69,22 +69,38 @@ a = []
 
 #how to get minimum distance formula to return minimum from x-dimension?
 def minimum_distance(a):
-    distance = sys.maxsize
+    # distance = sys.maxsize
+    minimum = TravelData.distance_data[26][7]
     for i in range(len(TravelData.distance_data)):
-        for j in range(i+1, len(TravelData.distance_data[i])):
-            if a[i] == a[j]:
-                distance = min(distance, j - i)
+        for j in range(len(TravelData.distance_data[i])):
+            if TravelData.distance_data[i][j] < minimum:
+                minimum = TravelData.distance_data[i]
+        print(minimum)
+    #     for j in range(len(TravelData.distance_data[i])):
+    #         if a[i] == a[j]:
+    #             distance = min(distance, j - i)
+    #
+    # if distance == sys.maxsize:
+    #     return -1
+    # else:
+    #     return distance
 
-    if distance == sys.maxsize:
-        return -1
-    else:
-        return distance
 
-
-print(first_truck.pkg_load)
-print(first_truck.tot_miles)
-print(range(len(TravelData.distance_data)))
+# print(first_truck.pkg_load)
+# print(first_truck.tot_miles)
+# print(range(len(TravelData.distance_data)))
 print(len(TravelData.distance_data[3]))
-print(TravelData.distance_data[5])
+print(TravelData.distance_data[26])
 print(minimum_distance(TravelData.distance_data[5]))
+
+#hub, packages, find address closest to hub, timestamp, and repeat
+#with package id, can get string object, feed string address and get indices
+#add distance * speed to get time, add time to current time for timestamp
+
+
+
+
+
+
+
 
