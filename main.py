@@ -67,15 +67,16 @@ load_package_data()
 
 a = []
 
-#how to get minimum distance formula to return minimum from x-dimension?
-def minimum_distance(a):
-    # distance = sys.maxsize
-    minimum = TravelData.distance_data[26][7]
-    for i in range(len(TravelData.distance_data)):
-        for j in range(len(TravelData.distance_data[i])):
-            if TravelData.distance_data[i][j] < minimum:
-                minimum = TravelData.distance_data[i]
-        print(minimum)
+
+# how to get minimum distance formula to return minimum from x-dimension?
+# def minimum_distance(a):
+#     # distance = sys.maxsize
+#     minimum = TravelData.distance_data[26][7]
+#     for i in range(len(TravelData.distance_data)):
+#         for j in range(len(TravelData.distance_data[i])):
+#             if TravelData.distance_data[i][j] < minimum:
+#                 minimum = TravelData.distance_data[i]
+#         print(minimum)
     #     for j in range(len(TravelData.distance_data[i])):
     #         if a[i] == a[j]:
     #             distance = min(distance, j - i)
@@ -89,18 +90,22 @@ def minimum_distance(a):
 # print(first_truck.pkg_load)
 # print(first_truck.tot_miles)
 # print(range(len(TravelData.distance_data)))
-print(len(TravelData.distance_data[3]))
-print(TravelData.distance_data[26])
-print(minimum_distance(TravelData.distance_data[5]))
+# print(len(TravelData.distance_data[3]))
+# print(TravelData.distance_data[26])
+# print(minimum_distance(TravelData.distance_data[5]))
 
-#hub, packages, find address closest to hub, timestamp, and repeat
-#with package id, can get string object, feed string address and get indices
-#add distance * speed to get time, add time to current time for timestamp
-
-
-#testing
+# hub, packages, find address closest to hub, timestamp, and repeat
+# with package id, can get string object, feed string address and get indices
+# add distance * speed to get time, add time to current time for timestamp
 
 
+# testing
 
 
+with open('csv_files/addressCSV.csv', 'r') as f:
+    rdr = csv.reader(f)
+    with open('csv_files/addressCSV_kv.csv', 'w') as outfile:
+        writer = csv.writer(outfile)
+        mydict = {address_row[0]: address_row[2] for address_row in rdr}
+        print(mydict)
 
