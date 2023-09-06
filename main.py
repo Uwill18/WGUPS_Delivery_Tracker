@@ -106,6 +106,6 @@ with open('csv_files/addressCSV.csv', 'r') as f:
     rdr = csv.reader(f)
     with open('csv_files/addressCSV_kv.csv', 'w') as outfile:
         writer = csv.writer(outfile)
-        mydict = {address_row[0]: address_row[2] for address_row in rdr}
+        mydict = {int(address_row[0]): address_row[2] for address_row in rdr}
         print(mydict)
 
