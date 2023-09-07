@@ -29,9 +29,9 @@ from Package import Package
 from Truck import calc_distance, address_index, Truck
 
 
-def load_package_data():
-    with open('csv_files/packageCSV.csv', 'r') as f:
-        reader = list(csv.reader(f))
+def load_package_data(csvfile, p_hash_table):
+    with open(csvfile) as file:
+        reader = list(csv.reader(file))
         for pkg_row in reader[0:]:
             pkg_id = pkg_row[0]
             pkg_address = pkg_row[1]
@@ -48,64 +48,70 @@ def load_package_data():
                           pkg_msg, pkg_status)
             print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
-            pkg_hash_table.insert(pkg)  # review later
+            p_hash_table.insert(pkg)  # review later
 
             # print(str(pkg_id))
 
 
 first_truck = Truck(16, 18, [20, 13, 14, 15,
-                             16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17], 0.0, "4001 South 700 East",
+                             16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8))
 second_truck = Truck(16, 18, [3, 36, 20, 40,
                               29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
-                     "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
-
-print(second_truck.pkg_load)
+                     0, "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
 
 pkg_hash_table = MyHashMap()
-load_package_data()
-
-a = []
-
-
-# how to get minimum distance formula to return minimum from x-dimension?
-# def minimum_distance(a):
-#     # distance = sys.maxsize
-#     minimum = TravelData.distance_data[26][7]
-#     for i in range(len(TravelData.distance_data)):
-#         for j in range(len(TravelData.distance_data[i])):
-#             if TravelData.distance_data[i][j] < minimum:
-#                 minimum = TravelData.distance_data[i]
-#         print(minimum)
-    #     for j in range(len(TravelData.distance_data[i])):
-    #         if a[i] == a[j]:
-    #             distance = min(distance, j - i)
-    #
-    # if distance == sys.maxsize:
-    #     return -1
-    # else:
-    #     return distance
-
-
-# print(first_truck.pkg_load)
-# print(first_truck.tot_miles)
-# print(range(len(TravelData.distance_data)))
-# print(len(TravelData.distance_data[3]))
-# print(TravelData.distance_data[26])
-# print(minimum_distance(TravelData.distance_data[5]))
-
-# hub, packages, find address closest to hub, timestamp, and repeat
-# with package id, can get string object, feed string address and get indices
-# add distance * speed to get time, add time to current time for timestamp
-
-
-# testing
-
+load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 with open('csv_files/addressCSV.csv', 'r') as f:
     rdr = csv.reader(f)
-    with open('csv_files/addressCSV_kv.csv', 'w') as outfile:
-        writer = csv.writer(outfile)
-        mydict = {int(address_row[0]): address_row[2] for address_row in rdr}
-        print(mydict)
+    address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
+    print(address_dict)
 
+
+def pkg_distribution(truck):
+    # Define an array of undelivered packages for distribution
+    pkg_inventory = []
+    for pid in truck.pkg_load:
+        pkg_item = pkg_hash_table.lookup(pid)
+        pkg_inventory.append(pkg_item)
+        print("first truck ids:" + pid)
+
+    # Cycle through the list of not_delivered until none remain in the list
+    # Adds the nearest package into the truck.packages list one by one
+    while len(pkg_inventory) > 0:
+        truck.current_location = 0
+        next_address = 2000
+        next_pkg = None
+
+        # Clear the package list of a given truck so the packages can be placed back into the truck in the order
+        # of the nearest neighbor
+
+        # truck.pkg_load.clear()
+
+        for p in pkg_inventory:
+            if calc_distance(address_index(truck.address),
+                             address_index(p.address)) <= next_address:
+                next_address = calc_distance(address_index(truck.address),
+                                             address_index(p.address))
+                next_pkg = p
+        # Adds next closest package to the truck package list
+        truck.pkg_load.append(next_pkg.ID)
+        # Removes the same package from the not_delivered list
+        pkg_inventory.remove(next_pkg)
+        # Takes the mileage driven to this packaged into the truck.mileage attribute
+        truck.tot_miles += next_address
+        # Updates truck's current address attribute to the package it drove to
+        truck.address = next_pkg.address
+        # Updates the time it took for the truck to drive to the nearest package
+        truck.time += datetime.timedelta(hours=next_address / 18)
+        next_pkg.delivery_time = truck.time
+        next_pkg.departure_time = truck.depart_time
+        print("total miles" + truck.tot_miles)
+
+
+pkg_distribution(first_truck)
+
+print(pkg_distribution(first_truck))
+
+print(second_truck.pkg_load)

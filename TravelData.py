@@ -39,11 +39,11 @@ def load_address_data():
 
 # load_distance_data()
 load_address_data()
-print(loadDistanceData2('csv_files/distanceCSV.csv'))
+# print(loadDistanceData2('csv_files/distanceCSV.csv'))
 distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
-print(distance_data[10][1])
-print(len(distance_data))
-print(distance_data[10])
+# print(distance_data[10][1])
+# print(len(distance_data))
+# print(distance_data[10])
 # get adressname, and position for comparison
 
 # Method for finding distance between two addresses

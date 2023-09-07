@@ -5,17 +5,14 @@ from TravelData import distance_data, address_data
 
 
 def calc_distance(x_position, y_position):
-    if(x_position >= y_position):
+    if x_position >= y_position:
         return distance_data[x_position][y_position]
     else:
         return distance_data[y_position][x_position]
 
 
-#print(distance_data[1])
-calc_distance(10,12)
-
-
-
+# print(distance_data[1])
+calc_distance(10, 12)
 
 
 def address_index(address):
@@ -25,12 +22,13 @@ def address_index(address):
 
 
 class Truck:
-    def __init__(self, pkg_max, avg_mph, pkg_load, tot_miles, address, depart_time):
+    def __init__(self, pkg_max, avg_mph, pkg_load, tot_miles, current_location, address, depart_time):
         super().__init__()
         self.pkg_max = pkg_max
         self.avg_mph = avg_mph
         self.pkg_load = pkg_load
         self.tot_miles = tot_miles
+        self.current_location = current_location
         self.address = address
         self.depart_time = depart_time
         self.time = depart_time
@@ -41,7 +39,7 @@ def __lt__(self, package, next_address):
         raise ValueError("Can't compare truck to non-truck type")
     return calc_distance(address_index(self.address), address_index(package.address)) < next_address
 
-#should not be needed to compare objects
+# should not be needed to compare objects
 # def __eq__(self, package):
 #     if not isinstance(self, package):
 #         raise ValueError("Can't compare book to non-truck type")
