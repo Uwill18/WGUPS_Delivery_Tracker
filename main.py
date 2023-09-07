@@ -75,7 +75,7 @@ def pkg_distribution(truck):
     for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory.append(pkg_item)
-        print("first truck ids:" + pid)
+        print(pkg_inventory)
 
     # Cycle through the list of not_delivered until none remain in the list
     # Adds the nearest package into the truck.packages list one by one
@@ -87,7 +87,7 @@ def pkg_distribution(truck):
         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
         # of the nearest neighbor
 
-        # truck.pkg_load.clear()
+        truck.pkg_load.clear()
 
         for p in pkg_inventory:
             if calc_distance(address_index(truck.address),
@@ -96,7 +96,7 @@ def pkg_distribution(truck):
                                              address_index(p.address))
                 next_pkg = p
         # Adds next closest package to the truck package list
-        truck.pkg_load.append(next_pkg.ID)
+        truck.pkg_load.append(next_pkg.package_id)
         # Removes the same package from the not_delivered list
         pkg_inventory.remove(next_pkg)
         # Takes the mileage driven to this packaged into the truck.mileage attribute
@@ -107,11 +107,8 @@ def pkg_distribution(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
-        print("total miles" + truck.tot_miles)
+        print(truck.tot_miles)
 
-
-pkg_distribution(first_truck)
 
 print(pkg_distribution(first_truck))
-
 print(second_truck.pkg_load)

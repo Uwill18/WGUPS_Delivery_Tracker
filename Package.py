@@ -16,37 +16,24 @@ class Package:
         self.special_msg = special_msg
         self.status = status
 
- # by comparison, use python datetime for relational operators
-        # time loaded
-        # time unloaded
-        # time delivered
+    # by comparison, use python datetime for relational operators
+    # time loaded
+    # time unloaded
+    # time delivered
 
-
-    #runs when debugging
+    # runs when debugging
     def __repr__(self):
-        return "PACKAGE #" + str(self.package_id) +": "+ self.address
+        return "PACKAGE #" + str(self.package_id) + ": " + self.address
 
-    #runs in prod
+    # runs in prod
     def __str__(self):
-        return ("PACKAGE #" + str(self.package_id) +": < "+
+        return ("PACKAGE #" + str(self.package_id) + ": < " +
                 self.address + " , " +
-                self.delivery_time + " ," +
                 self.city + " , " +
                 self.zipcode + " , " +
                 self.mass + " , " +
                 self.status + " > "
-
-
-
-
                 )
-
-
-
-
-
-
-
 
 
 # def load_package_data(hashmap):
