@@ -116,3 +116,13 @@ def pkg_distribution(truck):
 
 pkg_distribution(first_truck)
 pkg_distribution(second_truck)
+
+# implement rounds of packages
+# Call package distribution functions
+# Review WGU requirements
+# Review Goodell requirements
+# finish final screen of gui
+# ----------------------------------------------------------------------------------
+# try to get results printed to screen
+# test each of the gui pages
+# connect the gui pages
