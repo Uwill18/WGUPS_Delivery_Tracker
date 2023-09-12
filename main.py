@@ -54,10 +54,13 @@ def load_package_data(csvfile, p_hash_table):
 
 
 first_truck = Truck(16, 18, [20, 13, 14, 15,
-                             16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17], 0.0, 0, "4001 South 700 East",
+                             16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17], [3, 36, 20, 40,
+                                                                           29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
+                    0, "4001 South 700 East",
                     datetime.timedelta(hours=8))
 second_truck = Truck(16, 18, [3, 36, 20, 40,
-                              29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
+                              29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], [7, 30, 33, 37,
+                                                                        35, 6, 12, 17, 32, 21, 28], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
 
 pkg_hash_table = MyHashMap()
@@ -84,7 +87,6 @@ def pkg_distribution(truck):
         next_address = 2000
         next_pkg = None
 
-
         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
         # of the nearest neighbor
 
@@ -96,7 +98,7 @@ def pkg_distribution(truck):
                 next_address = calc_distance(address_index(truck.address),
                                              address_index(p.address))
                 next_pkg = p
-                print("next package = { "+str(next_pkg) + "}\n")
+                print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
         truck.pkg_load.append(next_pkg.package_id)
 
