@@ -54,13 +54,16 @@ def load_package_data(csvfile, p_hash_table):
 
 
 first_truck = Truck(16, 18, [20, 13, 14, 15,
-                             16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17], [3, 36, 20, 40,
-                                                                           29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
+                             16, 19, 34, 26,
+                             22, 11, 23, 31,
+                             36, 24, 17], [18, 25, 32, 6], 0.0,
                     0, "4001 South 700 East",
                     datetime.timedelta(hours=8))
 second_truck = Truck(16, 18, [3, 36, 20, 40,
-                              29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], [7, 30, 33, 37,
-                                                                        35, 6, 12, 17, 32, 21, 28], 0.0,
+                              29, 10, 38, 5, 8, 27, 40, 4, 1, 19], [3, 36, 20, 40,
+                                                                    29, 10, 38, 5,
+                                                                    8, 27, 36, 40,
+                                                                    4, 1, 19], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=10, minutes=20))
 
 pkg_hash_table = MyHashMap()
@@ -119,7 +122,7 @@ def pkg_distribution(truck):
 pkg_distribution(first_truck)
 pkg_distribution(second_truck)
 
-# implement rounds of packages
+# implement rounds of packages  Monday
 # Call package distribution functions
 # Review WGU requirements
 # Review Goodell requirements
