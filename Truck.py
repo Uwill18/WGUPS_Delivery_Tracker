@@ -1,4 +1,5 @@
 # https://www.linkedin.com/learning/python-object-oriented-programming/equality-and-comparison?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+import csv
 from random import random
 
 from TravelData import distance_data, address_data
@@ -16,13 +17,15 @@ calc_distance(10, 12)
 
 
 def address_index(address):
-    for row in address_data:
-        if address in row[2]:
-            return int(row[0])
+    with open('csv_files/addressCSV.csv', 'r') as f:
+        for row in address_data:
+            if address in row[2]:
+                return int(row[0])
 
 
 class Truck:
-    def __init__(self, pkg_max, avg_mph, pkg_load, pkg_load_r2, tot_miles, current_location, address, depart_time):
+    def __init__(self, pkg_max, avg_mph, pkg_load, pkg_load_r2, tot_miles, current_location, address, depart_time,
+                 truck_name):
         super().__init__()
         self.pkg_max = pkg_max
         self.avg_mph = avg_mph
@@ -33,12 +36,21 @@ class Truck:
         self.address = address
         self.depart_time = depart_time
         self.time = depart_time
+        self.truck_name = truck_name
 
 
 def __lt__(self, package, next_address):
     if not isinstance(self, package):
         raise ValueError("Can't compare truck to non-truck type")
     return calc_distance(address_index(self.address), address_index(package.address)) < next_address
+
+
+def __str__(self):
+    return self.truck_name
+
+
+def __repr__(self):
+    return self.truck_name
 
 # should not be needed to compare objects
 # def __eq__(self, package):

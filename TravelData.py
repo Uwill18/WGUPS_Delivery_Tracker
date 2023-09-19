@@ -37,6 +37,9 @@ def load_address_data():
             address_data.append(row)
 
 
+
+
+
 # load_distance_data()
 load_address_data()
 # print(loadDistanceData2('csv_files/distanceCSV.csv'))
