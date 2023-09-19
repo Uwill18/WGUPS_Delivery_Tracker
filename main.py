@@ -70,125 +70,97 @@ with open('csv_files/addressCSV.csv', 'r') as f:
     print(address_dict.keys())
 
 
-def pkg_distribution(truckA, truckB):
+def pkg_distribution_r1(truck):
     # Define an array of undelivered packages for distribution
     pkg_inventory = []
-    for pid in truckA.pkg_load:
+    for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory.append(pkg_item)
         # print(pkg_inventory)
 
-    pkg_inventory_two = []
-    for pid in truckB.pkg_load_r2:
-        pkg_item = pkg_hash_table.lookup(pid)
-        pkg_inventory_two.append(pkg_item)
-
     # Cycle through the list of not_delivered until none remain in the list
     # Adds the nearest package into the truck.packages list one by one
-    while len(pkg_inventory or pkg_inventory_two) > 0:
-        truckA.current_location = 0
-        truckB.current_location = 0
-        A_next_address = 2000
-        A_next_pkg = None
-        B_next_address = 2000
-        B_next_pkg = None
+    while len(pkg_inventory) > 0:
+        truck.current_location = 0
+        next_address = 2000
+        next_pkg = None
 
         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
         # of the nearest neighbor
 
-        truckA.pkg_load.clear()
-        truckB.pkg_load_r2.clear()
+        truck.pkg_load.clear()
 
-        for pkgs_a in pkg_inventory:
-            if calc_distance(address_index(truckA.address),
-                             address_index(pkgs_a.address)) <= A_next_address:
-                A_next_address = calc_distance(address_index(truckA.address),
-                                               address_index(pkgs_a.address))
-                A_next_pkg = pkgs_a
-                print("next package = { " + str(A_next_pkg) + "}\n")
+        for p in pkg_inventory:
+            if calc_distance(address_index(truck.address),
+                             address_index(p.address)) <= next_address:
+                next_address = calc_distance(address_index(truck.address),
+                                             address_index(p.address))
+                next_pkg = p
+                print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
-        truckA.pkg_load.append(A_next_pkg.package_id)
-
-        for pkgs_b in pkg_inventory_two:
-            if calc_distance(address_index(truckB.address),
-                             address_index(pkgs_b.address)) <= B_next_address:
-                next_address = calc_distance(address_index(truckB.address),
-                                             address_index(pkgs_b.address))
-                B_next_pkg = pkgs_b
-                print("next package = { " + str(B_next_pkg) + "}\n")
-        # Adds next closest package to the truck package list
-        truckB.pkg_load.append(B_next_pkg.package_id)
+        truck.pkg_load.append(next_pkg.package_id)
 
         # Removes the same package from the not_delivered list
-        pkg_inventory.remove(A_next_pkg)
-        pkg_inventory_two.remove(B_next_pkg)
+        pkg_inventory.remove(next_pkg)
         # Takes the mileage driven to this packaged into the truck.mileage attribute
-        truckA.tot_miles += A_next_address
-        truckB.tot_miles += B_next_address
+        truck.tot_miles += next_address
         # Updates truck's current address attribute to the package it drove to
-        truckA.address = A_next_pkg.address
-        truckB.address = B_next_pkg.address
+        truck.address = next_pkg.address
         # Updates the time it took for the truck to drive to the nearest package
-        truckA.time += datetime.timedelta(hours=next_address / 18)
-        A_next_pkg.delivery_time = truckA.time
-        A_next_pkg.departure_time = truckA.depart_time
-
-        truckB.time += datetime.timedelta(hours=next_address / 18)
-        B_next_pkg.delivery_time = truckB.time
-        B_next_pkg.departure_time = truckB.depart_time
-        print(
-            str(truckA.truck_name) + " TIME: " + str(truckA.time) + ", DISTANCE: " + str(truckA.tot_miles) + "\n" + str(
-                pkg_inventory))
+        truck.time += datetime.timedelta(hours=next_address / 18)
+        next_pkg.delivery_time = truck.time
+        next_pkg.departure_time = truck.depart_time
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
+            pkg_inventory))
 
 
-# def pkg_distribution_r2(truckA, truckB):
-#     pkg_inventory_two = []
-#     for pid in truck.pkg_load_r2:
-#         pkg_item = pkg_hash_table.lookup(pid)
-#         pkg_inventory_two.append(pkg_item)
-#
-#
-#     # Cycle through the list of not_delivered until none remain in the list
-#     # Adds the nearest package into the truck.packages list one by one
-#     while len(pkg_inventory_two) > 0:
-#         truck.current_location = 0
-#         next_address = 2000
-#         next_pkg = None
-#
-#         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
-#         # of the nearest neighbor
-#
-#         truck.pkg_load_r2.clear()
-#
-#         for p in pkg_inventory_two:
-#             if calc_distance(address_index(truck.address),
-#                              address_index(p.address)) <= next_address:
-#                 next_address = calc_distance(address_index(truck.address),
-#                                              address_index(p.address))
-#                 next_pkg = p
-#                 print("next package = { " + str(next_pkg) + "}\n")
-#         # Adds next closest package to the truck package list
-#         truck.pkg_load_r2.append(next_pkg.package_id)
-#
-#         # Removes the same package from the not_delivered list
-#         pkg_inventory_two.remove(next_pkg)
-#         # Takes the mileage driven to this packaged into the truck.mileage attribute
-#         truck.tot_miles += next_address
-#         # Updates truck's current address attribute to the package it drove to
-#         truck.address = next_pkg.address
-#         # Updates the time it took for the truck to drive to the nearest package
-#         truck.time += datetime.timedelta(hours=next_address / 18)
-#         next_pkg.delivery_time = truck.time
-#         next_pkg.departure_time = truck.depart_time
-#         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
-#             pkg_inventory_two))
+def pkg_distribution_r2(truck):
+    pkg_inventory_two = []
+    for pid in truck.pkg_load_r2:
+        pkg_item = pkg_hash_table.lookup(pid)
+        pkg_inventory_two.append(pkg_item)
 
 
-pkg_distribution(first_truck, second_truck)
-# pkg_distribution_r2(second_truck,first_truck)
-# pkg_distribution_r1(second_truck)
-# pkg_distribution_r2(first_truck)
+    # Cycle through the list of not_delivered until none remain in the list
+    # Adds the nearest package into the truck.packages list one by one
+    while len(pkg_inventory_two) > 0:
+        truck.current_location = 0
+        next_address = 2000
+        next_pkg = None
 
+        # Clear the package list of a given truck so the packages can be placed back into the truck in the order
+        # of the nearest neighbor
+
+        truck.pkg_load_r2.clear()
+
+        for p in pkg_inventory_two:
+            if calc_distance(address_index(truck.address),
+                             address_index(p.address)) <= next_address:
+                next_address = calc_distance(address_index(truck.address),
+                                             address_index(p.address))
+                next_pkg = p
+                print("next package = { " + str(next_pkg) + "}\n")
+        # Adds next closest package to the truck package list
+        truck.pkg_load_r2.append(next_pkg.package_id)
+
+        # Removes the same package from the not_delivered list
+        pkg_inventory_two.remove(next_pkg)
+        # Takes the mileage driven to this packaged into the truck.mileage attribute
+        truck.tot_miles += next_address
+        # Updates truck's current address attribute to the package it drove to
+        truck.address = next_pkg.address
+        # Updates the time it took for the truck to drive to the nearest package
+        truck.time += datetime.timedelta(hours=next_address / 18)
+        next_pkg.delivery_time = truck.time
+        next_pkg.departure_time = truck.depart_time
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
+            pkg_inventory_two))
+
+
+pkg_distribution_r1(first_truck)
+pkg_distribution_r1(second_truck)
+pkg_distribution_r2(first_truck)
+pkg_distribution_r2(second_truck)
 print(first_truck.tot_miles + second_truck.tot_miles)
 
 # implement rounds of packages  Tuesday x
