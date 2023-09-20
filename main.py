@@ -28,6 +28,7 @@ from Package import Package
 from Truck import calc_distance, address_index, Truck
 from TravelData import address_data
 
+
 def load_package_data(csvfile, p_hash_table):
     with open(csvfile) as file:
         reader = list(csv.reader(file))
@@ -112,15 +113,15 @@ def pkg_distribution_r1(truck):
         next_pkg.departure_time = truck.depart_time
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             pkg_inventory))
-    distance_to_hub = calc_distance(address_data.index(truck.address), address_data.index()[0])
-    print(distance_to_hub)
+    distance_to_hub = calc_distance(address_index(truck.address), address_data.index()[0])
+    print(address_data)
+
 
 def pkg_distribution_r2(truck):
     pkg_inventory_two = []
     for pid in truck.pkg_load_r2:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory_two.append(pkg_item)
-
 
     # Cycle through the list of not_delivered until none remain in the list
     # Adds the nearest package into the truck.packages list one by one
