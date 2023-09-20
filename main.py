@@ -23,11 +23,10 @@ import datetime
 import string
 import sys
 
-import TravelData
 from MyHashMap import MyHashMap
 from Package import Package
 from Truck import calc_distance, address_index, Truck
-
+from TravelData import address_data
 
 def load_package_data(csvfile, p_hash_table):
     with open(csvfile) as file:
@@ -58,7 +57,7 @@ first_truck = Truck(16, 18, [20, 13, 14, 15, 16, 19, 34, 26, 22, 11, 23, 31, 36,
                     datetime.timedelta(hours=8), "First_Truck")
 second_truck = Truck(16, 18, [3, 36, 20, 40, 29, 10, 38, 5, 8, 27, 40, 4, 1, 19],
                      [3, 36, 20, 40, 29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
-                     0, "4001 South 700 East", datetime.timedelta(hours=10, minutes=20),
+                     0, "4001 South 700 East", datetime.timedelta(hours=8),
                      "Second_Truck")
 
 pkg_hash_table = MyHashMap()
@@ -82,7 +81,7 @@ def pkg_distribution_r1(truck):
     # Adds the nearest package into the truck.packages list one by one
     while len(pkg_inventory) > 0:
         truck.current_location = 0
-        next_address = 2000
+        next_address = 1500
         next_pkg = None
 
         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
@@ -97,6 +96,7 @@ def pkg_distribution_r1(truck):
                                              address_index(p.address))
                 next_pkg = p
                 print("next package = { " + str(next_pkg) + "}\n")
+                print(p.status)
         # Adds next closest package to the truck package list
         truck.pkg_load.append(next_pkg.package_id)
 
@@ -112,7 +112,8 @@ def pkg_distribution_r1(truck):
         next_pkg.departure_time = truck.depart_time
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             pkg_inventory))
-
+    distance_to_hub = calc_distance(address_data.index(truck.address), address_data.index()[0])
+    print(distance_to_hub)
 
 def pkg_distribution_r2(truck):
     pkg_inventory_two = []
@@ -158,10 +159,10 @@ def pkg_distribution_r2(truck):
 
 
 pkg_distribution_r1(first_truck)
-pkg_distribution_r1(second_truck)
-pkg_distribution_r2(first_truck)
-pkg_distribution_r2(second_truck)
-print(first_truck.tot_miles + second_truck.tot_miles)
+# pkg_distribution_r1(second_truck)
+# pkg_distribution_r2(first_truck)
+# pkg_distribution_r2(second_truck)
+# print(first_truck.tot_miles + second_truck.tot_miles)
 
 # implement rounds of packages  Tuesday x
 # get concurrent time working

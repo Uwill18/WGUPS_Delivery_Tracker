@@ -34,7 +34,7 @@ def load_address_data():
     with open('csv_files/addressCSV.csv', 'r') as f:
         reader = list(csv.reader(f))
         for row in reader[0:]:
-            address_data.append(row)
+            address_data.append(row[2])
 
 
 
@@ -42,6 +42,7 @@ def load_address_data():
 
 # load_distance_data()
 load_address_data()
+print(address_data)
 # print(loadDistanceData2('csv_files/distanceCSV.csv'))
 distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
 # print(distance_data[10][1])
