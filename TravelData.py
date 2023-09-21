@@ -34,7 +34,7 @@ def load_address_data():
     with open('csv_files/addressCSV.csv', 'r') as f:
         reader = list(csv.reader(f))
         for row in reader[0:]:
-            address_data.append(row[2])
+            address_data.append(row)
 
 
 
@@ -42,7 +42,6 @@ def load_address_data():
 
 # load_distance_data()
 load_address_data()
-print(address_data)
 # print(loadDistanceData2('csv_files/distanceCSV.csv'))
 distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
 # print(distance_data[10][1])
@@ -59,5 +58,4 @@ distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
 
 
 # Method to get address number from string literal of address
-
 

@@ -19,7 +19,7 @@ print(calc_distance(0, 0))
 def address_index(address):
     with open('csv_files/addressCSV.csv', 'r') as f:
         for row in address_data:
-            if address in row[2]:
+            if address == row[2]:
                 return int(row[0])
 
 
