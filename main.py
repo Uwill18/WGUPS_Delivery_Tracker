@@ -53,12 +53,12 @@ def load_package_data(csvfile, p_hash_table):
             # print(str(pkg_id))
 
 
-first_truck = Truck(16, 18, [20, 13, 14, 15, 16, 19, 34, 26, 22, 11, 23, 31, 36, 24, 17],
-                    [18, 25, 32, 6], 0.0, 0, "4001 South 700 East",
+first_truck = Truck(16, 18, [20, 13, 14, 15, 16, 19],
+                    [7, 30, 33, 37, 35, 12, 32, 21, 28], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
-second_truck = Truck(16, 18, [3, 36, 20, 40, 29, 10, 38, 5, 8, 27, 40, 4, 1, 19],
-                     [3, 36, 20, 40, 29, 10, 38, 5, 8, 27, 36, 40, 4, 1, 19], 0.0,
-                     0, "4001 South 700 East", datetime.timedelta(hours=10, minutes=20),
+second_truck = Truck(16, 18, [36, 29, 10, 38, 5, 8, 27, 40, 4, 1],
+                     [18, 25, 32, 6, 3], 0.0,
+                     0, "4001 South 700 East", datetime.timedelta(hours=8),
                      "Second_Truck")
 
 pkg_hash_table = MyHashMap()
@@ -158,6 +158,10 @@ def pkg_distribution_r2(truck):
         next_pkg.departure_time = truck.depart_time
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             pkg_inventory_two))
+        distance_to_hub = calc_distance(address_index(truck.address), 0)
+        truck.tot_miles += distance_to_hub
+        truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+        print(truck.tot_miles, truck.time)
 
 
 pkg_distribution_r1(first_truck)
