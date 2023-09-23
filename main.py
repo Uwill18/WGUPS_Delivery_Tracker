@@ -20,10 +20,7 @@
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
 import datetime
-import string
-import sys
 
-import TravelData
 from MyHashMap import MyHashMap
 from Package import Package
 from Truck import calc_distance, address_index, Truck
@@ -53,7 +50,7 @@ def load_package_data(csvfile, p_hash_table):
             # print(str(pkg_id))
 
 
-first_truck = Truck(16, 18, [20, 13, 14, 15, 16, 19],
+first_truck = Truck(16, 18, [14,15,16,25,26,22,11,23,24,19,20,21],
                     [7, 30, 33, 37, 35, 12, 32, 21, 28], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
 second_truck = Truck(16, 18, [36, 29, 10, 38, 5, 8, 27, 40, 4, 1],
