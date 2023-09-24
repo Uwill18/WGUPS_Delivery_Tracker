@@ -168,12 +168,22 @@ pkg_distribution_r1(first_truck)
 # print(first_truck.tot_miles + second_truck.tot_miles)
 
 # implement rounds of packages  Tuesday x
-# get concurrent time working
-# Call package distribution functions
-# Review WGU requirements
-# Review Goodell requirements
-# finish final screen of gui
+# get concurrent time working x
+# Call package distribution functions x
+# continue testing mileage, Monday
+# finish final screen of gui, Tuesday
+# PART F, PART B, Tuesday
+# test each of the gui pages, Wednesday
+# connect the gui pages, Wednesday
+# PARTS: A, D, I, K, Thursday
+# Review project in context of WGU requirements, Thursday
+# Review project in context of Goodell requirements, Thursday
+# Finish last parts of paper, Friday
+# Review with Instructor, Friday
+#Submit Project, Friday
+
+
+
 # ----------------------------------------------------------------------------------
-# try to get results printed to screen
-# test each of the gui pages
-# connect the gui pages
+
+
