@@ -50,10 +50,10 @@ def load_package_data(csvfile, p_hash_table):
             # print(str(pkg_id))
 
 
-first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24],
+first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24,13],
                     [29,5,8,9,39,27,35,6,32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
-second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 13, 39, 36, 17, 31],
+second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
                      [34, 25, 18], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8),
                      "Second_Truck")
@@ -155,32 +155,32 @@ def pkg_distribution_r2(truck):
         next_pkg.departure_time = truck.depart_time
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             pkg_inventory_two))
-        distance_to_hub = calc_distance(address_index(truck.address), 0)
-        truck.tot_miles += distance_to_hub
-        truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-        print(truck.tot_miles, truck.time)
+    distance_to_hub = calc_distance(address_index(truck.address), 0)
+    truck.tot_miles += distance_to_hub
+    truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+    print(truck.tot_miles, truck.time)
 
 
-# pkg_distribution_r1(first_truck)  # 36.0
-# pkg_distribution_r1(second_truck)  # 33.6
+pkg_distribution_r1(first_truck)  # 36.0
+pkg_distribution_r1(second_truck)  # 33.6
 pkg_distribution_r2(first_truck)  # 71.4
-# pkg_distribution_r2(second_truck)  # 30.0
-# print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
+pkg_distribution_r2(second_truck)  # 30.0
+print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 
 # implement rounds of packages  Tuesday x
 # get concurrent time working x
 # Call package distribution functions x
 # continue testing mileage, Monday
-# finish final screen of gui, Tuesday
-# PART F, PART B, Tuesday
-# test each of the gui pages, Wednesday
-# connect the gui pages, Wednesday
+# finish final screen of gui, Wednesday
+# PART F, PART B, Wednesday
+# test each of the gui pages, Thursday
+# connect the gui pages, Thursday
 # PARTS: A, D, I, K, Thursday
-# Review project in context of WGU requirements, Thursday
-# Review project in context of Goodell requirements, Thursday
+# Review project in context of WGU requirements, Friday
+# Review project in context of Goodell requirements, Friday
 # Finish last parts of paper, Friday
-# Review with Instructor, Friday
-# Submit Project, Friday
+# Review with Instructor, Monday
+# Submit Project, Monday
 
 
 # ----------------------------------------------------------------------------------
