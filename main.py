@@ -50,11 +50,11 @@ def load_package_data(csvfile, p_hash_table):
             # print(str(pkg_id))
 
 
-first_truck = Truck(16, 18, [14,15,16,25,26,22,11,23,24,19,20,21],
-                    [7, 30, 33, 37, 35, 12, 32, 21, 28], 0.0, 0, "4001 South 700 East",
+first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24],
+                    [29,5,8,9,39,27,35,6,32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
-second_truck = Truck(16, 18, [36, 29, 10, 38, 5, 8, 27, 40, 4, 1],
-                     [18, 25, 32, 6, 3], 0.0,
+second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 13, 39, 36, 17, 31],
+                     [34, 25, 18], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8),
                      "Second_Truck")
 
@@ -161,11 +161,11 @@ def pkg_distribution_r2(truck):
         print(truck.tot_miles, truck.time)
 
 
-pkg_distribution_r1(first_truck)
-# pkg_distribution_r1(second_truck)
-# pkg_distribution_r2(first_truck)
-# pkg_distribution_r2(second_truck)
-# print(first_truck.tot_miles + second_truck.tot_miles)
+# pkg_distribution_r1(first_truck)  # 36.0
+# pkg_distribution_r1(second_truck)  # 33.6
+pkg_distribution_r2(first_truck)  # 71.4
+# pkg_distribution_r2(second_truck)  # 30.0
+# print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 
 # implement rounds of packages  Tuesday x
 # get concurrent time working x
@@ -180,10 +180,7 @@ pkg_distribution_r1(first_truck)
 # Review project in context of Goodell requirements, Thursday
 # Finish last parts of paper, Friday
 # Review with Instructor, Friday
-#Submit Project, Friday
-
+# Submit Project, Friday
 
 
 # ----------------------------------------------------------------------------------
-
-
