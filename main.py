@@ -93,7 +93,8 @@ def pkg_distribution_r1(truck):
                 next_address = calc_distance(address_index(truck.address),
                                              address_index(p.address))
                 next_pkg = p
-                print("next package = { " + str(next_pkg) + "}\n")
+                next_pkg.status = "Delivered"
+                # print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
         truck.pkg_load.append(next_pkg.package_id)
 
@@ -107,8 +108,8 @@ def pkg_distribution_r1(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
-            pkg_inventory))
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(next_pkg) + "\n")
+        # print(str(pkg_inventory) + "\n")
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
@@ -139,9 +140,10 @@ def pkg_distribution_r2(truck):
                 next_address = calc_distance(address_index(truck.address),
                                              address_index(p.address))
                 next_pkg = p
-                print("next package = { " + str(next_pkg) + "}\n")
+                # print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
         truck.pkg_load_r2.append(next_pkg.package_id)
+        next_pkg.status = "Delivered"
 
         # Removes the same package from the not_delivered list
         pkg_inventory_two.remove(next_pkg)
@@ -153,8 +155,7 @@ def pkg_distribution_r2(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
-            pkg_inventory_two))
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(next_pkg) +"\n")
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
