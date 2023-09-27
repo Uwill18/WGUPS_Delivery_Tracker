@@ -38,7 +38,7 @@ def load_package_data(csvfile, p_hash_table):
             pkg_dt = pkg_row[5]
             pkg_mass = pkg_row[6]
             pkg_msg = pkg_row[7]
-            pkg_status = "Loaded"
+            pkg_status = "At Hub"
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
@@ -61,10 +61,10 @@ second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17,
 pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
-with open('csv_files/addressCSV.csv', 'r') as f:
-    rdr = csv.reader(f)
-    address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
-    print(address_dict.keys())
+# with open('csv_files/addressCSV.csv', 'r') as f:
+#     rdr = csv.reader(f)
+#     address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
+#     print(address_dict.keys())
 
 
 def pkg_distribution_r1(truck):
@@ -73,6 +73,8 @@ def pkg_distribution_r1(truck):
     for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory.append(pkg_item)
+        pkg_item.status = "Loaded"
+        # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
 
     # Cycle through the list of not_delivered until none remain in the list
@@ -121,6 +123,7 @@ def pkg_distribution_r2(truck):
     for pid in truck.pkg_load_r2:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory_two.append(pkg_item)
+        pkg_item.status = "Loaded"
 
     # Cycle through the list of not_delivered until none remain in the list
     # Adds the nearest package into the truck.packages list one by one
@@ -172,16 +175,15 @@ print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 # get concurrent time working x
 # Call package distribution functions x
 # continue testing mileage, Monday
-# finish final screen of gui, Wednesday
-# PART F, PART B, Wednesday
-# test each of the gui pages, Thursday
-# connect the gui pages, Thursday
-# PARTS: A, D, I, K, Thursday
-# Review project in context of WGU requirements, Friday
-# Review project in context of Goodell requirements, Friday
+# finish final screen of gui, Thursday
+# -------------------------------------------------
+# test each of the gui pages, Monday
+# connect the gui pages, Monday
+# PART F, PART B, Tuesday
+# PARTS: A, D, I, K, Wednesday
+# Review project in context of WGU requirements, Thursday
+# Review project in context of Goodell requirements, Thursday
 # Finish last parts of paper, Friday
-# Review with Instructor, Monday
-# Submit Project, Monday
-
-
+# Review with Instructor, Friday
+# Submit Project, Friday
 # ----------------------------------------------------------------------------------
