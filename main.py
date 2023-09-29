@@ -20,6 +20,10 @@
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
 import datetime
+import tkinter
+import tkinter as tk
+from tkinter import *
+from tkinter.ttk import *
 
 from MyHashMap import MyHashMap
 from Package import Package
@@ -50,8 +54,8 @@ def load_package_data(csvfile, p_hash_table):
             # print(str(pkg_id))
 
 
-first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24,13],
-                    [29,5,8,9,39,27,35,6,32], 0.0, 0, "4001 South 700 East",
+first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
+                    [29, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
 second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
                      [34, 25, 18], 0.0,
@@ -70,12 +74,30 @@ with open('csv_files/addressCSV.csv', 'r') as f:
 def pkg_distribution_r1(truck):
     # Define an array of undelivered packages for distribution
     pkg_inventory = []
+
+    # defining arrays for tree view
+    id_list = []
+    city_list = []
+    address_list = []
+    zip_list = []
+    deadline_list = []
+    # arrival_list = []
+
+    weight_list = []
+    status_list = []
     for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory.append(pkg_item)
         pkg_item.status = "Loaded"
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
+        status_list.append(pkg_item.status)
+        weight_list.append(pkg_item.mass)
+        deadline_list.append(pkg_item.delivery_time)
+        zip_list.append(pkg_item.zipcode)
+        address_list.append(pkg_item.address)
+        city_list.append(pkg_item.city)
+        id_list.append(pkg_item.package_id)
 
     # Cycle through the list of not_delivered until none remain in the list
     # Adds the nearest package into the truck.packages list one by one
@@ -110,73 +132,155 @@ def pkg_distribution_r1(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(next_pkg) + "\n")
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
+            next_pkg) + "\n")
         # print(str(pkg_inventory) + "\n")
+    print(status_list)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
     print(truck.tot_miles, truck.time)
+    # toDo:
+    root = tk.Tk()
+    root.geometry('1500x400')
+    root.iconbitmap('C:/icons/space_owl.jpeg')
+    root.title('WGUPS DELIVERY TRACKER')
 
 
-def pkg_distribution_r2(truck):
-    pkg_inventory_two = []
-    for pid in truck.pkg_load_r2:
-        pkg_item = pkg_hash_table.lookup(pid)
-        pkg_inventory_two.append(pkg_item)
-        pkg_item.status = "Loaded"
+    style = tkinter.ttk.Style()
+    style.theme_use("default")
+    style.configure("Treeview",
+                    foreground="#000",
+                    rowheight=25,
+                    fieldbackground="#003057")
 
-    # Cycle through the list of not_delivered until none remain in the list
-    # Adds the nearest package into the truck.packages list one by one
-    while len(pkg_inventory_two) > 0:
-        truck.current_location = 0
-        next_address = 2000
-        next_pkg = None
+    style.map('Treeview',
+              background=[('selected', "#347083")])
 
-        # Clear the package list of a given truck so the packages can be placed back into the truck in the order
-        # of the nearest neighbor
+    # tree_frame = tkinter.Frame(root)
+    # # tree_frame.pack(pady=10)
+    #
+    # tree_scroll = tkinter.Scrollbar(tree_frame)
+    # tree_scroll.pack(side = RIGHT , fill=Y)
+    #
+    # my_tree = tkinter.ttk.Treeview(tree_frame, yscrollcommand=tree_scroll.set, selectmode="extended")
+    #
+    #
+    # tree_scroll.config(command=my_tree.yview())
 
-        truck.pkg_load_r2.clear()
+    # data
 
-        for p in pkg_inventory_two:
-            if calc_distance(address_index(truck.address),
-                             address_index(p.address)) <= next_address:
-                next_address = calc_distance(address_index(truck.address),
-                                             address_index(p.address))
-                next_pkg = p
-                # print("next package = { " + str(next_pkg) + "}\n")
-        # Adds next closest package to the truck package list
-        truck.pkg_load_r2.append(next_pkg.package_id)
-        next_pkg.status = "Delivered"
+    # treeview
+    # status_list.append(pkg_item.status)
+    # weight_list.append(pkg_item.mass)
+    # deadline_list.append(pkg_item.delivery_time)
+    # zip_list.append(pkg_item.zipcode)
+    # address_list.append(pkg_item.address)
+    # city_list.append(pkg_item.city)
+    # id_list.append(pkg_item.package_id)
+    table = tkinter.ttk.Treeview(root, columns=('ID', 'City', 'Address', 'Zipcode', 'Deadline', 'Status'),
+                                 show='headings', )
+    table.heading('ID', text='ID')
+    table.heading('City', text='City')
+    table.heading('Address', text='Address')
+    table.heading('Zipcode', text='Zipcode')
+    table.heading('Deadline', text='Deadline')
+    table.heading('Status', text='Status')
 
-        # Removes the same package from the not_delivered list
-        pkg_inventory_two.remove(next_pkg)
-        # Takes the mileage driven to this packaged into the truck.mileage attribute
-        truck.tot_miles += next_address
-        # Updates truck's current address attribute to the package it drove to
-        truck.address = next_pkg.address
-        # Updates the time it took for the truck to drive to the nearest package
-        truck.time += datetime.timedelta(hours=next_address / 18)
-        next_pkg.delivery_time = truck.time
-        next_pkg.departure_time = truck.depart_time
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(next_pkg) +"\n")
-    distance_to_hub = calc_distance(address_index(truck.address), 0)
-    truck.tot_miles += distance_to_hub
-    truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    print(truck.tot_miles, truck.time)
+    # table.tag_configure('evenrow', background="black")
+
+    # insert values into a table
+    # table.insert(parent='', index=0,
+    #              values=(id_list[0], city_list[0],
+    #                      address_list[0], zip_list[0],
+    #                      deadline_list[0], status_list[0]))
+
+    for i in range(len(id_list)):
+        #     table.insert(parent='', index=0, values=(id_list[i], city_list[i],
+        #                                              address_list[i], zip_list[i], deadline_list[i], status_list[i]),
+        #                  tags=('even row', ''))
+        if i % 2:
+            table.insert(parent='', index=0, values=(id_list[i], city_list[i],
+                                                     address_list[i], zip_list[i], deadline_list[i], status_list[i]),
+                         tags=('even row', 'lightblue'))
+        else:
+            table.insert(parent='', index=0, values=(id_list[i], city_list[i],
+                                                     address_list[i], zip_list[i], deadline_list[i], status_list[i]),
+                         tags=('odd row', 'lightblue'))
+
+    table.tag_configure('even row', background="lightblue")
+    table.tag_configure('odd row', background="white")
+    table.pack()
+
+    def item_select(_):
+        print(table.selection())
+        for i in table.selection():
+            print(table.item(i)['values'])
+
+    table.bind('<<TreeviewSelect>>', item_select)
+    # run
+    root.mainloop()
+
+
+#
+# def pkg_distribution_r2(truck):
+#     pkg_inventory_two = []
+#     for pid in truck.pkg_load_r2:
+#         pkg_item = pkg_hash_table.lookup(pid)
+#         pkg_inventory_two.append(pkg_item)
+#         pkg_item.status = "Loaded"
+#
+#     # Cycle through the list of not_delivered until none remain in the list
+#     # Adds the nearest package into the truck.packages list one by one
+#     while len(pkg_inventory_two) > 0:
+#         truck.current_location = 0
+#         next_address = 2000
+#         next_pkg = None
+#
+#         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
+#         # of the nearest neighbor
+#
+#         truck.pkg_load_r2.clear()
+#
+#         for p in pkg_inventory_two:
+#             if calc_distance(address_index(truck.address),
+#                              address_index(p.address)) <= next_address:
+#                 next_address = calc_distance(address_index(truck.address),
+#                                              address_index(p.address))
+#                 next_pkg = p
+#                 # print("next package = { " + str(next_pkg) + "}\n")
+#         # Adds next closest package to the truck package list
+#         truck.pkg_load_r2.append(next_pkg.package_id)
+#         next_pkg.status = "Delivered"
+#
+#         # Removes the same package from the not_delivered list
+#         pkg_inventory_two.remove(next_pkg)
+#         # Takes the mileage driven to this packaged into the truck.mileage attribute
+#         truck.tot_miles += next_address
+#         # Updates truck's current address attribute to the package it drove to
+#         truck.address = next_pkg.address
+#         # Updates the time it took for the truck to drive to the nearest package
+#         truck.time += datetime.timedelta(hours=next_address / 18)
+#         next_pkg.delivery_time = truck.time
+#         next_pkg.departure_time = truck.depart_time
+#         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(next_pkg) +"\n")
+#     distance_to_hub = calc_distance(address_index(truck.address), 0)
+#     truck.tot_miles += distance_to_hub
+#     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+#     print(truck.tot_miles, truck.time)
 
 
 pkg_distribution_r1(first_truck)  # 36.0
-pkg_distribution_r1(second_truck)  # 33.6
-pkg_distribution_r2(first_truck)  # 71.4
-pkg_distribution_r2(second_truck)  # 30.0
-print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
+# pkg_distribution_r1(second_truck)  # 33.6
+# pkg_distribution_r2(first_truck)  # 71.4
+# pkg_distribution_r2(second_truck)  # 30.0
+# print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 
 # implement rounds of packages  Tuesday x
 # get concurrent time working x
 # Call package distribution functions x
 # continue testing mileage, Monday
 # finish final screen of gui, Thursday - Tuesday
-#demo ui four in progress
 # -------------------------------------------------
 # test each of the gui pages, Wednesday
 # connect the gui pages, Wednesday
