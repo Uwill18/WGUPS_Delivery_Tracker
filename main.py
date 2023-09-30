@@ -177,6 +177,7 @@ print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 # continue testing mileage, Monday
 # finish final screen of gui, Thursday - Tuesday
 #demo ui four in progress
+#reviewing resources
 # -------------------------------------------------
 # test each of the gui pages, Wednesday
 # connect the gui pages, Wednesday
