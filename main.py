@@ -61,10 +61,10 @@ second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17,
 pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
-# with open('csv_files/addressCSV.csv', 'r') as f:
-#     rdr = csv.reader(f)
-#     address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
-#     print(address_dict.keys())
+with open('csv_files/addressCSV.csv', 'r') as f:
+    rdr = csv.reader(f)
+    address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
+    print(address_dict.keys())
 
 
 def pkg_distribution_r1(truck):
@@ -175,15 +175,16 @@ print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 # get concurrent time working x
 # Call package distribution functions x
 # continue testing mileage, Monday
-# finish final screen of gui, Thursday
+# finish final screen of gui, Thursday - Tuesday
+#demo ui four in progress
 # -------------------------------------------------
-# test each of the gui pages, Monday
-# connect the gui pages, Monday
-# PART F, PART B, Tuesday
-# PARTS: A, D, I, K, Wednesday
-# Review project in context of WGU requirements, Thursday
-# Review project in context of Goodell requirements, Thursday
-# Finish last parts of paper, Friday
+# test each of the gui pages, Wednesday
+# connect the gui pages, Wednesday
+# PART F, PART B, Thursday
+# PARTS: A, D, I, K, Thursday
+# Review project in context of WGU requirements, Friday
+# Review project in context of Goodell requirements, Friday
 # Review with Instructor, Friday
-# Submit Project, Friday
+# Finish last parts of paper, Monday
+# Submit Project, Monday
 # ----------------------------------------------------------------------------------
