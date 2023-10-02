@@ -165,11 +165,23 @@ def pkg_distribution_r2(truck):
     print(truck.tot_miles, truck.time)
 
 
-pkg_distribution_r1(first_truck)  # 36.0
-pkg_distribution_r1(second_truck)  # 33.6
+def deliver_all():
+    pkg_distribution_r1(first_truck)
+    pkg_distribution_r1(second_truck)
+
+
+
+deliver_all()
+
+# pkg_distribution_r1(first_truck)  # 36.0
+# pkg_distribution_r1(second_truck)  # 33.6
 pkg_distribution_r2(first_truck)  # 71.4
 pkg_distribution_r2(second_truck)  # 30.0
 print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
+
+
+
+
 
 # implement rounds of packages  Tuesday x
 # get concurrent time working x
@@ -177,7 +189,9 @@ print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 # continue testing mileage, Monday
 # finish final screen of gui, Thursday - Tuesday
 #demo ui four in progress
-#reviewing resources 
+#reviewing resources
+#based on research I think I want to implement multiprocessing techniques for the trucks
+#threading could be used for the files
 # -------------------------------------------------
 # test each of the gui pages, Wednesday
 # connect the gui pages, Wednesday
