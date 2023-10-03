@@ -50,6 +50,14 @@ def load_package_data(csvfile, p_hash_table):
             # print(str(pkg_id))
 
 
+# first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
+#                     [29, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
+#                     datetime.timedelta(hours=8), "First_Truck")
+# second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
+#                      [34, 25, 18], 0.0,
+#                      0, "4001 South 700 East", datetime.timedelta(hours=8),
+#                      "Second_Truck")
+
 first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
                     [29, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
@@ -119,6 +127,7 @@ def pkg_distribution_r1(truck):
     print(truck.tot_miles, truck.time)
 
 
+
 def pkg_distribution_r2(truck):
     pkg_inventory_two = []
     for pid in truck.pkg_load_r2:
@@ -167,35 +176,40 @@ def pkg_distribution_r2(truck):
     print(truck.tot_miles, truck.time)
 
 
+# def deliver_all():
+#     pkg_distribution_r1(first_truck)
+#     pkg_distribution_r1(second_truck)
 
-
-def deliver_all():
-    pkg_distribution_r1(first_truck)
-    pkg_distribution_r1(second_truck)
-
-
-deliver_all()
+#
+# deliver_all()
 
 # pkg_distribution_r1(first_truck)  # 36.0
 # pkg_distribution_r1(second_truck)  # 33.6
 # pkg_distribution_r2(first_truck)  # 71.4
 # pkg_distribution_r2(second_truck)  # 30.0
 # print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
-pkg_distribution_r3(first_truck, second_truck)
+# pkg_distribution_r3(first_truck, second_truck)
 
+# print("🚚🦉WGUPS DELIVERY TRACKER🦉⛟")
+print("--🦉WGUPS DELIVERY TRACKER🦉--")
 # implement rounds of packages  Tuesday x
 # get concurrent time working x
 # Call package distribution functions x
-# continue testing mileage, Monday
-# finish final screen of gui, Thursday - Tuesday
-# implemented search
-# demo ui four in progress
-# reviewing resources
-# based on research I think I want to implement multiprocessing techniques for the trucks
-# threading could be used for the files
+# reviewing resources x Wednesday
+# based on research I think I want to implement multiprocessing techniques for the trucks x  Weekend
+# threading could be used for the files x Weekend
+# continue testing mileage, Monday x
+# find how to get arrival time for each package
+
+# implement the sleep function
+# find out how to search for each package as the function goes(2)
+# find how to print out all packages, with statuses at end of both routes(3)
+# decide how you want info to display in the CLI
+#implement UI, and its exit, and exceptions
+
 # -------------------------------------------------
-# test each of the gui pages, Wednesday
-# connect the gui pages, Wednesday
+# test each of the gui pages
+# connect the gui pages
 # PART F, PART B, Thursday
 # PARTS: A, D, I, K, Thursday
 # Review project in context of WGU requirements, Friday
@@ -204,3 +218,8 @@ pkg_distribution_r3(first_truck, second_truck)
 # Finish last parts of paper, Monday
 # Submit Project, Monday
 # ----------------------------------------------------------------------------------
+# 1. total mileage + final statuses of all packages
+# with comments, and time of loading the truck
+# 2. status of the package, given a time and package id
+# 3. status of all packages at a given time
+# 4. exit the program
