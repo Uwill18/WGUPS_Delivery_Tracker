@@ -61,6 +61,14 @@ class MyHashMap:
                 return p
         return None
 
+    def update_hash(self):
+        self.package_list = []
+        # setting up the inner lists for hashmap
+        # i.e. for each bucket this function creates ten inner arrays
+        for i in range(40):
+            lookup(i)
+        return self.package_list
+
     def __str__(self):
         retstr = ""
         for i in range(10):

@@ -69,10 +69,13 @@ second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17,
 pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
-with open('csv_files/addressCSV.csv', 'r') as f:
-    rdr = csv.reader(f)
-    address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
-    print(address_dict.keys())
+
+# def update_package_data(package_list):
+#     with open('csv_files/addressCSV.csv', 'r') as f:
+#         rdr = csv.reader(f)
+#         address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
+#         print(address_dict.keys())
+#         address_dict.update()
 
 
 def pkg_distribution_r1(truck):
@@ -81,7 +84,7 @@ def pkg_distribution_r1(truck):
     for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory.append(pkg_item)
-        pkg_item.status = "Loaded"
+        # pkg_item.status = "Loaded"
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
 
@@ -118,14 +121,18 @@ def pkg_distribution_r1(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
+        pkg_hash_table.insert(next_pkg)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             next_pkg) + "\n")
+        print("current hash " + str(pkg_hash_table.lookup(next_pkg.package_id)))
         # print(str(pkg_inventory) + "\n")
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
     print(truck.tot_miles, truck.time)
 
+
+# pkg_hash_table.update_hash()
 
 
 def pkg_distribution_r2(truck):
@@ -168,6 +175,7 @@ def pkg_distribution_r2(truck):
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
+        pkg_hash_table.insert(next_pkg)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             next_pkg) + "\n")
     distance_to_hub = calc_distance(address_index(truck.address), 0)
@@ -182,13 +190,24 @@ def pkg_distribution_r2(truck):
 
 #
 # deliver_all()
+def track_all():
+    for i in range(41):
+        print(pkg_hash_table.lookup(i))
 
-# pkg_distribution_r1(first_truck)  # 36.0
-# pkg_distribution_r1(second_truck)  # 33.6
-# pkg_distribution_r2(first_truck)  # 71.4
-# pkg_distribution_r2(second_truck)  # 30.0
+
+pkg_distribution_r1(first_truck)  # 36.0
+print("verifying" + str(pkg_hash_table.lookup(14)))
+pkg_hash_table.lookup(14)
+track_all()
+pkg_distribution_r1(second_truck)  # 33.6
+track_all()
+pkg_distribution_r2(first_truck)  # 71.4
+track_all()
+pkg_distribution_r2(second_truck)  # 30.0
+track_all()
 # print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 # pkg_distribution_r3(first_truck, second_truck)
+
 
 # print("🚚🦉WGUPS DELIVERY TRACKER🦉⛟")
 print("--🦉WGUPS DELIVERY TRACKER🦉--")
@@ -205,7 +224,7 @@ print("--🦉WGUPS DELIVERY TRACKER🦉--")
 # find out how to search for each package as the function goes(2)
 # find how to print out all packages, with statuses at end of both routes(3)
 # decide how you want info to display in the CLI
-#implement UI, and its exit, and exceptions
+# implement UI, and its exit, and exceptions
 
 # -------------------------------------------------
 # test each of the gui pages
