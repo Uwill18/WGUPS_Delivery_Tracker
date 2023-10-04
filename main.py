@@ -20,6 +20,7 @@
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
 import datetime
+import time
 
 from MyHashMap import MyHashMap
 from Package import Package
@@ -39,10 +40,11 @@ def load_package_data(csvfile, p_hash_table):
             pkg_mass = pkg_row[6]
             pkg_msg = pkg_row[7]
             pkg_status = "At Hub"
+            pkg_transit_time = datetime.timedelta(hours=8)
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
-                          pkg_msg, pkg_status)
+                          pkg_msg, pkg_status, pkg_transit_time)
             print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
             p_hash_table.insert(pkg)  # review later
@@ -80,11 +82,14 @@ load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 def pkg_distribution_r1(truck):
     # Define an array of undelivered packages for distribution
+    global time
     pkg_inventory = []
     for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory.append(pkg_item)
-        # pkg_item.status = "Loaded"
+        pkg_item.status = "Loaded"
+        pkg_item.transit_time = truck.time
+
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
 
@@ -101,12 +106,16 @@ def pkg_distribution_r1(truck):
         truck.pkg_load.clear()
 
         for p in pkg_inventory:
+            p.status = "En route"
+            p.transit_time = truck.time
             if calc_distance(address_index(truck.address),
                              address_index(p.address)) <= next_address:
                 next_address = calc_distance(address_index(truck.address),
                                              address_index(p.address))
                 next_pkg = p
                 next_pkg.status = "Delivered"
+                next_pkg.transit_time = truck.time
+                print(next_pkg.transit_time)
                 # print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
         truck.pkg_load.append(next_pkg.package_id)
@@ -120,15 +129,18 @@ def pkg_distribution_r1(truck):
         # Updates the time it took for the truck to drive to the nearest package
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
+        next_pkg.transit_time += truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
+        # time.sleep(2.5)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
-            next_pkg) + "\n")
+            next_pkg) + "" + str(truck.time) + "\n")
         print("current hash " + str(pkg_hash_table.lookup(next_pkg.package_id)))
         # print(str(pkg_inventory) + "\n")
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+    # time.sleep(2.5)
     print(truck.tot_miles, truck.time)
 
 
@@ -142,11 +154,11 @@ def pkg_distribution_r2(truck):
         pkg_inventory_two.append(pkg_item)
         pkg_item.status = "Loaded"
 
-    # Cycle through the list of not_delivered until none remain in the list
-    # Adds the nearest package into the truck.packages list one by one
+    # Cycle through the list of pkg_inventory_two until none remain in the list
+    # Adds the nearest package into the truck.pkg_load_r2 list one by one
     while len(pkg_inventory_two) > 0:
         truck.current_location = 0
-        next_address = 2000
+        next_address = 1500
         next_pkg = None
 
         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
@@ -155,6 +167,7 @@ def pkg_distribution_r2(truck):
         truck.pkg_load_r2.clear()
 
         for p in pkg_inventory_two:
+            p.status = "En route"
             if calc_distance(address_index(truck.address),
                              address_index(p.address)) <= next_address:
                 next_address = calc_distance(address_index(truck.address),
@@ -176,12 +189,17 @@ def pkg_distribution_r2(truck):
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
+        # time.sleep(2.5)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             next_pkg) + "\n")
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+    # time.sleep(2.5)
     print(truck.tot_miles, truck.time)
+
+
+# time.sleep(5)
 
 
 # def deliver_all():
@@ -195,16 +213,40 @@ def track_all():
         print(pkg_hash_table.lookup(i))
 
 
-pkg_distribution_r1(first_truck)  # 36.0
-print("verifying" + str(pkg_hash_table.lookup(14)))
-pkg_hash_table.lookup(14)
-track_all()
-pkg_distribution_r1(second_truck)  # 33.6
-track_all()
+def delivery_status():
+    print("\n")
+    print("🚚DELIVERY STATUS📦:")
+    print(str(first_truck.truck_name) + " TIME:" + str(first_truck.time) +
+          ", DISTANCE: " + str(first_truck.tot_miles) + "\n")  # format function like pkg_distro
+    print(str(second_truck.truck_name) + " TIME:" + str(second_truck.time) +
+          ", DISTANCE: " + str(second_truck.tot_miles) + "\n")
+    print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + "\n")
+    track_all()
+    print("\n")
+
+
+def track_one():
+    id_searched = input("Please enter the ID of the package you would like to search!")
+    print(pkg_hash_table.lookup(int(id_searched)))
+    # exception for no input "Program Exit"
+    # exception for incorrect input "Invalid Input. Please Try Again.."
+
+
+# pkg_distribution_r1(first_truck)  # 36.0
+# track_one()
+
+
+# track_all()
+# pkg_distribution_r1(second_truck)  # 33.6
+# delivery_status()
+# track_all()
 pkg_distribution_r2(first_truck)  # 71.4
-track_all()
-pkg_distribution_r2(second_truck)  # 30.0
-track_all()
+track_one()
+print("verifying" + str(pkg_hash_table.lookup(14)))
+
+# track_all()
+# pkg_distribution_r2(second_truck)  # 30.0
+# track_all()
 # print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
 # pkg_distribution_r3(first_truck, second_truck)
 
@@ -219,7 +261,7 @@ print("--🦉WGUPS DELIVERY TRACKER🦉--")
 # threading could be used for the files x Weekend
 # continue testing mileage, Monday x
 # find how to get arrival time for each package
-
+# cast back everything back to time
 # implement the sleep function
 # find out how to search for each package as the function goes(2)
 # find how to print out all packages, with statuses at end of both routes(3)
@@ -239,6 +281,8 @@ print("--🦉WGUPS DELIVERY TRACKER🦉--")
 # ----------------------------------------------------------------------------------
 # 1. total mileage + final statuses of all packages
 # with comments, and time of loading the truck
+
 # 2. status of the package, given a time and package id
+
 # 3. status of all packages at a given time
 # 4. exit the program

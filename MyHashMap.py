@@ -61,6 +61,14 @@ class MyHashMap:
                 return p
         return None
 
+    def check_timing(self, timeline: str):
+        time_searched = input("Please enter the time you would like to search")
+        hashIndex = packageID % 10
+        for p in self.package_list[hashIndex]:
+            if int(p.package_id) == packageID:
+                return p
+        return None
+
     def update_hash(self):
         self.package_list = []
         # setting up the inner lists for hashmap
