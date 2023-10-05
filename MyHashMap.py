@@ -3,6 +3,7 @@
 # Ref: zyBooks: Figure 7.8.2: Hash table using chaining.
 # Modified for Key:Value
 import csv
+import datetime
 
 
 # HashTable class using chaining.
@@ -37,8 +38,6 @@ import csv
 # which can be accessed in O(1) time by operations such as search, insert and delete.
 
 
-
-
 class MyHashMap:
     def __init__(self):
         self.package_list = []
@@ -61,12 +60,18 @@ class MyHashMap:
                 return p
         return None
 
-    def check_timing(self, timeline: str):
-        time_searched = input("Please enter the time you would like to search")
+    def check_timeline(self, packageID: int):
+        time_searched = input("Please enter the time you would like to search in HH:mm format :")
+        (hh, mm) = time_searched.split(":")
+        ptime = datetime.timedelta(hours=int(hh), minutes=int(mm))
         hashIndex = packageID % 10
         for p in self.package_list[hashIndex]:
             if int(p.package_id) == packageID:
-                return p
+                if p.delivery_time < ptime:
+                    return p
+        # for p in self.package_list:
+        #     if p.delivery_time < ptime:
+        #         return p
         return None
 
     def update_hash(self):
@@ -83,7 +88,6 @@ class MyHashMap:
             retstr += str(i) + ":" + str(self.package_list[i])
             retstr += '\n'
         return retstr
-
 
 # https://www.youtube.com/watch?v=4HKqjENq9OU
 

@@ -30,15 +30,15 @@ class Package:
     # runs in prod
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
-        # return ("PACKAGE #" + str(self.package_id) + ": < " +
-        #         self.address + " , " +
-        #         self.city + " , " +
-        #         self.zipcode + " , " +
-        #         self.mass + " , " +
-        #         self.status + " > "
-        #         # + "(" + current_time + ")"
-        #         )
-        print(self.transit_time)
+        return ("PACKAGE #" + str(self.package_id) + ": < " +
+                self.address + " , " +
+                self.city + " , " +
+                self.zipcode + " , " +
+                self.mass + " , " +
+                self.status + " > "
+                # + "(" + current_time + ")"
+                )
+        # print(self.transit_time)
 
 
 # def load_package_data(hashmap):
