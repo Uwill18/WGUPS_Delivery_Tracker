@@ -25,7 +25,7 @@ def address_index(address):
 
 class Truck:
     def __init__(self, pkg_max, avg_mph, pkg_load, pkg_load_r2, tot_miles, current_location, address, depart_time,
-                 truck_name):
+                 time, truck_name):
         super().__init__()
         self.pkg_max = pkg_max
         self.avg_mph = avg_mph
@@ -35,7 +35,7 @@ class Truck:
         self.current_location = current_location
         self.address = address
         self.depart_time = depart_time
-        self.time = depart_time
+        self.time = time
         self.truck_name = truck_name
 
 

@@ -55,10 +55,10 @@ def load_package_data(csvfile, p_hash_table):
 
 first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
                     [29, 37, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
-                    datetime.timedelta(hours=8), "First_Truck")
+                    datetime.timedelta(hours=8), datetime.timedelta(hours=8), "First_Truck")
 second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
                      [34, 25, 18], 0.0,
-                     0, "4001 South 700 East", datetime.timedelta(hours=8),
+                     0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
                      "Second_Truck")
 
 pkg_hash_table = MyHashMap()
@@ -76,6 +76,7 @@ def pkg_distribution_r1(truck):
         pkg_inventory.append(pkg_item)
         pkg_item.status = "Loaded"
         pkg_item.delivery_time = truck.time
+        pkg_item.load_time = truck.depart_time
 
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
@@ -101,8 +102,8 @@ def pkg_distribution_r1(truck):
                                              address_index(p.address))
                 next_pkg = p
                 next_pkg.status = "Delivered"
-                next_pkg.transit_time = truck.time
-                print(next_pkg.transit_time)
+                # next_pkg.transit_time = truck.time
+                # print(next_pkg.transit_time)
                 # print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
         truck.pkg_load.append(next_pkg.package_id)
@@ -116,7 +117,7 @@ def pkg_distribution_r1(truck):
         # Updates the time it took for the truck to drive to the nearest package
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
-        next_pkg.transit_time += truck.time
+        # next_pkg.transit_time += truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
         # time.sleep(2.5)
@@ -145,6 +146,8 @@ def pkg_distribution_r2(truck):
         pkg_item = pkg_hash_table.lookup(pid)
         pkg_inventory_two.append(pkg_item)
         pkg_item.status = "Loaded"
+        pkg_item.delivery_time = truck.time
+        pkg_item.load_time = truck.depart_time
 
     # Cycle through the list of pkg_inventory_two until none remain in the list
     # Adds the nearest package into the truck.pkg_load_r2 list one by one
@@ -210,6 +213,7 @@ def display_all():
         print(pkg_item)
 
 
+# put in a time-loaded attribute, and compare input time to time loaded
 def track_one():
     id_searched = input("Please enter the ID of the package you would like to search!")
     pkg_searched = pkg_hash_table.lookup(int(id_searched))
@@ -218,13 +222,13 @@ def track_one():
     # (hh, mm) = time_format.split(":")
     (hh, mm) = time_searched.split(":")
     time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
-    if time_entered <= pkg_searched.transit_time:
+    if time_entered <= pkg_searched.load_time:
         pkg_searched.status = "At Hub"
         print(pkg_searched)
 
-    if (time_entered > pkg_searched.transit_time) and (time_entered < times_list[0]):
-        pkg_searched.status = "Loaded"
-        print(pkg_searched)
+    # if (time_entered > pkg_searched.transit_time) and (time_entered < times_list[0]):
+    #     pkg_searched.status = "Loaded"
+    #     print(pkg_searched)
 
     if (time_entered > times_list[0]) and (time_entered < pkg_searched.delivery_time):
         pkg_searched.status = "En route"
@@ -245,23 +249,20 @@ def track_all():
 
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
-        if time_entered <= start_time:
+        if time_entered < pkg_item.load_time:
             pkg_item.status = "At Hub"
             # print(start_time)
+            # print(pkg_item.transit)
 
-        if (time_entered > start_time) and (time_entered <= times_list[0]):
-            pkg_item.status = "Loaded"
-            print("times_list times")
-            print(times_list[0])
-            # print(pkg_item)
-
-        if (time_entered > times_list[0]) and (time_entered < pkg_item.delivery_time):
+        elif time_entered < pkg_item.delivery_time:
             pkg_item.status = "En route"
+            # print("times_list times")
+            # print(times_list[0])
             # print(pkg_item)
 
-        if time_entered >= pkg_item.delivery_time:
+        else:
             pkg_item.status = "Delivered"
-            # print(pkg_item)
+
     display_all()
 
 

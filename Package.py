@@ -5,7 +5,7 @@ import MyHashMap
 
 class Package:
     def __init__(self, package_id, address, city, state, zipcode, delivery_time, mass, special_msg, status,
-                 transit_time):
+                 load_time):
         # super.__init__()
         self.package_id = package_id
         self.address = address
@@ -16,7 +16,7 @@ class Package:
         self.mass = mass
         self.special_msg = special_msg
         self.status = status
-        self.transit_time = transit_time
+        self.load_time = load_time
 
     # by comparison, use python datetime for relational operators
     # time loaded
@@ -35,11 +35,13 @@ class Package:
                 self.city + " , " +
                 self.zipcode + " , " +
                 self.mass + " , " +
+                str(self.delivery_time) + " , " +
                 self.status + " > "
                 # + "(" + current_time + ")"
                 )
         # print(self.transit_time)
 
+#timeloaded = time truck takes off
 
 # def load_package_data(hashmap):
 #     with open('csv_files/packageCSV.csv', 'r') as f:
