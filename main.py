@@ -19,6 +19,8 @@
 # https://www.linkedin.com/learning/python-essential-training-18764650/csv?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
+# from datetime import datetime
+from datetime import timedelta
 from datetime import datetime
 import datetime
 import time
@@ -50,19 +52,9 @@ def load_package_data(csvfile, p_hash_table):
             # instantiate hashtable and call insert f(x) to add packages by id
             p_hash_table.insert(pkg)  # review later
 
-            # print(str(pkg_id))
-
-
-# first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
-#                     [29, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
-#                     datetime.timedelta(hours=8), "First_Truck")
-# second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
-#                      [34, 25, 18], 0.0,
-#                      0, "4001 South 700 East", datetime.timedelta(hours=8),
-#                      "Second_Truck")
 
 first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
-                    [29, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
+                    [29, 37, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), "First_Truck")
 second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
                      [34, 25, 18], 0.0,
@@ -72,13 +64,7 @@ second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17,
 pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
-
-# def update_package_data(package_list):
-#     with open('csv_files/addressCSV.csv', 'r') as f:
-#         rdr = csv.reader(f)
-#         address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
-#         print(address_dict.keys())
-#         address_dict.update()
+times_list = []
 
 
 def pkg_distribution_r1(truck):
@@ -98,7 +84,7 @@ def pkg_distribution_r1(truck):
     # Adds the nearest package into the truck.packages list one by one
     while len(pkg_inventory) > 0:
         truck.current_location = 0
-        next_address = 2000
+        next_address = 1500
         next_pkg = None
 
         # Clear the package list of a given truck so the packages can be placed back into the truck in the order
@@ -135,15 +121,18 @@ def pkg_distribution_r1(truck):
         pkg_hash_table.insert(next_pkg)
         # time.sleep(2.5)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
-            next_pkg) + "" + str(truck.time) + "\n")
-        print("current hash " + str(pkg_hash_table.lookup(next_pkg.package_id)))
+            next_pkg) + "\n")
+        # print("current hash " + str(pkg_hash_table.lookup(next_pkg.package_id)))
         # print(str(pkg_inventory) + "\n")
+        times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
     # time.sleep(2.5)
-    print(truck.tot_miles, truck.time)
+    # print(truck.tot_miles, truck.time)
 
+
+times_list.clear()
 
 # pkg_hash_table.update_hash()
 
@@ -194,25 +183,25 @@ def pkg_distribution_r2(truck):
         pkg_hash_table.insert(next_pkg)
         # time.sleep(2.5)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" +
-              str(next_pkg) + " (" + str(next_pkg.delivery_time) + " )" + "\n")
-        print(next_pkg.departure_time)
+              str(next_pkg) + "\n")
+        # print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" +
+        #       str(next_pkg) + " (" + str(next_pkg.delivery_time) + " )" + "\n")
+        # print(next_pkg.departure_time)
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
     # time.sleep(2.5)
-    print(truck.tot_miles, truck.time)
+    # print(truck.tot_miles, truck.time)
 
 
-# time.sleep(5)
-
-
-# def deliver_all():
-#     pkg_distribution_r1(first_truck)
-#     pkg_distribution_r1(second_truck)
-
-#
-# deliver_all()
+def deliver_all():
+    pkg_distribution_r1(first_truck)
+    pkg_distribution_r1(second_truck)
+    delivery_status()
+    pkg_distribution_r2(first_truck)
+    pkg_distribution_r2(second_truck)
+    delivery_status()
 
 
 def display_all():
@@ -221,26 +210,64 @@ def display_all():
         print(pkg_item)
 
 
+def track_one():
+    id_searched = input("Please enter the ID of the package you would like to search!")
+    pkg_searched = pkg_hash_table.lookup(int(id_searched))
+    time_searched = input("Please enter the time you would like to search in HH:mm format :")
+    # time_format = datetime.strptime(time_searched, "%H:%M").time()
+    # (hh, mm) = time_format.split(":")
+    (hh, mm) = time_searched.split(":")
+    time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
+    if time_entered <= pkg_searched.transit_time:
+        pkg_searched.status = "At Hub"
+        print(pkg_searched)
+
+    if (time_entered > pkg_searched.transit_time) and (time_entered < times_list[0]):
+        pkg_searched.status = "Loaded"
+        print(pkg_searched)
+
+    if (time_entered > times_list[0]) and (time_entered < pkg_searched.delivery_time):
+        pkg_searched.status = "En route"
+        print(pkg_searched)
+
+    if time_entered >= pkg_searched.delivery_time:
+        pkg_searched.status = "Delivered"
+        print(pkg_searched)
+
+
 def track_all():
+    time_searched = input("Please enter the time you would like to search in HH:mm format :")
+    # time_format = datetime.strptime(time_searched, "%H:%M").time()
+    # (HH, mm) = time_format.split(":")
+    (HH, mm) = time_searched.split(":")
+    time_entered = datetime.timedelta(hours=int(HH), minutes=int(mm))
+    start_time = datetime.timedelta(hours=8, minutes=0)
+
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
-        print(pkg_item)
-    # time_searched = input("Please enter the time you would like to search in HH:mm format :")
-    # (hh, mm) = time_searched.split(":")
-    # ptime = datetime.timedelta(hours=int(hh), minutes=int(mm))
-    # # for i in range(1, 41):
-    # #     pkg_item = pkg_hash_table.lookup(i)
-    # if ptime <= datetime.timedelta(hours=8, minutes=0):
-    #     display_all()
-    # elif ptime < times_list[0]:
-    #     display_all()
-    # else:
-    #     display_all()
+        if time_entered <= start_time:
+            pkg_item.status = "At Hub"
+            # print(start_time)
 
-    # print(pkg_item)
+        if (time_entered > start_time) and (time_entered <= times_list[0]):
+            pkg_item.status = "Loaded"
+            print("times_list times")
+            print(times_list[0])
+            # print(pkg_item)
+
+        if (time_entered > times_list[0]) and (time_entered < pkg_item.delivery_time):
+            pkg_item.status = "En route"
+            # print(pkg_item)
+
+        if time_entered >= pkg_item.delivery_time:
+            pkg_item.status = "Delivered"
+            # print(pkg_item)
+    display_all()
 
 
 def delivery_status():
+    print("\n")
+    display_all()
     print("\n")
     print("🚚DELIVERY STATUS📦:")
     print(str(first_truck.truck_name) + " TIME:" + str(first_truck.time) +
@@ -248,31 +275,8 @@ def delivery_status():
     print(str(second_truck.truck_name) + " TIME:" + str(second_truck.time) +
           ", DISTANCE: " + str(second_truck.tot_miles) + "\n")
     print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + "\n")
-    track_all()
-    print("\n")
 
-
-def track_one():
-    id_searched = input("Please enter the ID of the package you would like to search!")
-    pkg_searched = pkg_hash_table.lookup(int(id_searched))
-    time_searched = input("Please enter the time you would like to search in HH:mm format :")
-    (hh, mm) = time_searched.split(":")
-    time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
-    if time_entered <= pkg_searched.transit_time:
-        pkg_searched.status = "At Hub"
-        print(pkg_searched)
-
-    if (time_entered>pkg_searched.transit_time) and (time_entered < times_list[0]):
-        pkg_searched.status = "Loaded"
-        print(pkg_searched)
-
-    if (time_entered > times_list[0]) and (time_entered < pkg_searched.delivery_time):
-        pkg_searched.status = "In transit"
-        print(pkg_searched)
-
-    if time_entered >= pkg_searched.delivery_time:
-        pkg_searched.status = "Delivered"
-        print(pkg_searched)
+    # track_all()
 
     # print("STATUS = " + str(pkg_searched.status))
     # print("DELIVERY TIME " + str(pkg_searched.delivery_time))
@@ -285,20 +289,23 @@ def track_one():
     # exception for incorrect input "Invalid Input. Please Try Again.."
 
 
+deliver_all()
+# track_one()
 # pkg_distribution_r1(first_truck)  # 36.0
 # track_one()
 
 
-# track_all()
+track_all()
 # pkg_distribution_r1(second_truck)  # 33.6
 # delivery_status()
 # track_all()
 
-pkg_distribution_r2(first_truck)  # 71.4
+# pkg_distribution_r2(first_truck)  # 71.4
 # track_one()
 # track_all()
+# display_all()
 # pkg_hash_table.check_timeline(29)
-track_one()
+# track_one()
 # print("verifying " + str(pkg_hash_table.lookup(14).status))
 
 # track_all()
