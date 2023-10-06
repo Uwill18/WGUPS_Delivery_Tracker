@@ -196,7 +196,7 @@ def pkg_distribution_r2(truck):
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" +
               str(next_pkg) + " (" + str(next_pkg.delivery_time) + " )" + "\n")
         print(next_pkg.departure_time)
-    times_list.append(next_pkg.delivery_time)
+        times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
@@ -213,9 +213,31 @@ def pkg_distribution_r2(truck):
 
 #
 # deliver_all()
+
+
+def display_all():
+    for i in range(1, 41):
+        pkg_item = pkg_hash_table.lookup(i)
+        print(pkg_item)
+
+
 def track_all():
-    for i in range(41):
-        print(pkg_hash_table.lookup(i))
+    for i in range(1, 41):
+        pkg_item = pkg_hash_table.lookup(i)
+        print(pkg_item)
+    # time_searched = input("Please enter the time you would like to search in HH:mm format :")
+    # (hh, mm) = time_searched.split(":")
+    # ptime = datetime.timedelta(hours=int(hh), minutes=int(mm))
+    # # for i in range(1, 41):
+    # #     pkg_item = pkg_hash_table.lookup(i)
+    # if ptime <= datetime.timedelta(hours=8, minutes=0):
+    #     display_all()
+    # elif ptime < times_list[0]:
+    #     display_all()
+    # else:
+    #     display_all()
+
+    # print(pkg_item)
 
 
 def delivery_status():
@@ -235,17 +257,20 @@ def track_one():
     pkg_searched = pkg_hash_table.lookup(int(id_searched))
     time_searched = input("Please enter the time you would like to search in HH:mm format :")
     (hh, mm) = time_searched.split(":")
-    ptime = datetime.timedelta(hours=int(hh), minutes=int(mm))
-    if ptime <= pkg_searched.departure_time:
+    time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
+    if time_entered <= pkg_searched.transit_time:
         pkg_searched.status = "At Hub"
         print(pkg_searched)
-    elif ptime < times_list[0]:
+
+    if (time_entered>pkg_searched.transit_time) and (time_entered < times_list[0]):
         pkg_searched.status = "Loaded"
         print(pkg_searched)
-    elif ptime < pkg_searched.delivery_time:
+
+    if (time_entered > times_list[0]) and (time_entered < pkg_searched.delivery_time):
         pkg_searched.status = "In transit"
         print(pkg_searched)
-    elif ptime >= pkg_searched.delivery_time:
+
+    if time_entered >= pkg_searched.delivery_time:
         pkg_searched.status = "Delivered"
         print(pkg_searched)
 
@@ -270,9 +295,10 @@ def track_one():
 # track_all()
 
 pkg_distribution_r2(first_truck)  # 71.4
-track_one()
-# pkg_hash_table.check_timeline(29)
 # track_one()
+# track_all()
+# pkg_hash_table.check_timeline(29)
+track_one()
 # print("verifying " + str(pkg_hash_table.lookup(14).status))
 
 # track_all()
