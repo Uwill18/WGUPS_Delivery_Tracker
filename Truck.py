@@ -13,7 +13,7 @@ def calc_distance(x_position, y_position):
 
 
 # print(distance_data[1])
-print(calc_distance(0, 0))
+# print(calc_distance(0, 0))
 
 
 def address_index(address):

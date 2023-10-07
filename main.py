@@ -48,7 +48,7 @@ def load_package_data(csvfile, p_hash_table):
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
                           pkg_msg, pkg_status, pkg_transit_time)
-            print(pkg)
+            # print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
             p_hash_table.insert(pkg)  # review later
 
@@ -262,7 +262,6 @@ def track_all():
 
         else:
             pkg_item.status = "Delivered"
-
     display_all()
 
 
@@ -277,6 +276,96 @@ def delivery_status():
           ", DISTANCE: " + str(second_truck.tot_miles) + "\n")
     print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + "\n")
 
+
+# O(1) Time complexity
+def greet():
+    print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
+    print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
+    print("Please select from one of the options below:\n")
+    print("1. CHECK FULL DELIVERY CYCLE \n"
+          "2. TRACK PACKAGE \n"
+          "3. TRACK ALL PACKAGES \n"
+          "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
+          "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
+          "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
+          "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
+          "8. VERIFY DELIVERY STATUS \n"
+          "9. DEFINE ALL OPTIONS\n"
+          "10. PROGRAM EXIT \n")
+    print("-------🦉WGUPS DELIVERY TRACKER🦉---------\n")
+    select_option()
+
+
+# O(1) Time-Complexity
+# https://discuss.codechef.com/t/switch-vs-if-else/13183/4
+def select_option():
+    option = input("Please enter your option here:")
+    match option:
+        case "1":
+            deliver_all()
+        case "2":
+            track_one()
+        case "3":
+            track_all()
+        case "4":
+            pkg_distribution_r1(first_truck)
+        case "5":
+            pkg_distribution_r1(second_truck)
+        case "6":
+            pkg_distribution_r2(first_truck)
+        case "7":
+            pkg_distribution_r2(second_truck)
+        case "8":
+            delivery_status()
+        case "9":
+            define_options()
+        case "10":
+            exit()
+        case _:
+            again = input("If you would like to select another option enter and underscore:")
+            if again == true:
+                select_option()
+            else:
+                exit()
+
+
+def define_options():
+    print("\n1. CHECK FULL DELIVERY CYCLE --  See the total mileage and complete journey of all routes taken  \n\n"
+          "2. TRACK PACKAGE -- Use package ID and time to track the status of one package at any time \n\n"
+          "3. TRACK ALL PACKAGES -- Enter a time to track the status of all packages at any time \n\n"
+          "4. CHECK ROUTE ONE OF FIRST TRUCK --  See the total mileage and journey of truck one of its first route \n\n"
+          "5. CHECK ROUTE ONE OF SECOND TRUCK --  See the total mileage and journey of truck two of its first route\n\n"
+          "6. CHECK ROUTE TWO OF FIRST TRUCK --  See the total mileage and journey of truck one of its second route\n\n"
+          "7. CHECK ROUTE TWO OF SECOND TRUCK --  See the total mileage and journey of truck two of its second "
+          "route\n\n"
+          "8. VERIFY DELIVERY STATUS -- for any route, check the mileage of all trucks and the status of all "
+          "packages\n\n"
+          "9. DEFINE ALL OPTIONS -- Descriptions as shown here illuminate the effect of user selections\n\n"
+          "10. PROGRAM EXIT -- Exit the Program\n\n")
+
+
+def program_exit_msg():
+    print("----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
+          "Thank you for using the WGUPS DELIVERY TRACKER!\n"
+          "This python program  is made by: \n"
+          "Author: Uri W. Easter\n"
+          "Student ID: 001433968\n"
+          "Python Version: 3.10.7\n"
+          "-------------------------------------------------\n\n"
+
+          "----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
+
+          "🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍\n"
+          "Special Thanks to Instructors Robert Ferdinand\n"
+          "and Amy Antonucci for guiding me through this \n "
+          "project, and giving me valuable insights into\n "
+          "python!🐍\n"
+          "🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍\n"
+          "-------------------------------------------------"
+          )
+    time.sleep(20)
+    print("\t\t🐍Exiting Program. Ciao!⛟")
+
     # track_all()
 
     # print("STATUS = " + str(pkg_searched.status))
@@ -290,13 +379,15 @@ def delivery_status():
     # exception for incorrect input "Invalid Input. Please Try Again.."
 
 
-deliver_all()
+greet()
+program_exit_msg()
+# deliver_all()
 # track_one()
 # pkg_distribution_r1(first_truck)  # 36.0
 # track_one()
 
 
-track_all()
+# track_all()
 # pkg_distribution_r1(second_truck)  # 33.6
 # delivery_status()
 # track_all()
@@ -317,7 +408,7 @@ track_all()
 
 
 # print("🚚🦉WGUPS DELIVERY TRACKER🦉⛟")
-print("--🦉WGUPS DELIVERY TRACKER🦉--")
+
 # implement rounds of packages  Tuesday x
 # get concurrent time working x
 # Call package distribution functions x
@@ -325,24 +416,25 @@ print("--🦉WGUPS DELIVERY TRACKER🦉--")
 # based on research I think I want to implement multiprocessing techniques for the trucks x  Weekend
 # threading could be used for the files x Weekend
 # continue testing mileage, Monday x
-# find how to get arrival time for each package
-# cast back everything back to time
-# implement the sleep function
-# find out how to search for each package as the function goes(2)
-# find how to print out all packages, with statuses at end of both routes(3)
-# decide how you want info to display in the CLI
-# implement UI, and its exit, and exceptions
+# find how to get arrival time for each package x
+# cast back everything back to time x
+# implement the sleep function x
+# find out how to search for each package as the function goes x
+# find how to print out all packages, with statuses at end of both routes(3) x
+# revise track_one() function for pkg_item.loaded comparison Saturday
+# decide how you want info to display in the CLI Sunday x
+# create an update function to update the delivery address of package #9 Monday
+# implement UI, and its exit, and exceptions Monday
+
 
 # -------------------------------------------------
-# test each of the gui pages
-# connect the gui pages
+# Review project in context of WGU requirements, Tuesday
+# Review project in context of Goodell requirements, Tuesday
+# Review with Instructor, Tuesday
+# PARTS: A, D, I, K, Wednesday
 # PART F, PART B, Thursday
-# PARTS: A, D, I, K, Thursday
-# Review project in context of WGU requirements, Friday
-# Review project in context of Goodell requirements, Friday
-# Review with Instructor, Friday
-# Finish last parts of paper, Monday
-# Submit Project, Monday
+# Finish last parts of paper, Friday
+# Submit Project, Friday
 # ----------------------------------------------------------------------------------
 # 1. total mileage + final statuses of all packages
 # with comments, and time of loading the truck
