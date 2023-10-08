@@ -3,6 +3,7 @@ import csv
 import MyHashMap
 
 
+# O(1)
 class Package:
     def __init__(self, package_id, address, city, state, zipcode, delivery_time, mass, special_msg, status,
                  load_time):
@@ -24,10 +25,12 @@ class Package:
     # time delivered
 
     # runs when debugging
+    # O(1)
     def __repr__(self):
         return "PACKAGE #" + str(self.package_id) + ": " + self.address
 
     # runs in prod
+    # O(1)
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
         return ("PACKAGE #" + str(self.package_id) + ": < " +
@@ -41,7 +44,8 @@ class Package:
                 )
         # print(self.transit_time)
 
-#timeloaded = time truck takes off
+
+# timeloaded = time truck takes off
 
 # def load_package_data(hashmap):
 #     with open('csv_files/packageCSV.csv', 'r') as f:
@@ -53,11 +57,12 @@ class Package:
 # print("\n\n package data below: \n\n")
 # load_package_data(HashMap)
 
-
+# O(1)
 def get_package_id(self):
     return self.package_id
 
 
+# O(1)
 class PackageInfo:
     def __init__(self, address, city, state, zipcode, deadline, date, status):
         self.address = address

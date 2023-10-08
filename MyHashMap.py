@@ -6,9 +6,9 @@ import csv
 import datetime
 
 
-# HashTable class using chaining.
-# Develop a hash table, without using any additional libraries or classes,
-# that has an insertion function that takes the following components as input and inserts the components into the hash table:
+# HashTable class using chaining. Develop a hash table, without using any additional libraries or classes,
+# that has an insertion function that takes the following components as input and inserts the components into the
+# hash table:
 #
 # •   package ID number, package_id
 # all "delivery properties will  output delivery + property name when called"
@@ -21,12 +21,14 @@ import datetime
 #   special_message
 # https://realpython.com/python-pep8/#naming-styles
 
-# 1. pull attributes from csv file
-# 2. use Let's go Hashing: https://wgu.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f08d7871-d57a-496e-a6a1-ac7601308c71
-# 3. Modify this using:
-# https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-functions?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
-# https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-tables?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
-# https://www.linkedin.com/learning/programming-foundations-data-structures-2/using-dictionaries-in-python?autoSkip=true&contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# 1. pull attributes from csv file 2. use Let's go Hashing:
+# https://wgu.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=f08d7871-d57a-496e-a6a1-ac7601308c71 3. Modify this
+# using: https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-functions
+# ?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# https://www.linkedin.com/learning/programming-foundations-data-structures-2/understanding-hash-tables?contextUrn
+# =urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
+# https://www.linkedin.com/learning/programming-foundations-data-structures-2/using-dictionaries-in-python?autoSkip
+# =true&contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 
 # 4. Modify one more time using:
 # https://www.linkedin.com/learning/programming-foundations-algorithms/unique-filtering-with-hash-table?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
@@ -39,6 +41,7 @@ import datetime
 
 
 class MyHashMap:
+    #O(n)
     def __init__(self):
         self.package_list = []
         # setting up the inner lists for hashmap
@@ -46,13 +49,15 @@ class MyHashMap:
         for i in range(10):
             self.package_list.append([])
 
+    #O(1)
     def insert(self, package):
         # this function is picking the right bucket, then putting the package in that bucket
         hash_index = package.package_id % 10
         self.package_list[hash_index].append(package)
+        return self.package_list
 
     # the lookup loop through inner bucket to search for object with hash that has been passed
-
+    #O(n)
     def lookup(self, packageID: int):
         hashIndex = packageID % 10
         for p in self.package_list[hashIndex]:
@@ -60,27 +65,13 @@ class MyHashMap:
                 return p
         return None
 
-    def check_timeline(self, packageID: int):
-        time_searched = input("Please enter the time you would like to search in HH:mm format :")
-        (hh, mm) = time_searched.split(":")
-        ptime = datetime.timedelta(hours=int(hh), minutes=int(mm))
-        hashIndex = packageID % 10
-        for p in self.package_list[hashIndex]:
-            if int(p.package_id) == packageID:
-                if p.delivery_time < ptime:
-                    return p
-        # for p in self.package_list:
-        #     if p.delivery_time < ptime:
-        #         return p
-        return None
-
     def update_hash(self):
         self.package_list = []
         # setting up the inner lists for hashmap
         # i.e. for each bucket this function creates ten inner arrays
-        for i in range(40):
+        for i in range(1, 41):
             lookup(i)
-        return self.package_list
+            return self.package_list
 
     def __str__(self):
         retstr = ""

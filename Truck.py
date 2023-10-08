@@ -5,6 +5,7 @@ from random import random
 from TravelData import distance_data, address_data
 
 
+# O log n
 def calc_distance(x_position, y_position):
     if x_position >= y_position:
         return distance_data[x_position][y_position]
@@ -15,7 +16,7 @@ def calc_distance(x_position, y_position):
 # print(distance_data[1])
 # print(calc_distance(0, 0))
 
-
+# O(n)
 def address_index(address):
     with open('csv_files/addressCSV.csv', 'r') as f:
         for row in address_data:
@@ -23,6 +24,7 @@ def address_index(address):
                 return int(row[0])
 
 
+# O(1)
 class Truck:
     def __init__(self, pkg_max, avg_mph, pkg_load, pkg_load_r2, tot_miles, current_location, address, depart_time,
                  time, truck_name):
@@ -45,10 +47,12 @@ def __lt__(self, package, next_address):
     return calc_distance(address_index(self.address), address_index(package.address)) < next_address
 
 
+# O(1)
 def __str__(self):
     return self.truck_name
 
 
+# O(1)
 def __repr__(self):
     return self.truck_name
 

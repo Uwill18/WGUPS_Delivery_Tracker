@@ -20,6 +20,7 @@
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
 # from datetime import datetime
+from csv import writer
 from datetime import timedelta
 from datetime import datetime
 import datetime
@@ -43,11 +44,11 @@ def load_package_data(csvfile, p_hash_table):
             pkg_mass = pkg_row[6]
             pkg_msg = pkg_row[7]
             pkg_status = "At Hub"
-            pkg_transit_time = datetime.timedelta(hours=8)
+            pkg_loadtime = datetime.timedelta(hours=8)
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
-                          pkg_msg, pkg_status, pkg_transit_time)
+                          pkg_msg, pkg_status, pkg_loadtime)
             # print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
             p_hash_table.insert(pkg)  # review later
@@ -67,6 +68,7 @@ load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 times_list = []
 
 
+# O (n^2)
 def pkg_distribution_r1(truck):
     # Define an array of undelivered packages for distribution
     global time
@@ -140,6 +142,7 @@ times_list.clear()
 times_list = []
 
 
+# O(n^2)
 def pkg_distribution_r2(truck):
     pkg_inventory_two = []
     for pid in truck.pkg_load_r2:
@@ -198,6 +201,7 @@ def pkg_distribution_r2(truck):
     # print(truck.tot_miles, truck.time)
 
 
+# O(1)
 def deliver_all():
     pkg_distribution_r1(first_truck)
     pkg_distribution_r1(second_truck)
@@ -207,45 +211,66 @@ def deliver_all():
     delivery_status()
 
 
+# O(n)
 def display_all():
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
 
 
+# O log n
 # put in a time-loaded attribute, and compare input time to time loaded
 def track_one():
-    id_searched = input("Please enter the ID of the package you would like to search!")
-    pkg_searched = pkg_hash_table.lookup(int(id_searched))
-    time_searched = input("Please enter the time you would like to search in HH:mm format :")
-    # time_format = datetime.strptime(time_searched, "%H:%M").time()
-    # (hh, mm) = time_format.split(":")
-    (hh, mm) = time_searched.split(":")
-    time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
-    if time_entered <= pkg_searched.load_time:
-        pkg_searched.status = "At Hub"
-        print(pkg_searched)
+    try:
+        id_searched = input("Please enter the ID of the package you would like to search!")
+        pkg_searched = pkg_hash_table.lookup(int(id_searched))
+        time_searched = input("Please enter the time you would like to search in HH:mm format :")
+        # time_format = datetime.strptime(time_searched, "%H:%M").time()
+        # (hh, mm) = time_format.split(":")
+        (hh, mm) = time_searched.split(":")
+        time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
+        correction_time = datetime.timedelta(hours=10, minutes=20)
+        if (int(hh) <= 23) or (int(mm) <= 59):
+            if time_entered < pkg_searched.load_time:
+                pkg_searched.status = "At Hub"
+                print("\n" + str(pkg_searched) + "\n")
+            elif time_entered < pkg_searched.delivery_time:
+                pkg_searched.status = "En route"
+                print(str(pkg_searched) + "\n")
+            elif (time_entered >= correction_time) and (time_entered < pkg_searched.delivery_time):
+                spc_pkg = pkg_hash_table.lookup(9)
+                spc_pkg.address = "410 S. State St."
+                spc_pkg.zipcode = "84111"
+            else:
+                pkg_searched.status = "Delivered"
+                spc_pkg = pkg_hash_table.lookup(9)
+                spc_pkg.address = "410 S. State St."
+                spc_pkg.zipcode = "84111"
+                print(str(pkg_searched) + "\n")
+        # else:
+        #     print("Invalid input. Please decide if you would like to try again.")
+        #     select_again()
+    except ValueError:
+        print("Invalid input. Please decide if you would like to try again.")
+        select_again()
 
     # if (time_entered > pkg_searched.transit_time) and (time_entered < times_list[0]):
     #     pkg_searched.status = "Loaded"
     #     print(pkg_searched)
 
-    if (time_entered > times_list[0]) and (time_entered < pkg_searched.delivery_time):
-        pkg_searched.status = "En route"
-        print(pkg_searched)
-
-    if time_entered >= pkg_searched.delivery_time:
-        pkg_searched.status = "Delivered"
-        print(pkg_searched)
+    # if time_entered >= pkg_searched.delivery_time:
+    #     pkg_searched.status = "Delivered"
+    #     print(pkg_searched)
 
 
+# O log n
 def track_all():
     time_searched = input("Please enter the time you would like to search in HH:mm format :")
     # time_format = datetime.strptime(time_searched, "%H:%M").time()
     # (HH, mm) = time_format.split(":")
     (HH, mm) = time_searched.split(":")
     time_entered = datetime.timedelta(hours=int(HH), minutes=int(mm))
-    start_time = datetime.timedelta(hours=8, minutes=0)
+    correction_time = datetime.timedelta(hours=10, minutes=20)
 
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
@@ -259,12 +284,17 @@ def track_all():
             # print("times_list times")
             # print(times_list[0])
             # print(pkg_item)
+        elif time_entered >= correction_time:
+            spc_pkg = pkg_hash_table.lookup(9)
+            spc_pkg.address = "410 S. State St."
+            spc_pkg.zipcode = "84111"
 
         else:
             pkg_item.status = "Delivered"
     display_all()
 
 
+# O(1)
 def delivery_status():
     print("\n")
     display_all()
@@ -279,21 +309,24 @@ def delivery_status():
 
 # O(1) Time complexity
 def greet():
-    print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
-    print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
-    print("Please select from one of the options below:\n")
-    print("1. CHECK FULL DELIVERY CYCLE \n"
-          "2. TRACK PACKAGE \n"
-          "3. TRACK ALL PACKAGES \n"
-          "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
-          "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
-          "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
-          "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
-          "8. VERIFY DELIVERY STATUS \n"
-          "9. DEFINE ALL OPTIONS\n"
-          "10. PROGRAM EXIT \n")
-    print("-------🦉WGUPS DELIVERY TRACKER🦉---------\n")
-    select_option()
+    try:
+        print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
+        print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
+        print("Please select from one of the options below:\n")
+        print("1. CHECK FULL DELIVERY CYCLE \n"
+              "2. TRACK PACKAGE \n"
+              "3. TRACK ALL PACKAGES \n"
+              "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
+              "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
+              "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
+              "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
+              "8. VERIFY DELIVERY STATUS \n"
+              "9. DEFINE ALL OPTIONS\n"
+              "10. PROGRAM EXIT \n")
+        print("-------------------------------------\n")
+        select_option()
+    except ValueError:
+        program_exit_msg()
 
 
 # O(1) Time-Complexity
@@ -320,15 +353,14 @@ def select_option():
         case "9":
             define_options()
         case "10":
-            exit()
+            program_exit_msg()
         case _:
-            again = input("If you would like to select another option enter and underscore:")
-            if again == true:
-                select_option()
-            else:
-                exit()
+            print("No option has been selected. Exiting program ")
+            exit()
+    select_again()
 
 
+# O(1)
 def define_options():
     print("\n1. CHECK FULL DELIVERY CYCLE --  See the total mileage and complete journey of all routes taken  \n\n"
           "2. TRACK PACKAGE -- Use package ID and time to track the status of one package at any time \n\n"
@@ -341,11 +373,25 @@ def define_options():
           "8. VERIFY DELIVERY STATUS -- for any route, check the mileage of all trucks and the status of all "
           "packages\n\n"
           "9. DEFINE ALL OPTIONS -- Descriptions as shown here illuminate the effect of user selections\n\n"
-          "10. PROGRAM EXIT -- Exit the Program\n\n")
+          "10. PROGRAM EXIT -- Exit the Program\n\n"
+          "* Special Note : Both trucks have two routes each to meet all requirements for the program.\n\n")
 
 
+# O(1)
+def select_again():
+    new_selection = input("If you would like to make a new selection either 'y' or 'Y'. ")
+    match new_selection:
+        case "y" | "Y":
+            print("\n")
+            greet()
+        case _:
+            program_exit_msg()
+            exit()
+
+
+# O(1)
 def program_exit_msg():
-    print("----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
+    print("\n----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
           "Thank you for using the WGUPS DELIVERY TRACKER!\n"
           "This python program  is made by: \n"
           "Author: Uri W. Easter\n"
@@ -357,30 +403,79 @@ def program_exit_msg():
 
           "🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍\n"
           "Special Thanks to Instructors Robert Ferdinand\n"
-          "and Amy Antonucci for guiding me through this \n "
+          "& Amy Antonucci for guiding me through this\n "
           "project, and giving me valuable insights into\n "
           "python!🐍\n"
           "🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍🐍\n"
           "-------------------------------------------------"
           )
-    time.sleep(20)
+    time.sleep(2.5)
     print("\t\t🐍Exiting Program. Ciao!⛟")
-
-    # track_all()
-
-    # print("STATUS = " + str(pkg_searched.status))
-    # print("DELIVERY TIME " + str(pkg_searched.delivery_time))
-
-    # time_searched = input("Please enter the time you would like to search in HH:mm format :")
-    # ptime = datetime.strptime(time_searched, "%H:%M").time()
-    # ptest = pkg_hash_table.check_timeline(ptime)
-    # print("Test " + ptest)
-    # exception for no input "Program Exit"
-    # exception for incorrect input "Invalid Input. Please Try Again.."
+    exit()
 
 
+#
+# def add_package():
+#     new_selection = input("If you would like to make a new selection either 'y' or 'Y'.")
+#     match new_selection:
+#         case "y" | "Y":
+#             with open('csv_files/packageCSV.csv', 'r') as f:
+#                 rdr = csv.reader(f)
+#                 address_dict = {int(address_row[0]): address_row[2] for address_row in rdr}
+#             # with open('csv_files/packageCSV.csv', 'w') as w:
+#                 pkg_id = len(address_dict) + 1
+#                 print(pkg_id)
+#
+#                 pkg_address = input("Enter the destination address")
+#                 pkg_city = input("Enter the destination city")
+#                 pkg_state = input("Enter the destination state")
+#                 pkg_zipcode = input("Enter the destination zipcode")
+#                 pkg_dt = input("Enter the destination deadline")
+#                 pkg_mass = int(input("Enter the package mass"))
+#                 pkg_msg = input("Enter any special notes regarding the delivery")
+#                 pkg_status = "Store Location"
+#                 pkg_time_entered = input("Enter load time for distribution center in HH:mm format :")
+#                 # time_format = datetime.strptime(time_searched, "%H:%M").time()
+#                 # (HH, mm) = time_format.split(":")
+#                 (HH, mm) = pkg_time_entered.split(":")
+#                 pkg_loadtime = datetime.timedelta(hours=int(HH), minutes=int(mm))
+#                 added_package = Package(pkg_id, pkg_address, pkg_city,
+#                                         pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
+#                                         pkg_msg, pkg_status, pkg_loadtime)
+#                 print(str(added_package))
+#                 display_all()
+#                 del added_package
+#                 print("deleted added_package")
+#                 display_all()
+# pkg_hash_table.insert(added_package)
+# added_package_list = [int(pkg_id), pkg_address, pkg_city,
+#                         pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
+#                         pkg_msg, pkg_status, pkg_loadtime]
+# Pass this file object to csv.writer()
+# and get a writer object
+# writer_object = writer(w)
+
+# Pass the list as an argument into
+# the writerow()
+# writer_object.writerow(added_package_list)
+# writer_object.delete()
+
+# Close the file object
+# f.close()
+# case _:
+#     greet()
+
+
+# add_package()
 greet()
-program_exit_msg()
+# program_exit_msg()
+# spc_pkg = pkg_hash_table.lookup(9)
+# print(spc_pkg.address)
+# print(spc_pkg.city)
+# print(spc_pkg.state)
+# print(spc_pkg.zipcode)
+
+
 # deliver_all()
 # track_one()
 # pkg_distribution_r1(first_truck)  # 36.0
@@ -421,10 +516,10 @@ program_exit_msg()
 # implement the sleep function x
 # find out how to search for each package as the function goes x
 # find how to print out all packages, with statuses at end of both routes(3) x
-# revise track_one() function for pkg_item.loaded comparison Saturday
+# revise track_one() function for pkg_item.loaded comparison Saturday x
 # decide how you want info to display in the CLI Sunday x
-# create an update function to update the delivery address of package #9 Monday
-# implement UI, and its exit, and exceptions Monday
+# create an update function to update the delivery address of package #9 Monday x
+# implement UI, its exit, exceptions next options loop Monday
 
 
 # -------------------------------------------------
@@ -438,8 +533,6 @@ program_exit_msg()
 # ----------------------------------------------------------------------------------
 # 1. total mileage + final statuses of all packages
 # with comments, and time of loading the truck
-
 # 2. status of the package, given a time and package id
-
 # 3. status of all packages at a given time
 # 4. exit the program
