@@ -3,24 +3,14 @@ import csv
 distance_data = []
 
 
-# def load_distance_data():
-#     with open('csv_files/distanceCSV.csv', 'r') as f:
-#         reader = list(csv.reader(f))
-#         for row in reader[0:]:
-#             distance_data.append(row)
-
-
-def loadDistanceData2(fileName):
-
+def load_distance_data2(fileName):
     distanceData = []
 
     with open(fileName) as csv_file:
-
-        csv_reader = csv.reader(csv_file, delimiter = ',')
+        csv_reader = csv.reader(csv_file, delimiter=',')
 
         for row in csv_reader:
-
-            distList = [float(x) for x in row[0 : :] if x != ""]
+            distList = [float(x) for x in row[0::] if x != ""]
 
             distanceData.append(distList)
 
@@ -37,13 +27,13 @@ def load_address_data():
             address_data.append(row)
 
 
-
-
-
-# load_distance_data()
+# reads in all rows from the address CSV file
 load_address_data()
-# print(loadDistanceData2('csv_files/distanceCSV.csv'))
-distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
+
+# distance data variable stores a list of lists for all known distances between locations for the adjacency matrix
+distance_data = load_distance_data2('csv_files/distanceCSV.csv')
+
+# print(load_distance_data2('csv_files/distanceCSV.csv'))
 # print(distance_data[10][1])
 # print(len(distance_data))
 # print(distance_data[10])
@@ -56,6 +46,4 @@ distance_data = loadDistanceData2('csv_files/distanceCSV.csv')
 # https://stackoverflow.com/questions/42050219/python-how-to-tell-if-a-process-is-i-o-bound
 
 
-
 # Method to get address number from string literal of address
-
