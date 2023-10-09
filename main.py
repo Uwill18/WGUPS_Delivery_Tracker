@@ -532,9 +532,10 @@ greet()
 # -------------------------------------------------
 # Review project in context of WGU requirements, Monday
 # Review project in context of Goodell requirements, Monday
-# PARTS: A, D, Monday
+# PARTS: A, D,I, J Monday
+# PARTS: B, C, G, H, Tuesday
 # Review with Instructor, Tuesday
-# PARTS: I, K, Tues
+# PARTS:  Tues
 # PART F, PART B, Thursday
 # Finish last parts of paper, Friday
 # Submit Project, Friday
