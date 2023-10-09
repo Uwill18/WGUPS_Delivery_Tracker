@@ -228,9 +228,10 @@ def track_one():
         # time_format = datetime.strptime(time_searched, "%H:%M").time()
         # (hh, mm) = time_format.split(":")
         (hh, mm) = time_searched.split(":")
+        time_limit = datetime.timedelta(hours=23, minutes=59)
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
         correction_time = datetime.timedelta(hours=10, minutes=20)
-        if (int(hh) <= 23) or (int(mm) <= 59):
+        if time_entered <= time_limit:
             if time_entered < pkg_searched.load_time:
                 pkg_searched.status = "At Hub"
                 print("\n" + str(pkg_searched) + "\n")
@@ -247,12 +248,14 @@ def track_one():
                 spc_pkg.address = "410 S. State St."
                 spc_pkg.zipcode = "84111"
                 print(str(pkg_searched) + "\n")
-        # else:
-        #     print("Invalid input. Please decide if you would like to try again.")
-        #     select_again()
+        else:
+            print("\nInvalid input. Please decide if you would like to try again.")
+            select_again()
     except ValueError:
-        print("Invalid input. Please decide if you would like to try again.")
+        print("\nInvalid input. Please decide if you would like to try again.")
         select_again()
+    except KeyboardInterrupt:
+        exit()
 
     # if (time_entered > pkg_searched.transit_time) and (time_entered < times_list[0]):
     #     pkg_searched.status = "Loaded"
@@ -265,33 +268,42 @@ def track_one():
 
 # O log n
 def track_all():
-    time_searched = input("Please enter the time you would like to search in HH:mm format :")
-    # time_format = datetime.strptime(time_searched, "%H:%M").time()
-    # (HH, mm) = time_format.split(":")
-    (HH, mm) = time_searched.split(":")
-    time_entered = datetime.timedelta(hours=int(HH), minutes=int(mm))
-    correction_time = datetime.timedelta(hours=10, minutes=20)
+    try:
+        time_searched = input("Please enter the time you would like to search in HH:mm format :")
+        # time_format = datetime.strptime(time_searched, "%H:%M").time()
+        # (HH, mm) = time_format.split(":")
+        (hh, mm) = time_searched.split(":")
+        time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
+        correction_time = datetime.timedelta(hours=10, minutes=20)
+        time_limit = datetime.timedelta(hours=23, minutes=59)
+        if time_entered <= time_limit:
+            for i in range(1, 41):
+                pkg_item = pkg_hash_table.lookup(i)
+                if time_entered < pkg_item.load_time:
+                    pkg_item.status = "At Hub"
+                    # print(start_time)
+                    # print(pkg_item.transit)
 
-    for i in range(1, 41):
-        pkg_item = pkg_hash_table.lookup(i)
-        if time_entered < pkg_item.load_time:
-            pkg_item.status = "At Hub"
-            # print(start_time)
-            # print(pkg_item.transit)
-
-        elif time_entered < pkg_item.delivery_time:
-            pkg_item.status = "En route"
-            # print("times_list times")
-            # print(times_list[0])
-            # print(pkg_item)
-        elif time_entered >= correction_time:
-            spc_pkg = pkg_hash_table.lookup(9)
-            spc_pkg.address = "410 S. State St."
-            spc_pkg.zipcode = "84111"
-
+                elif time_entered < pkg_item.delivery_time:
+                    pkg_item.status = "En route"
+                    # print("times_list times")
+                    # print(times_list[0])
+                    # print(pkg_item)
+                elif time_entered >= correction_time:
+                    spc_pkg = pkg_hash_table.lookup(9)
+                    spc_pkg.address = "410 S. State St."
+                    spc_pkg.zipcode = "84111"
+                else:
+                    pkg_item.status = "Delivered"
+            display_all()
         else:
-            pkg_item.status = "Delivered"
-    display_all()
+            print("\nInvalid input. Please decide if you would like to try again.")
+            select_again()
+    except ValueError:
+        print("\nInvalid input. Please decide if you would like to try again.")
+        select_again()
+    except KeyboardInterrupt:
+        exit()
 
 
 # O(1)
@@ -327,37 +339,45 @@ def greet():
         select_option()
     except ValueError:
         program_exit_msg()
+    except KeyboardInterrupt:
+        exit()
 
 
 # O(1) Time-Complexity
 # https://discuss.codechef.com/t/switch-vs-if-else/13183/4
 def select_option():
-    option = input("Please enter your option here:")
-    match option:
-        case "1":
-            deliver_all()
-        case "2":
-            track_one()
-        case "3":
-            track_all()
-        case "4":
-            pkg_distribution_r1(first_truck)
-        case "5":
-            pkg_distribution_r1(second_truck)
-        case "6":
-            pkg_distribution_r2(first_truck)
-        case "7":
-            pkg_distribution_r2(second_truck)
-        case "8":
-            delivery_status()
-        case "9":
-            define_options()
-        case "10":
-            program_exit_msg()
-        case _:
-            print("No option has been selected. Exiting program ")
-            exit()
-    select_again()
+    try:
+        option = input("Please enter your option here:")
+        match option:
+            case "1":
+                deliver_all()
+            case "2":
+                track_one()
+            case "3":
+                track_all()
+            case "4":
+                pkg_distribution_r1(first_truck)
+            case "5":
+                pkg_distribution_r1(second_truck)
+            case "6":
+                pkg_distribution_r2(first_truck)
+            case "7":
+                pkg_distribution_r2(second_truck)
+            case "8":
+                delivery_status()
+            case "9":
+                define_options()
+            case "10":
+                program_exit_msg()
+            case _:
+                print("No option has been selected. Exiting program ")
+                exit()
+        select_again()
+    except ValueError:
+        print("\nInvalid input. Please decide if you would like to try again.")
+        select_again()
+    except KeyboardInterrupt:
+        exit()
 
 
 # O(1)
@@ -379,14 +399,20 @@ def define_options():
 
 # O(1)
 def select_again():
-    new_selection = input("If you would like to make a new selection either 'y' or 'Y'. ")
-    match new_selection:
-        case "y" | "Y":
-            print("\n")
-            greet()
-        case _:
-            program_exit_msg()
-            exit()
+    try:
+        new_selection = input("\nIf you would like to make a new selection either 'y' or 'Y'. ")
+        match new_selection:
+            case "y" | "Y":
+                print("\n")
+                greet()
+            case _:
+                program_exit_msg()
+                exit()
+    except ValueError:
+        print("\nInvalid input. Please decide if you would like to try again.")
+        select_again()
+    except KeyboardInterrupt:
+        exit()
 
 
 # O(1)
@@ -519,7 +545,7 @@ greet()
 # revise track_one() function for pkg_item.loaded comparison Saturday x
 # decide how you want info to display in the CLI Sunday x
 # create an update function to update the delivery address of package #9 Monday x
-# implement UI, its exit, exceptions next options loop Monday
+# implement UI, its exit, exceptions next options loop Monday x
 
 
 # -------------------------------------------------
