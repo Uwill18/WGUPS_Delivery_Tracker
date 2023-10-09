@@ -9,7 +9,9 @@
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
-# G.  Provide an interface for the user to view the status and info (as listed in part F) of any package at any time, and the total mileage traveled by all trucks. (The delivery status should report the package as at the hub, en route, or delivered. Delivery status must include the time.)
+# G.  Provide an interface for the user to view the status and info (as listed in part F) of any package at any time,
+# and the total mileage traveled by all trucks. (The delivery status should report the package as at the hub,
+# en route, or delivered. Delivery status must include the time.)
 #
 # 1.  Provide screenshots to show the status of all packages at a time between 8:35 a.m. and 9:25 a.m.
 # 2.  Provide screenshots to show the status of all packages at a time between 9:35 a.m. and 10:25 a.m.
@@ -104,9 +106,6 @@ def pkg_distribution_r1(truck):
                                              address_index(p.address))
                 next_pkg = p
                 next_pkg.status = "Delivered"
-                # next_pkg.transit_time = truck.time
-                # print(next_pkg.transit_time)
-                # print("next package = { " + str(next_pkg) + "}\n")
         # Adds next closest package to the truck package list
         truck.pkg_load.append(next_pkg.package_id)
 
@@ -125,13 +124,11 @@ def pkg_distribution_r1(truck):
         # time.sleep(2.5)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
             next_pkg) + "\n")
-        # print("current hash " + str(pkg_hash_table.lookup(next_pkg.package_id)))
-        # print(str(pkg_inventory) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    # time.sleep(2.5)
+    time.sleep(2.5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -144,6 +141,7 @@ times_list = []
 
 # O(n^2)
 def pkg_distribution_r2(truck):
+    global time
     pkg_inventory_two = []
     for pid in truck.pkg_load_r2:
         pkg_item = pkg_hash_table.lookup(pid)
@@ -190,14 +188,11 @@ def pkg_distribution_r2(truck):
         # time.sleep(2.5)
         print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" +
               str(next_pkg) + "\n")
-        # print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" +
-        #       str(next_pkg) + " (" + str(next_pkg.delivery_time) + " )" + "\n")
-        # print(next_pkg.departure_time)
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    # time.sleep(2.5)
+    time.sleep(2.5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -219,14 +214,13 @@ def display_all():
 
 
 # O log n
-# put in a time-loaded attribute, and compare input time to time loaded
+# https://www.educba.com/python-keyboardinterrupt/
+
 def track_one():
     try:
         id_searched = input("Please enter the ID of the package you would like to search!")
         pkg_searched = pkg_hash_table.lookup(int(id_searched))
         time_searched = input("Please enter the time you would like to search in HH:mm format :")
-        # time_format = datetime.strptime(time_searched, "%H:%M").time()
-        # (hh, mm) = time_format.split(":")
         (hh, mm) = time_searched.split(":")
         time_limit = datetime.timedelta(hours=23, minutes=59)
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
@@ -257,21 +251,12 @@ def track_one():
     except KeyboardInterrupt:
         exit()
 
-    # if (time_entered > pkg_searched.transit_time) and (time_entered < times_list[0]):
-    #     pkg_searched.status = "Loaded"
-    #     print(pkg_searched)
-
-    # if time_entered >= pkg_searched.delivery_time:
-    #     pkg_searched.status = "Delivered"
-    #     print(pkg_searched)
 
 
 # O log n
 def track_all():
     try:
         time_searched = input("Please enter the time you would like to search in HH:mm format :")
-        # time_format = datetime.strptime(time_searched, "%H:%M").time()
-        # (HH, mm) = time_format.split(":")
         (hh, mm) = time_searched.split(":")
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
         correction_time = datetime.timedelta(hours=10, minutes=20)
@@ -281,14 +266,10 @@ def track_all():
                 pkg_item = pkg_hash_table.lookup(i)
                 if time_entered < pkg_item.load_time:
                     pkg_item.status = "At Hub"
-                    # print(start_time)
-                    # print(pkg_item.transit)
 
                 elif time_entered < pkg_item.delivery_time:
                     pkg_item.status = "En route"
-                    # print("times_list times")
-                    # print(times_list[0])
-                    # print(pkg_item)
+
                 elif time_entered >= correction_time:
                     spc_pkg = pkg_hash_table.lookup(9)
                     spc_pkg.address = "410 S. State St."
@@ -549,10 +530,11 @@ greet()
 
 
 # -------------------------------------------------
-# Review project in context of WGU requirements, Tuesday
-# Review project in context of Goodell requirements, Tuesday
+# Review project in context of WGU requirements, Monday
+# Review project in context of Goodell requirements, Monday
+# PARTS: A, D, Monday
 # Review with Instructor, Tuesday
-# PARTS: A, D, I, K, Wednesday
+# PARTS: I, K, Tues
 # PART F, PART B, Thursday
 # Finish last parts of paper, Friday
 # Submit Project, Friday
