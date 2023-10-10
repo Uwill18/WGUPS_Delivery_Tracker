@@ -1,21 +1,11 @@
 # Name: Uri W. Easter
 # Student ID: 001433968
-
+# Date:
 
 # Proverbs 16:9
 # Psalm 32: 8
 # Proverbs 3:5-6
 
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
-
-# G.  Provide an interface for the user to view the status and info (as listed in part F) of any package at any time,
-# and the total mileage traveled by all trucks. (The delivery status should report the package as at the hub,
-# en route, or delivered. Delivery status must include the time.)
-#
-# 1.  Provide screenshots to show the status of all packages at a time between 8:35 a.m. and 9:25 a.m.
-# 2.  Provide screenshots to show the status of all packages at a time between 9:35 a.m. and 10:25 a.m.
-# 3.  Provide screenshots to show the status of all packages at a time between 12:03 p.m. and 1:12 p.m.
 
 # https://realpython.com/python-pep8/#naming-styles
 # https://www.linkedin.com/learning/python-essential-training-18764650/csv?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
@@ -530,13 +520,14 @@ greet()
 
 
 # -------------------------------------------------
-# Review project in context of WGU requirements, Monday
-# Review project in context of Goodell requirements, Monday
-# PARTS: A, D,I, J Monday
-# PARTS: B, C, G, H, Tuesday
-# Review with Instructor, Tuesday
-# PARTS:  Tues
-# PART F, PART B, Thursday
+# Review project in context of WGU requirements, Monday x
+# Review project in context of Goodell requirements, Monday x
+# PARTS: A,G,H,J Monday,
+#        B, C,(L) Tuesday
+#        D,(L) Tuesday
+#        I,(L) Thursday
+#
+#
 # Finish last parts of paper, Friday
 # Submit Project, Friday
 # ----------------------------------------------------------------------------------
