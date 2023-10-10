@@ -5,7 +5,7 @@ from random import random
 from TravelData import distance_data, address_data
 
 
-# O log n
+# This function operates in O(n) time to generate an adjacency matrix
 def calc_distance(x_position, y_position):
     if x_position >= y_position:
         return distance_data[x_position][y_position]
@@ -16,7 +16,8 @@ def calc_distance(x_position, y_position):
 # print(distance_data[1])
 # print(calc_distance(0, 0))
 
-# O(n)
+# address_index functions in O(n) time to compare an address attribute parameter to the address
+# column from addressCSV, and then return the index of that matched address
 def address_index(address):
     with open('csv_files/addressCSV.csv', 'r') as f:
         for row in address_data:
@@ -24,7 +25,7 @@ def address_index(address):
                 return int(row[0])
 
 
-# O(1)
+#Instantiation of the truck class is O(1)
 class Truck:
     def __init__(self, pkg_max, avg_mph, pkg_load, pkg_load_r2, tot_miles, current_location, address, depart_time,
                  time, truck_name):

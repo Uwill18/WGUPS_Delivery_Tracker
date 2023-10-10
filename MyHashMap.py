@@ -41,7 +41,7 @@ import datetime
 
 
 class MyHashMap:
-    #O(n)
+    #Adding to the package_list functions in O(n) time
     def __init__(self):
         self.package_list = []
         # setting up the inner lists for hashmap
@@ -49,7 +49,7 @@ class MyHashMap:
         for i in range(10):
             self.package_list.append([])
 
-    #O(1)
+    #The insert function of hashmap operates in O(1) time
     def insert(self, package):
         # this function is picking the right bucket, then putting the package in that bucket
         hash_index = package.package_id % 10
@@ -57,7 +57,7 @@ class MyHashMap:
         return self.package_list
 
     # the lookup loop through inner bucket to search for object with hash that has been passed
-    #O(n)
+    #and operates in O(n) time
     def lookup(self, packageID: int):
         hashIndex = packageID % 10
         for p in self.package_list[hashIndex]:

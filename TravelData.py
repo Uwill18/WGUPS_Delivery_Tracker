@@ -3,6 +3,8 @@ import csv
 distance_data = []
 
 
+# this function operates in O(n^2) time to generate
+# a list of lists for all known distances between locations for the adjacency matrix
 def load_distance_data2(fileName):
     distanceData = []
 
@@ -20,6 +22,7 @@ def load_distance_data2(fileName):
 address_data = []
 
 
+# This function operates in O(n^2) time to load all rows from the addressCSV file
 def load_address_data():
     with open('csv_files/addressCSV.csv', 'r') as f:
         reader = list(csv.reader(f))

@@ -30,7 +30,7 @@ class Package:
         return "PACKAGE #" + str(self.package_id) + ": " + self.address
 
     # runs in prod
-    # O(1)
+    #returning the strings for the package object operate in O(1) time
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
         return ("PACKAGE #" + str(self.package_id) + ": < " +

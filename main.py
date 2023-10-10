@@ -22,7 +22,13 @@ from MyHashMap import MyHashMap
 from Package import Package
 from Truck import calc_distance, address_index, Truck
 
+"""##########################################OBJECT INSTANTIATION START###########################################
+This section first instantiates objects through pulling attribute data from class files, csv files, and libraries
+ native to python (such as datetime, and time). The objects will be used in the next section for major algorithms
+ to deliver packages per the project requisites, and to output data to show that those requisites are met."""
 
+
+# This block instantiates the series of packages and loads csv column data to package attributes
 def load_package_data(csvfile, p_hash_table):
     with open(csvfile) as file:
         reader = list(csv.reader(file))
@@ -43,9 +49,13 @@ def load_package_data(csvfile, p_hash_table):
                           pkg_msg, pkg_status, pkg_loadtime)
             # print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
-            p_hash_table.insert(pkg)  # review later
+            p_hash_table.insert(pkg)
 
 
+pkg_hash_table = MyHashMap()
+load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
+
+# The instantiation of the trucks are both O(1) instructions
 first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
                     [29, 37, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), datetime.timedelta(hours=8), "First_Truck")
@@ -54,13 +64,19 @@ second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
                      "Second_Truck")
 
-pkg_hash_table = MyHashMap()
-load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
-
 times_list = []
 
+"""##########################################OBJECT INSTANTIATION END###########################################"""
 
-# O (n^2)
+"""##########################################MAJOR ALGORITHM START##########################################"""
+"""
+Both of these major blocks operate in O (n^2) due to the nested looping. These functions are nearest neighbor
+implementations. There are two to allow both trucks to run two different routes at the same time.
+I was going to suggest the functions were O (log n) but there are no operations where variables are multiplied
+or divided by a constant amount.
+"""
+
+
 def pkg_distribution_r1(truck):
     # Define an array of undelivered packages for distribution
     global time
@@ -129,7 +145,7 @@ times_list.clear()
 times_list = []
 
 
-# O(n^2)
+# Major block O(n^2)
 def pkg_distribution_r2(truck):
     global time
     pkg_inventory_two = []
@@ -186,7 +202,90 @@ def pkg_distribution_r2(truck):
     # print(truck.tot_miles, truck.time)
 
 
-# O(1)
+"""#############################################MAJOR ALGORITHM START##############################################"""
+
+"""###################################MAJOR USER INTERFACE FUNCTIONS START######################################"""
+"""This section is devoted to the functions that comprise the user interface. They have been placed in an order 
+similar to how the user will first interact with them when the program runs, then the remaining functions are 
+parallel to the options that the user will choose from."""
+
+"""This major block referred to as the greet function has O(1) Time complexity as it outputs strings of text, and asks for minor text input which 
+will be passed to another function. These O(1) operations make this function O(1) time complexity."""
+
+
+def greet():
+    try:
+        print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
+        print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
+        print("Please select from one of the options below:\n")
+        print("1. CHECK FULL DELIVERY CYCLE \n"
+              "2. TRACK PACKAGE \n"
+              "3. TRACK ALL PACKAGES \n"
+              "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
+              "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
+              "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
+              "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
+              "8. VERIFY DELIVERY STATUS \n"
+              "9. DEFINE ALL OPTIONS\n"
+              "10. PROGRAM EXIT \n")
+        print("-------------------------------------\n")
+        select_option()
+    except ValueError:
+        program_exit_msg()
+    except KeyboardInterrupt:
+        exit()
+
+
+"""This major block has O(n^2) Time-Complexity by evaluation of the worst-case. It would be O(1) but it makes a call to
+a non-constant time function. The source cited from Geeks for Geeks says that "The time complexity of a function 
+(or set of statements) is considered as O(1) if it doesn’t contain a loop, recursion, and call to any other 
+non-constant time function. i.e. set of non-recursive and non-loop statements" 
+https://discuss.codechef.com/t/switch-vs-if-else/13183/4 
+# https://www.geeksforgeeks.org/how-to-analyse-loops-for-complexity-analysis-of-algorithms/"""
+
+
+def select_option():
+    try:
+        option = input("Please enter your option here:")
+        match option:
+            case "1":
+                deliver_all()
+            case "2":
+                track_one()
+            case "3":
+                track_all()
+            case "4":
+                pkg_distribution_r1(first_truck)
+            case "5":
+                pkg_distribution_r1(second_truck)
+            case "6":
+                pkg_distribution_r2(first_truck)
+            case "7":
+                pkg_distribution_r2(second_truck)
+            case "8":
+                delivery_status()
+            case "9":
+                define_options()
+            case "10":
+                program_exit_msg()
+            case _:
+                print("No option has been selected. Exiting program ")
+                exit()
+        select_again()
+    except ValueError:
+        print("\nInvalid input. Please decide if you would like to try again.")
+        select_again()
+    except KeyboardInterrupt:
+        exit()
+
+
+"""This major block is O(n^2) by the worst case scenario. The deliver_all() function orchestrates the intended order
+for package delivery, and gives a delivery status halfway through the delivery, and then at the end to see the total
+mileage between both trucks, and the status of all packages. This function consists mainly of consecutive function calls
+and mimics O(1) statements. The pkg_distribution functions are O(n^2), therefore this function by worst-case analysis is
+also O(n^2)"""
+
+
 def deliver_all():
     pkg_distribution_r1(first_truck)
     pkg_distribution_r1(second_truck)
@@ -196,15 +295,12 @@ def deliver_all():
     delivery_status()
 
 
-# O(n)
-def display_all():
-    for i in range(1, 41):
-        pkg_item = pkg_hash_table.lookup(i)
-        print(pkg_item)
+"""This major block known as track_one() is also O(n^2) due to the nested if statements for time comparisons.
+track_one() allows the user to track a package with time and id inputs, and the nested if statements ensure
+that the time entered is not out of range.
+#The source below was useful to decipher the exact exception needed when stopping the program with the stop button:
+ https://www.educba.com/python-keyboardinterrupt/"""
 
-
-# O log n
-# https://www.educba.com/python-keyboardinterrupt/
 
 def track_one():
     try:
@@ -242,8 +338,24 @@ def track_one():
         exit()
 
 
+""" This major function block known as display_all() is O(n) since it has one for loop in which the output is proportional
+to the length of that for loop's range. """
 
-# O log n
+
+def display_all():
+    for i in range(1, 41):
+        pkg_item = pkg_hash_table.lookup(i)
+        print(pkg_item)
+
+
+"""
+
+
+#This major function block a.k.a track_all() also classifies as an O(n^2) much like track_one() due to the same
+time validation executed by the nested looping. Most technically it is O(n^3), but that is a form of O(n^2).
+"""
+
+
 def track_all():
     try:
         time_searched = input("Please enter the time you would like to search in HH:mm format :")
@@ -277,7 +389,11 @@ def track_all():
         exit()
 
 
-# O(1)
+"""the delivery_status() is a major block that operates in O(1) time. This function outputs strings consisting of
+the truck's names, the timing of the trucks to complete a delivery cycle/ route, as well as total mileage of both
+trucks since the third truck was not used."""
+
+
 def delivery_status():
     print("\n")
     display_all()
@@ -290,68 +406,10 @@ def delivery_status():
     print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + "\n")
 
 
-# O(1) Time complexity
-def greet():
-    try:
-        print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
-        print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
-        print("Please select from one of the options below:\n")
-        print("1. CHECK FULL DELIVERY CYCLE \n"
-              "2. TRACK PACKAGE \n"
-              "3. TRACK ALL PACKAGES \n"
-              "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
-              "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
-              "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
-              "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
-              "8. VERIFY DELIVERY STATUS \n"
-              "9. DEFINE ALL OPTIONS\n"
-              "10. PROGRAM EXIT \n")
-        print("-------------------------------------\n")
-        select_option()
-    except ValueError:
-        program_exit_msg()
-    except KeyboardInterrupt:
-        exit()
+"""This major block define_options() has O(1) Time complexity as it only outputs strings of text.
+These O(1) operations make this function O(1) time complexity."""
 
 
-# O(1) Time-Complexity
-# https://discuss.codechef.com/t/switch-vs-if-else/13183/4
-def select_option():
-    try:
-        option = input("Please enter your option here:")
-        match option:
-            case "1":
-                deliver_all()
-            case "2":
-                track_one()
-            case "3":
-                track_all()
-            case "4":
-                pkg_distribution_r1(first_truck)
-            case "5":
-                pkg_distribution_r1(second_truck)
-            case "6":
-                pkg_distribution_r2(first_truck)
-            case "7":
-                pkg_distribution_r2(second_truck)
-            case "8":
-                delivery_status()
-            case "9":
-                define_options()
-            case "10":
-                program_exit_msg()
-            case _:
-                print("No option has been selected. Exiting program ")
-                exit()
-        select_again()
-    except ValueError:
-        print("\nInvalid input. Please decide if you would like to try again.")
-        select_again()
-    except KeyboardInterrupt:
-        exit()
-
-
-# O(1)
 def define_options():
     print("\n1. CHECK FULL DELIVERY CYCLE --  See the total mileage and complete journey of all routes taken  \n\n"
           "2. TRACK PACKAGE -- Use package ID and time to track the status of one package at any time \n\n"
@@ -368,7 +426,10 @@ def define_options():
           "* Special Note : Both trucks have two routes each to meet all requirements for the program.\n\n")
 
 
-# O(1)
+"""This major block select_again() has O(1) Time complexity as it outputs strings of text, and asks for minor text input which 
+will be passed to another function. These O(1) operations make this function O(1) time complexity."""
+
+
 def select_again():
     try:
         new_selection = input("\nIf you would like to make a new selection either 'y' or 'Y'. ")
@@ -386,7 +447,10 @@ def select_again():
         exit()
 
 
-# O(1)
+"""This major block program_exit_msg() has O(1) Time complexity as it only outputs strings of text.
+These O(1) operations make this function O(1) time complexity."""
+
+
 def program_exit_msg():
     print("\n----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
           "Thank you for using the WGUPS DELIVERY TRACKER!\n"
@@ -411,7 +475,9 @@ def program_exit_msg():
     exit()
 
 
-#
+"""###############################MAJOR USER INTERFACE FUNCTIONS END######################################"""
+
+# SCALING FUNCTION PSEUDOCODE:
 # def add_package():
 #     new_selection = input("If you would like to make a new selection either 'y' or 'Y'.")
 #     match new_selection:
