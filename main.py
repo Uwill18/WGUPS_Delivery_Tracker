@@ -202,7 +202,7 @@ def pkg_distribution_r2(truck):
     # print(truck.tot_miles, truck.time)
 
 
-"""#############################################MAJOR ALGORITHM START##############################################"""
+"""#############################################MAJOR ALGORITHM END##############################################"""
 
 """###################################MAJOR USER INTERFACE FUNCTIONS START######################################"""
 """This section is devoted to the functions that comprise the user interface. They have been placed in an order 
@@ -349,8 +349,6 @@ def display_all():
 
 
 """
-
-
 #This major function block a.k.a track_all() also classifies as an O(n^2) much like track_one() due to the same
 time validation executed by the nested looping. Most technically it is O(n^3), but that is a form of O(n^2).
 """

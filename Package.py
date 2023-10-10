@@ -19,11 +19,6 @@ class Package:
         self.status = status
         self.load_time = load_time
 
-    # by comparison, use python datetime for relational operators
-    # time loaded
-    # time unloaded
-    # time delivered
-
     # runs when debugging
     # O(1)
     def __repr__(self):
