@@ -398,10 +398,10 @@ def delivery_status():
     print("\n")
     print("🚚DELIVERY STATUS📦:")
     print(str(first_truck.truck_name) + " TIME:" + str(first_truck.time) +
-          ", DISTANCE: " + str(first_truck.tot_miles) + "\n")  # format function like pkg_distro
+          ", DISTANCE: " + str(first_truck.tot_miles) + " MILES \n")  # format function like pkg_distro
     print(str(second_truck.truck_name) + " TIME:" + str(second_truck.time) +
-          ", DISTANCE: " + str(second_truck.tot_miles) + "\n")
-    print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + "\n")
+          ", DISTANCE: " + str(second_truck.tot_miles) + " MILES \n")
+    print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + " MILES \n")
 
 
 """This major block define_options() has O(1) Time complexity as it only outputs strings of text.
@@ -588,7 +588,7 @@ greet()
 # Review project in context of Goodell requirements, Monday x
 # PARTS: A,G,H,J Monday,
 #        B, C,(L) Tuesday
-#        D,(L) Tuesday
+#        D, K,(L) Wednesday
 #        I,(L) Thursday
 #
 #
