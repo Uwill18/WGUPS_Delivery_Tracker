@@ -475,6 +475,7 @@ def program_exit_msg():
 
 """###############################MAJOR USER INTERFACE FUNCTIONS END######################################"""
 
+"""RELEVANT TO PART J OF THE PAPER"""
 # SCALING FUNCTION PSEUDOCODE:
 # def add_package():
 #     new_selection = input("If you would like to make a new selection either 'y' or 'Y'.")
