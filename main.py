@@ -393,13 +393,13 @@ trucks since the third truck was not used."""
 
 
 def delivery_status():
-    print("\n")
+    print("\n📦DELIVERY STATUS📦:\n")
     display_all()
-    print("\n")
-    print("🚚DELIVERY STATUS📦:")
-    print(str(first_truck.truck_name) + " TIME:" + str(first_truck.time) +
+
+    print("\n🚚MILEAGE REPORT⛟:\n")
+    print(str(first_truck.truck_name) + " | TIME:" + str(first_truck.time) +
           ", DISTANCE: " + str(first_truck.tot_miles) + " MILES \n")  # format function like pkg_distro
-    print(str(second_truck.truck_name) + " TIME:" + str(second_truck.time) +
+    print(str(second_truck.truck_name) + "| TIME:" + str(second_truck.time) +
           ", DISTANCE: " + str(second_truck.tot_miles) + " MILES \n")
     print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + " MILES \n")
 
