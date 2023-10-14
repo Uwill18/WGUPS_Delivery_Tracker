@@ -56,7 +56,7 @@ pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 # The instantiation of the trucks are both O(1) instructions
-first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 24, 13],
+first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 13],
                     [29, 37, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), datetime.timedelta(hours=8), "First_Truck")
 second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
@@ -78,7 +78,7 @@ or divided by a constant amount.
 
 
 def pkg_distribution_r1(truck):
-    # Define an array of undelivered packages for distribution
+    # Define an array of packages for distribution
     global time
     pkg_inventory = []
     for pid in truck.pkg_load:
@@ -91,15 +91,15 @@ def pkg_distribution_r1(truck):
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
 
-    # Cycle through the list of not_delivered until none remain in the list
-    # Adds the nearest package into the truck.packages list one by one
+    # Cycle through the pkg_inventory list until no packages remain in the list
+    # Adds the nearest package into the truck.pkg_load one by one
     while len(pkg_inventory) > 0:
         truck.current_location = 0
         next_address = 1500
         next_pkg = None
 
-        # Clear the package list of a given truck so the packages can be placed back into the truck in the order
-        # of the nearest neighbor
+        # Clear the package load of a given truck before ordering them for
+        # delivery according to the nearest neighbor algorithm
 
         truck.pkg_load.clear()
 
@@ -112,29 +112,29 @@ def pkg_distribution_r1(truck):
                                              address_index(p.address))
                 next_pkg = p
                 next_pkg.status = "Delivered"
-        # Adds next closest package to the truck package list
+        # Appends the next package to the truck package load using proximity to the nearest address
         truck.pkg_load.append(next_pkg.package_id)
 
-        # Removes the same package from the not_delivered list
+        # Removes the same package from the pkg_inventory
         pkg_inventory.remove(next_pkg)
-        # Takes the mileage driven to this packaged into the truck.mileage attribute
-        truck.tot_miles += next_address
-        # Updates truck's current address attribute to the package it drove to
+        # Adds the mileage driven to this package to the current value of the attribute truck.tot_miles
+        truck.tot_miles +=  next_address
+        # This line updates the truck's current address to the address where it had last delivered a package
         truck.address = next_pkg.address
-        # Updates the time it took for the truck to drive to the nearest package
+        # This reflects the time taken for the truck to drive to the nearest package
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
-        # next_pkg.transit_time += truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
-        # time.sleep(2.5)
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" + str(
+        time.sleep(1.5)
+        final_mileage = "{:.2f}".format(truck.tot_miles)
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
             next_pkg) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    time.sleep(2.5)
+    time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -191,14 +191,15 @@ def pkg_distribution_r2(truck):
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
-        # time.sleep(2.5)
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(truck.tot_miles) + "\n" +
+        final_mileage = "{:.2f}".format(truck.tot_miles)
+        time.sleep(1.5)
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" +
               str(next_pkg) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    time.sleep(2.5)
+    time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -395,13 +396,15 @@ trucks since the third truck was not used."""
 def delivery_status():
     print("\n📦DELIVERY STATUS📦:\n")
     display_all()
-
+    truck_one_mileage = "{:.2f}".format(first_truck.tot_miles)
+    truck_two_mileage = "{:.2f}".format(second_truck.tot_miles)
+    tot_mileage = "{:.2f}".format(first_truck.tot_miles+second_truck.tot_miles)
     print("\n🚚MILEAGE REPORT⛟:\n")
     print(str(first_truck.truck_name) + " | TIME:" + str(first_truck.time) +
-          ", DISTANCE: " + str(first_truck.tot_miles) + " MILES \n")  # format function like pkg_distro
+          ", DISTANCE: " + truck_one_mileage + " MILES \n")  # format function like pkg_distro
     print(str(second_truck.truck_name) + "| TIME:" + str(second_truck.time) +
-          ", DISTANCE: " + str(second_truck.tot_miles) + " MILES \n")
-    print("TOTAL DISTANCE: " + str(first_truck.tot_miles + second_truck.tot_miles) + " MILES \n")
+          ", DISTANCE: " + truck_two_mileage + " MILES \n")
+    print("TOTAL DISTANCE: " + str(tot_mileage) + " MILES \n")
 
 
 """This major block define_options() has O(1) Time complexity as it only outputs strings of text.
