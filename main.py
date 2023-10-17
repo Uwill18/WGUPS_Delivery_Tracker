@@ -38,15 +38,16 @@ def load_package_data(csvfile, p_hash_table):
             pkg_city = pkg_row[2]
             pkg_state = pkg_row[3]
             pkg_zipcode = pkg_row[4]
-            pkg_dt = pkg_row[5]
+            pkg_deadline = pkg_row[5]
             pkg_mass = pkg_row[6]
             pkg_msg = pkg_row[7]
             pkg_status = "At Hub"
             pkg_loadtime = datetime.timedelta(hours=8)
+            pkg_dt = pkg_loadtime
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
-                          pkg_state, pkg_zipcode, pkg_dt, pkg_mass,
-                          pkg_msg, pkg_status, pkg_loadtime)
+                          pkg_state, pkg_zipcode, pkg_deadline, pkg_mass,
+                          pkg_msg, pkg_status, pkg_loadtime, pkg_dt)
             # print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
             p_hash_table.insert(pkg)
@@ -118,7 +119,7 @@ def pkg_distribution_r1(truck):
         # Removes the same package from the pkg_inventory
         pkg_inventory.remove(next_pkg)
         # Adds the mileage driven to this package to the current value of the attribute truck.tot_miles
-        truck.tot_miles +=  next_address
+        truck.tot_miles += next_address
         # This line updates the truck's current address to the address where it had last delivered a package
         truck.address = next_pkg.address
         # This reflects the time taken for the truck to drive to the nearest package
@@ -126,15 +127,15 @@ def pkg_distribution_r1(truck):
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
-        time.sleep(1.5)
+        # time.sleep(1.5)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
-            next_pkg) + "\n")
+        # print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
+        #     next_pkg) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    time.sleep(5)
+    # time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -192,14 +193,14 @@ def pkg_distribution_r2(truck):
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        time.sleep(1.5)
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" +
-              str(next_pkg) + "\n")
+        # time.sleep(1.5)
+        # print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" +
+        #       str(next_pkg) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    time.sleep(5)
+    # time.sleep(1)
     # print(truck.tot_miles, truck.time)
 
 
@@ -222,13 +223,13 @@ def greet():
         print("1. CHECK FULL DELIVERY CYCLE \n"
               "2. TRACK PACKAGE \n"
               "3. TRACK ALL PACKAGES \n"
-              "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
-              "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
-              "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
-              "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
-              "8. VERIFY DELIVERY STATUS \n"
-              "9. DEFINE ALL OPTIONS\n"
-              "10. PROGRAM EXIT \n")
+              # "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
+              # "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
+              # "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
+              # "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
+              # "8. VERIFY DELIVERY STATUS \n"
+              # "9. DEFINE ALL OPTIONS\n"
+              "4. PROGRAM EXIT \n")
         print("-------------------------------------\n")
         select_option()
     except ValueError:
@@ -256,19 +257,20 @@ def select_option():
             case "3":
                 track_all()
             case "4":
-                pkg_distribution_r1(first_truck)
-            case "5":
-                pkg_distribution_r1(second_truck)
-            case "6":
-                pkg_distribution_r2(first_truck)
-            case "7":
-                pkg_distribution_r2(second_truck)
-            case "8":
-                delivery_status()
-            case "9":
-                define_options()
-            case "10":
                 program_exit_msg()
+            #     # pkg_distribution_r1(first_truck)
+            # case "5":
+            #     pkg_distribution_r1(second_truck)
+            # case "6":
+            #     pkg_distribution_r2(first_truck)
+            # case "7":
+            #     pkg_distribution_r2(second_truck)
+            # case "8":
+            #     delivery_status()
+            # case "9":
+            #     define_options()
+            # case "10":
+            #     program_exit_msg()
             case _:
                 print("No option has been selected. Exiting program ")
                 exit()
@@ -398,7 +400,7 @@ def delivery_status():
     display_all()
     truck_one_mileage = "{:.2f}".format(first_truck.tot_miles)
     truck_two_mileage = "{:.2f}".format(second_truck.tot_miles)
-    tot_mileage = "{:.2f}".format(first_truck.tot_miles+second_truck.tot_miles)
+    tot_mileage = "{:.2f}".format(first_truck.tot_miles + second_truck.tot_miles)
     print("\n🚚MILEAGE REPORT⛟:\n")
     print(str(first_truck.truck_name) + " | TIME:" + str(first_truck.time) +
           ", DISTANCE: " + truck_one_mileage + " MILES \n")  # format function like pkg_distro
@@ -531,8 +533,10 @@ def program_exit_msg():
 #     greet()
 
 
-# add_package()
+deliver_all()
 greet()
+
+# add_package()
 # program_exit_msg()
 # spc_pkg = pkg_hash_table.lookup(9)
 # print(spc_pkg.address)

@@ -5,19 +5,20 @@ import MyHashMap
 
 # O(1)
 class Package:
-    def __init__(self, package_id, address, city, state, zipcode, delivery_time, mass, special_msg, status,
-                 load_time):
+    def __init__(self, package_id, address, city, state, zipcode, deadline, mass, special_msg, status,
+                 load_time, delivery_time):
         # super.__init__()
         self.package_id = package_id
         self.address = address
         self.city = city
         self.state = state
         self.zipcode = zipcode
-        self.delivery_time = delivery_time
+        self.deadline = deadline
         self.mass = mass
         self.special_msg = special_msg
         self.status = status
         self.load_time = load_time
+        self.delivery_time = delivery_time
 
     # runs when debugging
     # O(1)
@@ -25,19 +26,23 @@ class Package:
         return "PACKAGE #" + str(self.package_id) + ": " + self.address
 
     # runs in prod
-    #returning the strings for the package object operate in O(1) time
+    # returning the strings for the package object operate in O(1) time
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
-        return ("PACKAGE #" + str(self.package_id) + ": < " +
+        return ("PACKAGE #" + str(self.package_id) + ": < -- " +
                 self.address + " , " +
                 self.city + " , " +
+                self.state + ", " +
                 self.zipcode + " , " +
                 self.mass + " , " +
+                str(self.load_time) + " , " +
+                str(self.deadline) + " , " +
                 str(self.delivery_time) + " , " +
-                self.status + " > "
-                # + "(" + current_time + ")"
+                self.status +
+                " -" + self.special_msg + "-" +
+                " > "
+
                 )
-        # print(self.transit_time)
 
 
 # timeloaded = time truck takes off
