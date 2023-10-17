@@ -38,9 +38,8 @@ class Package:
                 str(self.load_time) + " , " +
                 str(self.deadline) + " , " +
                 str(self.delivery_time) + " , " +
-                self.status +
-                " -" + self.special_msg + "-" +
-                " > "
+                self.status + " > " +
+                "{- spc_msg - " + self.special_msg + "}"
 
                 )
 
