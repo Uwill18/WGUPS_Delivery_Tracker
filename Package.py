@@ -29,7 +29,7 @@ class Package:
     # returning the strings for the package object operate in O(1) time
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
-        return ("PACKAGE #" + str(self.package_id) + ": < -- " +
+        return ("PACKAGE #" + str(self.package_id) + "| <: " +
                 self.address + " , " +
                 self.city + " , " +
                 self.state + ", " +
@@ -38,8 +38,8 @@ class Package:
                 str(self.load_time) + " , " +
                 str(self.deadline) + " , " +
                 str(self.delivery_time) + " , " +
-                self.status + " > " +
-                "{- spc_msg - " + self.special_msg + "}"
+                self.status +
+                ": " + self.special_msg + "> "
 
                 )
 
