@@ -373,7 +373,7 @@ def track_all():
                 elif time_entered < pkg_item.delivery_time:
                     pkg_item.status = "En route"
 
-                elif time_entered >= correction_time:
+                elif (time_entered >= correction_time) and (time_entered < pkg_item.delivery_time):
                     spc_pkg = pkg_hash_table.lookup(9)
                     spc_pkg.address = "410 S. State St."
                     spc_pkg.zipcode = "84111"
