@@ -374,8 +374,8 @@ def display_all():
     print("{:15}".format(f"           |") +
           "{:40}".format(f"ADDRESS") +
           "{:23}".format(f"CITY") +
-          "{:9}".format(f"STATE") +
-          "{:9}".format(f"ZIPCODE") +
+          "{:8}".format(f"STATE") +
+          "{:10}".format(f"ZIPCODE") +
           "{:5}".format(f"MASS") +
           "{:12}".format(f"LOADTIME") +
           "{:12}".format(f"DEADLINE") +
@@ -649,8 +649,8 @@ greet()
 
 # --final tasks
 # --input a header X
-# --record a panopto
-# --rewrite your paper
-# --write instructions for the evaluator
-# --make a function explaining how to use the program
+# --record a panopto - 4
+# --rewrite your paper - 3
+# --write instructions for the evaluator  - 1
+# --make a function explaining how to use the program  - 2
 # --input a truck name field x
