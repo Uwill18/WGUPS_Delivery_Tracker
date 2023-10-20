@@ -371,7 +371,7 @@ def display_all():
     # print("PACKAGE # |\t\t\tADDRESS\t\t\t|\tCITY\t|STATE|ZIP|"
     #       "MASS| LOAD TIME | DEADLINE | DELIVERY TIME "
     #       "| STATUS | SPECIAL MESSAGE ")
-    print("{:15}".format(f"           |") +
+    print("{:15}".format(f"ALL PACKAGES|    ") +
           "{:40}".format(f"ADDRESS") +
           "{:23}".format(f"CITY") +
           "{:8}".format(f"STATE") +

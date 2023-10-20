@@ -35,7 +35,23 @@ class Package:
 
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
-        return ("{:15}".format(f"PACKAGE #{self.package_id} |< :") +
+        if self.package_id < 10:
+            return (
+                    "{:16}".format(f"PACKAGE #0{self.package_id} |< :") +
+                    "{:40}".format(f"{self.address},") +
+                    "{:25}".format(f"{self.city}, ") +
+                    "{:7}".format(f"{self.state}, ") +
+                    "{:9}".format(f"{self.zipcode}, ") +
+                    "{:5}".format(f"{self.mass}, ") +
+                    "{:12}".format(f"{str(self.load_time)}, ") +
+                    "{:12}".format(f"{str(self.deadline)}, ") +
+                    "{:25}".format(f"{str(self.delivery_time)},") +
+                    "{:30}".format(f"{self.status} on {self.truck_name}:") +
+                    "{:55}".format(f"{self.special_msg}>")
+            )
+        else:
+            return (
+                "{:16}".format(f"PACKAGE #{self.package_id} |< :") +
                 "{:40}".format(f"{self.address},") +
                 "{:25}".format(f"{self.city}, ") +
                 "{:7}".format(f"{self.state}, ") +
