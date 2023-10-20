@@ -25,7 +25,7 @@ def address_index(address):
                 return int(row[0])
 
 
-#Instantiation of the truck class is O(1)
+# Instantiation of the truck class is O(1)
 class Truck:
     def __init__(self, pkg_max, avg_mph, pkg_load, pkg_load_r2, tot_miles, current_location, address, depart_time,
                  time, truck_name):

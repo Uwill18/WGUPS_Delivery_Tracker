@@ -1,5 +1,5 @@
 import csv
-
+import Truck
 import MyHashMap
 
 
@@ -29,19 +29,24 @@ class Package:
     # returning the strings for the package object operate in O(1) time
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
-        return ("PACKAGE #" + str(self.package_id) + "| < :" +
-                self.address + " , " +
-                self.city + " , " +
-                self.state + ", " +
-                self.zipcode + " , " +
-                self.mass + " , " +
-                str(self.load_time) + " , " +
-                str(self.deadline) + " , " +
-                str(self.delivery_time) + " , " +
-                self.status +
-                ": " + self.special_msg + "> "
-
+        return (f"PACKAGE #{self.package_id} | < : {self.address}, "
+                f"{self.city}, {self.state}, {self.zipcode},"
+                f" {self.mass}, {str(self.load_time)}, "
+                f"{str(self.deadline)}, {str(self.delivery_time)},"
+                f"{self.status}:{self.special_msg}>"
                 )
+        # return ("PACKAGE #" + str(self.package_id) + "| < :" +
+        #         self.address + " , " +
+        #         self.city + " , " +
+        #         self.state + ", " +
+        #         self.zipcode + " , " +
+        #         self.mass + " , " +
+        #         str(self.load_time) + " , " +
+        #         str(self.deadline) + " , " +
+        #         str(self.delivery_time) + " , " +
+        #         self.status +
+        #         ": " + self.special_msg + "> "
+        #         )
 
 
 # timeloaded = time truck takes off

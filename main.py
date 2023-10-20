@@ -356,6 +356,9 @@ to the length of that for loop's range. """
 
 
 def display_all():
+    # print("PACKAGE # |\t\t\tADDRESS\t\t\t|\tCITY\t|STATE|ZIP|"
+    #       "MASS| LOAD TIME | DEADLINE | DELIVERY TIME "
+    #       "| STATUS | SPECIAL MESSAGE ")
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
@@ -619,7 +622,7 @@ greet()
 # 3. status of all packages at a given time
 # 4. exit the program
 
-#final tasks
+# --final tasks
 # --input a header
 # --record a panopto
 # --rewrite your paper
