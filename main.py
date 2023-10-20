@@ -129,8 +129,8 @@ def pkg_distribution_r1(truck):
         pkg_hash_table.insert(next_pkg)
         # time.sleep(1.5)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        # print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
-        #     next_pkg) + "\n")
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
+            next_pkg) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
@@ -193,9 +193,9 @@ def pkg_distribution_r2(truck):
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        # time.sleep(1.5)
-        # print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" +
-        #       str(next_pkg) + "\n")
+        # time.sleep(1.5) //will set this to ten seconds for the evaluator
+        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" +
+              str(next_pkg) + "\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
@@ -220,16 +220,16 @@ def greet():
         print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
         print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
         print("Please select from one of the options below:\n")
-        print("1. CHECK FULL DELIVERY CYCLE \n"
-              "2. TRACK PACKAGE \n"
-              "3. TRACK ALL PACKAGES \n"
-              # "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
-              # "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
-              # "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
-              # "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
-              # "8. VERIFY DELIVERY STATUS \n"
-              # "9. DEFINE ALL OPTIONS\n"
-              "4. PROGRAM EXIT \n")
+        print(  # "1. No longer available for evaluators\n"
+            "1. TRACK PACKAGE \n"
+            "2. TRACK ALL PACKAGES \n"
+            # "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
+            # "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
+            # "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
+            # "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
+            # "8. VERIFY DELIVERY STATUS \n"
+            # "9. DEFINE ALL OPTIONS\n"
+            "3. PROGRAM EXIT \n")
         print("-------------------------------------\n")
         select_option()
     except ValueError:
@@ -250,13 +250,13 @@ def select_option():
     try:
         option = input("Please enter your option here:")
         match option:
+            # case "1":
+            #     deliver_all()
             case "1":
-                deliver_all()
-            case "2":
                 track_one()
-            case "3":
+            case "2":
                 track_all()
-            case "4":
+            case "3":
                 program_exit_msg()
             #     # pkg_distribution_r1(first_truck)
             # case "5":
@@ -291,11 +291,21 @@ also O(n^2)"""
 
 def deliver_all():
     pkg_distribution_r1(first_truck)
+    delivery_status()
+    print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
+          "truck one")
     pkg_distribution_r1(second_truck)
     delivery_status()
+    print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
+          "truck two")
     pkg_distribution_r2(first_truck)
+    delivery_status()
+    print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
+          "truck one")
     pkg_distribution_r2(second_truck)
     delivery_status()
+    print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
+          "truck two")
 
 
 """This major block known as track_one() is also O(n^2) due to the nested if statements for time comparisons.
@@ -608,3 +618,11 @@ greet()
 # 2. status of the package, given a time and package id
 # 3. status of all packages at a given time
 # 4. exit the program
+
+#final tasks
+# --input a header
+# --record a panopto
+# --rewrite your paper
+# --write instructions for the evaluator
+# --make a function explaining how to use the program
+# --input a truck name field
