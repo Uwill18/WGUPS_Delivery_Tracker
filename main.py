@@ -375,7 +375,7 @@ def display_all():
           "{:40}".format(f"ADDRESS") +
           "{:23}".format(f"CITY") +
           "{:8}".format(f"STATE") +
-          "{:10}".format(f"ZIPCODE") +
+          "{:8}".format(f"ZIPCODE") +
           "{:5}".format(f"MASS") +
           "{:12}".format(f"LOADTIME") +
           "{:12}".format(f"DEADLINE") +
