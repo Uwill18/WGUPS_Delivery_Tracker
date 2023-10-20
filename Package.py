@@ -6,7 +6,7 @@ import MyHashMap
 # O(1)
 class Package:
     def __init__(self, package_id, address, city, state, zipcode, deadline, mass, special_msg, status,
-                 load_time, delivery_time):
+                 load_time, delivery_time, truck_name):
         # super.__init__()
         self.package_id = package_id
         self.address = address
@@ -19,6 +19,7 @@ class Package:
         self.status = status
         self.load_time = load_time
         self.delivery_time = delivery_time
+        self.truck_name = truck_name
 
     # runs when debugging
     # O(1)
@@ -27,14 +28,32 @@ class Package:
 
     # runs in prod
     # returning the strings for the package object operate in O(1) time
+    """to format the package output I used the below reference: 
+    https://medium.com/@glasshost/format-a-number-to-a-fixed-width-in-python-714685333048?source=rss-------1#:~:text
+    =One%20way%20to%20format%20a,and%20precision%20of%20the%20number.&text=In%20the%20example%20above%2C%20the,
+    characters%2C%20with%202%20decimal%20places."""
+
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
-        return (f"PACKAGE #{self.package_id} | < : {self.address}, "
-                f"{self.city}, {self.state}, {self.zipcode},"
-                f" {self.mass}, {str(self.load_time)}, "
-                f"{str(self.deadline)}, {str(self.delivery_time)},"
-                f"{self.status}:{self.special_msg}>"
+        return ("{:15}".format(f"PACKAGE #{self.package_id} |< :") +
+                "{:40}".format(f"{self.address},") +
+                "{:25}".format(f"{self.city}, ") +
+                "{:7}".format(f"{self.state}, ") +
+                "{:9}".format(f"{self.zipcode}, ") +
+                "{:5}".format(f"{self.mass}, ") +
+                "{:12}".format(f"{str(self.load_time)}, ") +
+                "{:12}".format(f"{str(self.deadline)}, ") +
+                "{:25}".format(f"{str(self.delivery_time)},") +
+                "{:30}".format(f"{self.status} on {self.truck_name}:") +
+                "{:55}".format(f"{self.special_msg}>")
                 )
+
+        # return (f"PACKAGE #{self.package_id} | < : {self.address}, "
+        #         f"{self.city}, {self.state}, {self.zipcode},"
+        #         f" {self.mass}, {str(self.load_time)}, "
+        #         f"{str(self.deadline)}, {str(self.delivery_time)},"
+        #         f"{self.status}:{self.special_msg}>"
+        #         )
         # return ("PACKAGE #" + str(self.package_id) + "| < :" +
         #         self.address + " , " +
         #         self.city + " , " +

@@ -44,10 +44,11 @@ def load_package_data(csvfile, p_hash_table):
             pkg_status = "At Hub"
             pkg_loadtime = datetime.timedelta(hours=8)
             pkg_dt = pkg_loadtime
+            pkg_truck = "truck"
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_deadline, pkg_mass,
-                          pkg_msg, pkg_status, pkg_loadtime, pkg_dt)
+                          pkg_msg, pkg_status, pkg_loadtime, pkg_dt, pkg_truck)
             # print(pkg)
             # instantiate hashtable and call insert f(x) to add packages by id
             p_hash_table.insert(pkg)
@@ -88,6 +89,7 @@ def pkg_distribution_r1(truck):
         pkg_item.status = "Loaded"
         pkg_item.delivery_time = truck.time
         pkg_item.load_time = truck.depart_time
+        pkg_item.truck_name = truck.truck_name
 
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
@@ -113,6 +115,7 @@ def pkg_distribution_r1(truck):
                                              address_index(p.address))
                 next_pkg = p
                 next_pkg.status = "Delivered"
+                # next_pkg.truck_name = truck.truck_name
         # Appends the next package to the truck package load using proximity to the nearest address
         truck.pkg_load.append(next_pkg.package_id)
 
@@ -135,6 +138,8 @@ def pkg_distribution_r1(truck):
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+    print("\n\nTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
+          "'s FIRST ROUTE")
     # time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
@@ -156,6 +161,7 @@ def pkg_distribution_r2(truck):
         pkg_item.status = "Loaded"
         pkg_item.delivery_time = truck.time
         pkg_item.load_time = truck.depart_time
+        pkg_item.truck_name = truck.truck_name
 
     # Cycle through the list of pkg_inventory_two until none remain in the list
     # Adds the nearest package into the truck.pkg_load_r2 list one by one
@@ -200,6 +206,8 @@ def pkg_distribution_r2(truck):
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
+    print("\n\nTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
+          "'s SECOND ROUTE")
     # time.sleep(1)
     # print(truck.tot_miles, truck.time)
 
@@ -292,20 +300,20 @@ also O(n^2)"""
 def deliver_all():
     pkg_distribution_r1(first_truck)
     delivery_status()
-    print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
-          "truck one")
+    # print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
+    #       "truck one")
     pkg_distribution_r1(second_truck)
     delivery_status()
-    print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
-          "truck two")
+    # print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
+    #       "truck two")
     pkg_distribution_r2(first_truck)
     delivery_status()
-    print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
-          "truck one")
+    # print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
+    #       "truck one")
     pkg_distribution_r2(second_truck)
     delivery_status()
-    print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
-          "truck two")
+    # print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
+    #       "truck two")
 
 
 """This major block known as track_one() is also O(n^2) due to the nested if statements for time comparisons.
@@ -351,14 +359,30 @@ def track_one():
         exit()
 
 
-""" This major function block known as display_all() is O(n) since it has one for loop in which the output is proportional
-to the length of that for loop's range. """
+"""This major function block known as display_all() is O(n) since it has one for loop in which the output is 
+proportional to the length of that for loop's range. I also used the below reference to format the section headers: 
+https://medium.com/@glasshost/format-a-number-to-a-fixed-width-in-python-714685333048?source=rss-------1#:~:text=One
+%20way%20to%20format%20a,and%20precision%20of%20the%20number.&text=In%20the%20example%20above%2C%20the,
+characters%2C%20with%202%20decimal%20places."""
+
 
 
 def display_all():
     # print("PACKAGE # |\t\t\tADDRESS\t\t\t|\tCITY\t|STATE|ZIP|"
     #       "MASS| LOAD TIME | DEADLINE | DELIVERY TIME "
     #       "| STATUS | SPECIAL MESSAGE ")
+    print("{:15}".format(f"           |") +
+          "{:40}".format(f"ADDRESS") +
+          "{:23}".format(f"CITY") +
+          "{:9}".format(f"STATE") +
+          "{:9}".format(f"ZIPCODE") +
+          "{:5}".format(f"MASS") +
+          "{:12}".format(f"LOADTIME") +
+          "{:12}".format(f"DEADLINE") +
+          "{:30}".format(f"DELIVERY TIME") +
+          "{:30}".format(f"STATUS") +
+          "{:55}".format(f"SPECIAL MESSAGES"))
+    print("_"*250)
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
@@ -410,6 +434,7 @@ trucks since the third truck was not used."""
 
 def delivery_status():
     print("\n📦DELIVERY STATUS📦:\n")
+
     display_all()
     truck_one_mileage = "{:.2f}".format(first_truck.tot_miles)
     truck_two_mileage = "{:.2f}".format(second_truck.tot_miles)
@@ -623,9 +648,9 @@ greet()
 # 4. exit the program
 
 # --final tasks
-# --input a header
+# --input a header X
 # --record a panopto
 # --rewrite your paper
 # --write instructions for the evaluator
 # --make a function explaining how to use the program
-# --input a truck name field
+# --input a truck name field x
