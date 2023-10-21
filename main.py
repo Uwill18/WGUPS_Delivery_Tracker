@@ -81,6 +81,7 @@ or divided by a constant amount.
 
 def pkg_distribution_r1(truck):
     # Define an array of packages for distribution
+    print("_" * 250)
     global time
     pkg_inventory = []
     for pid in truck.pkg_load:
@@ -138,8 +139,10 @@ def pkg_distribution_r1(truck):
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    print("\n\nTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
-          "'s FIRST ROUTE")
+    print("_" * 250)
+    print("\n\033[1mTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
+          "'s FIRST ROUTE\033[0m")
+    print("_" * 250 + "\n\n\n")
     # time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
@@ -153,6 +156,7 @@ times_list = []
 
 # Major block O(n^2)
 def pkg_distribution_r2(truck):
+    print("_" * 250)
     global time
     pkg_inventory_two = []
     for pid in truck.pkg_load_r2:
@@ -206,8 +210,10 @@ def pkg_distribution_r2(truck):
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    print("\n\nTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
-          "'s SECOND ROUTE")
+    print("_" * 250)
+    print("\n\033[1mTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
+          "'s SECOND ROUTE\033[0m")
+    print("_" * 250 + "\n\n\n")
     # time.sleep(1)
     # print(truck.tot_miles, truck.time)
 
@@ -366,7 +372,6 @@ https://medium.com/@glasshost/format-a-number-to-a-fixed-width-in-python-7146853
 characters%2C%20with%202%20decimal%20places."""
 
 
-
 def display_all():
     # print("PACKAGE # |\t\t\tADDRESS\t\t\t|\tCITY\t|STATE|ZIP|"
     #       "MASS| LOAD TIME | DEADLINE | DELIVERY TIME "
@@ -382,7 +387,7 @@ def display_all():
           "{:30}".format(f"DELIVERY TIME") +
           "{:30}".format(f"STATUS") +
           "{:55}".format(f"SPECIAL MESSAGES"))
-    print("_"*250)
+    print("_" * 250)
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
@@ -433,18 +438,22 @@ trucks since the third truck was not used."""
 
 
 def delivery_status():
-    print("\n📦DELIVERY STATUS📦:\n")
+    print("_" * 250)
+    print("\033[1m📦DELIVERY STATUS📦:\033[0m\n")
 
     display_all()
+    print("_" * 250)
     truck_one_mileage = "{:.2f}".format(first_truck.tot_miles)
     truck_two_mileage = "{:.2f}".format(second_truck.tot_miles)
     tot_mileage = "{:.2f}".format(first_truck.tot_miles + second_truck.tot_miles)
-    print("\n🚚MILEAGE REPORT⛟:\n")
+    print("\n" + "*" * 250)
+    print("\n\033[1m🚚MILEAGE REPORT⛟:\033[0m\n")
     print(str(first_truck.truck_name) + " | TIME:" + str(first_truck.time) +
           ", DISTANCE: " + truck_one_mileage + " MILES \n")  # format function like pkg_distro
     print(str(second_truck.truck_name) + "| TIME:" + str(second_truck.time) +
           ", DISTANCE: " + truck_two_mileage + " MILES \n")
     print("TOTAL DISTANCE: " + str(tot_mileage) + " MILES \n")
+    print("*" * 250 + "\n")
 
 
 """This major block define_options() has O(1) Time complexity as it only outputs strings of text.
