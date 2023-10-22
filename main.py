@@ -58,13 +58,64 @@ pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 # The instantiation of the trucks are both O(1) instructions
-first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 26, 22, 11, 23, 24, 12, 18, 19, 13],
-                    [29, 37, 5, 8, 9, 39, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
-                    datetime.timedelta(hours=8), datetime.timedelta(hours=8), "First_Truck")
-second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 7, 10, 38, 30, 3, 39, 36, 17, 31],
-                     [34, 25, 18], 0.0,
+first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 34, 26, 25, 22, 11, 23, 24, 12, 18, 13, 19],
+                    [7, 38, 5, 8, 9, 27, 35, 32], 0.0, 0, "4001 South 700 East",
+                    datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mFirst_Truck\033[0m")
+second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 29, 10, 37, 30, 3, 39, 36, 17, 31],
+                     [6, 18], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
-                     "Second_Truck")
+                     "\033[3mSecond_Truck\033[0m")
+
+
+"""""""""###LIST REFACTOR####""""""""""""
+THIS INFORMATION SHOWS THE ALIGNMENT OF PACKAGES
+TO ASSIGNED ROUTES. THE INFORMATION WAS RECONFIGURED
+ACCORDING TO  THE SPECIFICATIONS OF DEADLINES AND 
+SPECIAL MESSAGES. ADJUSTING PACKAGES ACCORDING TO
+ROUTE ALSO HELPED MAINTAINABILITY OF THE CODE.
+I HOPE THIS  NOTE IS HELPFUL FOR THE NEXT DEVELOPER
+WHO NEEDS THIS.
+
+route one list:
+WGU HUB,4001 South 700 East,84107
+ -- 28
+3595 S Main St, South Salt Lake, 84115 -- 20 
+4300 S 1300 E, Salt Lake City, UT, 84124 -- 14
+4580 S 2300 E. Salt Lake City, UT, 84117 -- 15,16 | 34
+5383 S 900 E. Salt Lake City, UT 84117 -- 26      | 25
+6351 S. 900 E. Salt Lake City, UT, 84121 -- 22
+2600 Taylorsville Blvd. Salt Lake City, UT, 84129 -- 11
+5100 S 2700 W. Salt Lake City, UT, 84129 -- 23
+5025 S State St, Salt Lake City, UT,84107 -- 24
+W. Valley Home Avenue, West Valley City, UT, 84119 -- 12
+1488 4800 S, 84123 -- 18
+177 W Price Avenue,South Salt Lake, 84115  -- 19
+WGU HUB,4001 South 700 East,84107 -- 24
+[28,20,14,15,
+16,26,22,11,
+23,24,12,18,
+19,24] --t1r1
+[34,25] --t2r1
+----------------------------------------------------------------
+route two list :
+3595 S Main St, South Salt Lake, 84115 -- 21
+380 W 2880 S, South Salt Lake, 84115 -- 40, 4
+2530 S 500 E,  South Salt Lake, 84106 -- 33 , 2
+195 W Oakland Ave,South Salt Lake,84115 -- 1
+1330 E 2100 S, Salt Lake City, UT,84105 -- 7 | 29
+600 S 900 E, Salt Lake City, UT,84102 -- 10
+410 S State St, Salt Lake,84111 -- 38,5
+300 S State St, Salt Lake,84111 -- 30, 8 | 9
+233 N. Canyon Rd., Salt Lake City, UT,84103 -- 3
+2010 W. 500 S., Salt Lake City, UT,84104 -- 13|39
+1060 W Dalton Avenue, Salt Lake City, UT,84104 -- | 27,35
+2300 W Pkwy Blvd,West Valley City,84119 --36
+3060 S Lester St,West Valley City,84119 -- | 6
+3148 S 1100 W, South Salt Lake, 84119 -- 17
+County Gov't -- 31| 32
+177 W Price Avenue,South Salt Lake, 84115
+WGU HUB,4001 South 700 East,8410"""
+"""""" """"""
 
 times_list = []
 
@@ -133,16 +184,16 @@ def pkg_distribution_r1(truck):
         pkg_hash_table.insert(next_pkg)
         # time.sleep(1.5)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
-            next_pkg) + "\n")
+        print("\033[40m"+str(truck.truck_name) + "\033[40m TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
+            next_pkg) + "\033[40m\n")
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    print("_" * 250)
+    print("\033[32m\033[40m_" * 250)
     print("\n\033[1mTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
-          "'s FIRST ROUTE\033[0m")
-    print("_" * 250 + "\n\n\n")
+          "\033[40m\033[32m's FIRST ROUTE")
+    print("_" * 250 + "\033[0m\n\n")
     # time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
@@ -204,16 +255,33 @@ def pkg_distribution_r2(truck):
         pkg_hash_table.insert(next_pkg)
         final_mileage = "{:.2f}".format(truck.tot_miles)
         # time.sleep(1.5) //will set this to ten seconds for the evaluator
-        print(str(truck.truck_name) + " TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" +
-              str(next_pkg) + "\n")
+        print(
+            "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(f"{truck.time}") + ", DISTANCE: " + str(
+                final_mileage) + "\n" +
+            "{:15}".format(f"PACKAGE ID# |    ") +
+            "{:40}".format(f"ADDRESS") +
+            "{:23}".format(f"CITY") +
+            "{:8}".format(f"STATE") +
+            "{:8}".format(f"ZIPCODE") +
+            "{:5}".format(f"MASS") +
+            "{:12}".format(f"LOADTIME") +
+            "{:12}".format(f"DEADLINE") +
+            "{:30}".format(f"DELIVERY TIME") +
+            "{:30}".format(f"STATUS") +
+            "{:55}".format(f"SPECIAL MESSAGES")
+            )
+        print(str(next_pkg) + "\n")
+        print("_" * 250)
+
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
     truck.time += datetime.timedelta(hours=distance_to_hub / 18)
-    print("_" * 250)
+    print("\033[32m\033[40m_" * 250)
     print("\n\033[1mTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
-          "'s SECOND ROUTE\033[0m")
-    print("_" * 250 + "\n\n\n")
+          "\033[40m\033[32m's SECOND ROUTE")
+    print("_" * 250 + "\033[0m\n\n\n")
+
     # time.sleep(1)
     # print(truck.tot_miles, truck.time)
 
@@ -231,11 +299,12 @@ will be passed to another function. These O(1) operations make this function O(1
 
 def greet():
     try:
-        print("-------🦉WGUPS DELIVERY TRACKER🦉---------")
-        print("Hello! Welcome to WGUPS DELIVERY TRACKER!!")
-        print("Please select from one of the options below:\n")
+        print("")
+        print("\033[94m\033[3m-------\033[0m\033[1m🦉WGUPS DELIVERY TRACKER🦉\033[0m\033[94m---------\033[0m")
+        print("\033[3m\033[1mHello! Welcome to WGUPS DELIVERY TRACKER!!")
+        print("Please select from one of the options below:\033[0m\n")
         print(  # "1. No longer available for evaluators\n"
-            "1. TRACK PACKAGE \n"
+            "\033[1m1. TRACK PACKAGE \n"
             "2. TRACK ALL PACKAGES \n"
             # "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
             # "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
@@ -243,8 +312,8 @@ def greet():
             # "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
             # "8. VERIFY DELIVERY STATUS \n"
             # "9. DEFINE ALL OPTIONS\n"
-            "3. PROGRAM EXIT \n")
-        print("-------------------------------------\n")
+            "3. PROGRAM EXIT \033[0m\n")
+        print("\033[34m------------------------------------------\033[0m\n")
         select_option()
     except ValueError:
         program_exit_msg()
@@ -262,7 +331,7 @@ https://discuss.codechef.com/t/switch-vs-if-else/13183/4
 
 def select_option():
     try:
-        option = input("Please enter your option here:")
+        option = input("\033[3mPlease enter your option here:")
         match option:
             # case "1":
             #     deliver_all()
@@ -333,24 +402,24 @@ def track_one():
     try:
         id_searched = input("Please enter the ID of the package you would like to search!")
         pkg_searched = pkg_hash_table.lookup(int(id_searched))
-        time_searched = input("Please enter the time you would like to search in HH:mm format :")
+        time_searched = input("Please enter the time you would like to search in HH:mm format :\033[0m")
         (hh, mm) = time_searched.split(":")
         time_limit = datetime.timedelta(hours=23, minutes=59)
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
         correction_time = datetime.timedelta(hours=10, minutes=20)
         if time_entered <= time_limit:
             if time_entered < pkg_searched.load_time:
-                pkg_searched.status = "At Hub"
+                pkg_searched.status = "\033[90mAt Hub\033[0m"
                 print("\n" + str(pkg_searched) + "\n")
             elif time_entered < pkg_searched.delivery_time:
-                pkg_searched.status = "En route"
+                pkg_searched.status = "\033[33mEn route\033[0m"
                 print(str(pkg_searched) + "\n")
             elif (time_entered >= correction_time) and (time_entered < pkg_searched.delivery_time):
                 spc_pkg = pkg_hash_table.lookup(9)
                 spc_pkg.address = "410 S. State St."
                 spc_pkg.zipcode = "84111"
             else:
-                pkg_searched.status = "Delivered"
+                pkg_searched.status = "\033[92mDelivered\033[0m"
                 spc_pkg = pkg_hash_table.lookup(9)
                 spc_pkg.address = "410 S. State St."
                 spc_pkg.zipcode = "84111"
@@ -376,7 +445,7 @@ def display_all():
     # print("PACKAGE # |\t\t\tADDRESS\t\t\t|\tCITY\t|STATE|ZIP|"
     #       "MASS| LOAD TIME | DEADLINE | DELIVERY TIME "
     #       "| STATUS | SPECIAL MESSAGE ")
-    print("{:15}".format(f"ALL PACKAGES|    ") +
+    print("{:15}".format(f"\033[40mALL PACKAGES|    ") +
           "{:40}".format(f"ADDRESS") +
           "{:23}".format(f"CITY") +
           "{:8}".format(f"STATE") +
@@ -387,7 +456,8 @@ def display_all():
           "{:30}".format(f"DELIVERY TIME") +
           "{:30}".format(f"STATUS") +
           "{:55}".format(f"SPECIAL MESSAGES"))
-    print("_" * 250)
+    print("\033[40m_" * 250)
+    # print("\033[40m\033[0m")
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
@@ -410,17 +480,17 @@ def track_all():
             for i in range(1, 41):
                 pkg_item = pkg_hash_table.lookup(i)
                 if time_entered < pkg_item.load_time:
-                    pkg_item.status = "At Hub"
+                    pkg_item.status = "\033[90mAt Hub\033[0m"
 
                 elif time_entered < pkg_item.delivery_time:
-                    pkg_item.status = "En route"
+                    pkg_item.status = "\033[33mEn route\033[0m"
 
                 elif (time_entered >= correction_time) and (time_entered < pkg_item.delivery_time):
                     spc_pkg = pkg_hash_table.lookup(9)
                     spc_pkg.address = "410 S. State St."
                     spc_pkg.zipcode = "84111"
                 else:
-                    pkg_item.status = "Delivered"
+                    pkg_item.status = "\033[92mDelivered\033[0m"
             display_all()
         else:
             print("\nInvalid input. Please decide if you would like to try again.")
@@ -438,22 +508,23 @@ trucks since the third truck was not used."""
 
 
 def delivery_status():
-    print("_" * 250)
-    print("\033[1m📦DELIVERY STATUS📦:\033[0m\n")
-
+    print("\033[40m\033[1m_" * 250 + "")
+    print("📦DELIVERY STATUS📦:")
+    print("\033[40m_" * 250)
     display_all()
-    print("_" * 250)
+    print("\033[40m\033[1m_" * 250)
+    print("\033[0m")
     truck_one_mileage = "{:.2f}".format(first_truck.tot_miles)
     truck_two_mileage = "{:.2f}".format(second_truck.tot_miles)
     tot_mileage = "{:.2f}".format(first_truck.tot_miles + second_truck.tot_miles)
-    print("\n" + "*" * 250)
-    print("\n\033[1m🚚MILEAGE REPORT⛟:\033[0m\n")
-    print(str(first_truck.truck_name) + " | TIME:" + str(first_truck.time) +
+    print("\n\033[40m" + "*" * 250)
+    print("\n\033[1m🚚MILEAGE REPORT⛟:\033[0m\033[40m\n")
+    print("\033[40m\033[3m" + str(first_truck.truck_name) + "\033[40m | TIME:" + str(first_truck.time) +
           ", DISTANCE: " + truck_one_mileage + " MILES \n")  # format function like pkg_distro
-    print(str(second_truck.truck_name) + "| TIME:" + str(second_truck.time) +
+    print(str(second_truck.truck_name) + "\033[40m| TIME:" + str(second_truck.time) +
           ", DISTANCE: " + truck_two_mileage + " MILES \n")
-    print("TOTAL DISTANCE: " + str(tot_mileage) + " MILES \n")
-    print("*" * 250 + "\n")
+    print("TOTAL DISTANCE: " + str(tot_mileage) + " MILES\033[40m\n")
+    print("*" * 250 + "\n\033[0m")
 
 
 """This major block define_options() has O(1) Time complexity as it only outputs strings of text.
@@ -482,7 +553,7 @@ will be passed to another function. These O(1) operations make this function O(1
 
 def select_again():
     try:
-        new_selection = input("\nIf you would like to make a new selection either 'y' or 'Y'. ")
+        new_selection = input("\033[0m\033[1m\nIf you would like to make a new selection either 'y' or 'Y'. ")
         match new_selection:
             case "y" | "Y":
                 print("\n")

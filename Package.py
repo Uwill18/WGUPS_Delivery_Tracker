@@ -36,8 +36,8 @@ class Package:
     def __str__(self):
         # current_time = self.transit_time.strftime("%H:%M:%S")
         if self.package_id < 10:
-            return (
-                    "{:16}".format(f"PACKAGE #0{self.package_id} |< :") +
+            return ("\033[40m" +
+                    "{:16}".format(f"\033[40m\033[3mPACKAGE #0{self.package_id}\033[0m\033[40m |< :") +
                     "{:40}".format(f"{self.address},") +
                     "{:25}".format(f"{self.city}, ") +
                     "{:7}".format(f"{self.state}, ") +
@@ -46,12 +46,13 @@ class Package:
                     "{:12}".format(f"{str(self.load_time)}, ") +
                     "{:12}".format(f"{str(self.deadline)}, ") +
                     "{:25}".format(f"{str(self.delivery_time)},") +
-                    "{:30}".format(f"{self.status} on {self.truck_name}:") +
-                    "{:55}".format(f"{self.special_msg}>")
+                    "{:30}".format(f"\033[40m{self.status}\033[40m on {self.truck_name}\033[40m:") +
+                    "{:55}".format(f"{self.special_msg}>\033[0m")
             )
         else:
             return (
-                "{:16}".format(f"PACKAGE #{self.package_id} |< :") +
+                "\033[40m" +
+                "{:16}".format(f"\033[40m\033[3mPACKAGE #{self.package_id}\033[0m\033[40m |< :") +
                 "{:40}".format(f"{self.address},") +
                 "{:25}".format(f"{self.city}, ") +
                 "{:7}".format(f"{self.state}, ") +
@@ -60,7 +61,7 @@ class Package:
                 "{:12}".format(f"{str(self.load_time)}, ") +
                 "{:12}".format(f"{str(self.deadline)}, ") +
                 "{:25}".format(f"{str(self.delivery_time)},") +
-                "{:30}".format(f"{self.status} on {self.truck_name}:") +
+                "{:30}".format(f"\033[40m\033[3m{self.status}\033[40m on {self.truck_name}\033[40m:") +
                 "{:55}".format(f"{self.special_msg}>")
                 )
 
