@@ -43,7 +43,8 @@ def load_package_data(csvfile, p_hash_table):
             pkg_msg = pkg_row[7]
             pkg_status = "At Hub"
             pkg_loadtime = datetime.timedelta(hours=8)
-            pkg_dt = pkg_loadtime
+            # pkg_dt = pkg_loadtime
+            pkg_dt = datetime.timedelta(0)
             pkg_truck = "truck"
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
@@ -300,11 +301,11 @@ will be passed to another function. These O(1) operations make this function O(1
 def greet():
     try:
         print("")
-        print("\033[94m\033[3m-------\033[0m\033[1m🦉WGUPS DELIVERY TRACKER🦉\033[0m\033[94m---------\033[0m")
-        print("\033[3m\033[1mHello! Welcome to WGUPS DELIVERY TRACKER!!")
-        print("Please select from one of the options below:\033[0m\n")
+        print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER🦉\033[0m\033[94m\033[4m\033[40m---------\033[0m\033[40m")
+        print("\033[3m\033[1m\033[40mHello! Welcome to WGUPS DELIVERY TRACKER!!")
+        print("Please select from one of the options below:\033[0m\033[40m\n")
         print(  # "1. No longer available for evaluators\n"
-            "\033[1m1. TRACK PACKAGE \n"
+            "\033[1m\033[40m1. TRACK PACKAGE \n"
             "2. TRACK ALL PACKAGES \n"
             # "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
             # "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
@@ -312,8 +313,8 @@ def greet():
             # "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
             # "8. VERIFY DELIVERY STATUS \n"
             # "9. DEFINE ALL OPTIONS\n"
-            "3. PROGRAM EXIT \033[0m\n")
-        print("\033[34m------------------------------------------\033[0m\n")
+            "3. PROGRAM EXIT \033[0m\033[40m\n")
+        print("\033[34m------------------------------------------\033[0m\033[40m\n\033[40m")
         select_option()
     except ValueError:
         program_exit_msg()
@@ -331,7 +332,7 @@ https://discuss.codechef.com/t/switch-vs-if-else/13183/4
 
 def select_option():
     try:
-        option = input("\033[3mPlease enter your option here:")
+        option = input("\033[0m\033[3m\nPlease enter your option here:")
         match option:
             # case "1":
             #     deliver_all()
@@ -573,7 +574,7 @@ These O(1) operations make this function O(1) time complexity."""
 
 
 def program_exit_msg():
-    print("\n----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
+    print("\n\033[40m----------🦉WGUPS DELIVERY TRACKER🦉-----------\n"
           "Thank you for using the WGUPS DELIVERY TRACKER!\n"
           "This python program  is made by: \n"
           "Author: Uri W. Easter\n"
@@ -592,7 +593,7 @@ def program_exit_msg():
           "-------------------------------------------------"
           )
     time.sleep(2.5)
-    print("\t\t🐍Exiting Program. Ciao!⛟")
+    print("\t\t🐍Exiting Program. Ciao!⛟\n\033[0m")
     exit()
 
 

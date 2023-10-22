@@ -1,0 +1,22 @@
+Before you start my program
+--I have learned from both times of this being returned, the lesson you wanted to teach. That I cannot trust the user. I cannot trust the user to use my program intuitively. I cannot trust the user to actually read my paper and comment based on what has been written. When designing a system, the best system is a forced-choice system because the variability of the user's behavior cannot be predicted. Therefore it is best in practice to think, and evaluate all the things the user could do in advance to break the program. To be open to criticism to improve the programming from anomalies. And most importantly to design a program from minimalist view to reduce chance for error. I would like to think that if I had done a video that my first submission would have been accepted. I would like to think that if I had written instructions that the program would be followed and understood. I wrote in my paper in the first submission how my program was intended to be used. Foolishly, I was shocked when my program was tested the second time and used in a way I had not intended to produce results that showed my error in assumptions of the user. Therefore, I have been taught I can make no more assumptions. And yet, since my trust is shaken, how can I assure that the user will not find another way to abuse my creation? It pains me to do this, but I have put in place, a double encryption system
+before my program is run, to ensure that relevant content is evaluated before running it, so the user will know well in advance how to use the program. To run the program you must get the password from the paper. In the paper I have typed at random points sentences that state in order the characters for the password that will unlock the zipfile for the program. Before reading the paper, I will show ten passwords in this video, and I will reveal at one point in this video which password is the real password. That password is the one that will enable you to open the paper.
+Why go through all this trouble? I feel in the last submission I was counted off for things that were not paid attention to in the paper. For instance " ". I went through the effort of specifying my laptop after the comments of the first evaluator "".
+In the first submission the evaluator commented it failed because "". I understand as I stated from before, how they came to that error. That error made it apparent to me that they did not read the instructions in the paper that said "". On the second submission the evaluator stated "", and I see where they are coming from. I do not believe they saw my intent, and since I understand theirs, I have changed the programming to fit the specifications. This time there will be:
+
+
+
+
+
+
+
+
+--my screenshots are in two because my laptop in all its specifications in part B cannot take a screenshot once of all packages. The screen is 15.6 inches.
+--before you run the code, please actually read the paper. My code has been rejected twice for  the evaluator's inability to read the paper which is also one of the main requirements of this course. The paper is nearly 20 pages long. 18 pages to be precise. In that paper, there are plenty of answers to how this works, but each time this program gets rejected it becomes painstakingly clear it has not been read therefore leading to the user's inability to execute the program. If they read the paper that was required, it is very possible the user would be able to execute the program accurately. In the future, no longer require the paper if you will not read it. It is a waste of everyone's time to explain a program at length if the time will not be taken to examine clear professional communication of how the program is intended to operate. If you will rate this program as incompetent in certain section, please make sure to to cite my paper having reviewed it at least twice of where this falls short.
+do you wish to proceeed Y || y
+
+
+Before you grade my program
+have you actually read the paper? Has a human with their eyeballs looked at the paper, reviewed the material, and operated the program based on what is in the paper, and graded the material according to what is clearly in the paper? Has anyone contacted me prior to grading, or written constructive feedback citing my paper.
+
+DISCUSS THE FIXES YOU HAVE MADE OVER THE ITERATIONS
