@@ -47,7 +47,7 @@ class Package:
                     "{:12}".format(f"{str(self.deadline)}, ") +
                     "{:25}".format(f"{str(self.delivery_time)},") +
                     "{:30}".format(f"\033[40m{self.status}\033[40m on {self.truck_name}\033[40m:") +
-                    "{:55}".format(f"{self.special_msg}>\033[40m")
+                    "{:52}".format(f"{self.special_msg}>\033[40m")
             )
         else:
             return (
@@ -62,7 +62,7 @@ class Package:
                 "{:12}".format(f"{str(self.deadline)}, ") +
                 "{:25}".format(f"{str(self.delivery_time)},") +
                 "{:30}".format(f"\033[40m\033[3m{self.status}\033[40m on {self.truck_name}\033[40m:") +
-                "{:55}".format(f"{self.special_msg}>\033[40m")
+                "{:52}".format(f"{self.special_msg}>\033[40m")
                 )
 
         # return (f"PACKAGE #{self.package_id} | < : {self.address}, "

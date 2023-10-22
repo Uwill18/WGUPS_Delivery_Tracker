@@ -44,8 +44,8 @@ def load_package_data(csvfile, p_hash_table):
             pkg_status = "At Hub"
             pkg_loadtime = datetime.timedelta(hours=8)
             # pkg_dt = pkg_loadtime
-            pkg_dt = datetime.timedelta(0)
-            pkg_truck = "truck"
+            pkg_dt = pkg_loadtime
+            pkg_truck = "\033[3mLoading Dock\033[0m"
 
             pkg = Package(int(pkg_id), pkg_address, pkg_city,
                           pkg_state, pkg_zipcode, pkg_deadline, pkg_mass,
@@ -66,7 +66,6 @@ second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 29, 10, 37, 30, 3, 39, 36, 17
                      [6, 18], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
                      "\033[3mSecond_Truck\033[0m")
-
 
 """""""""###LIST REFACTOR####""""""""""""
 THIS INFORMATION SHOWS THE ALIGNMENT OF PACKAGES
@@ -185,8 +184,24 @@ def pkg_distribution_r1(truck):
         pkg_hash_table.insert(next_pkg)
         # time.sleep(1.5)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        print("\033[40m"+str(truck.truck_name) + "\033[40m TIME: " + str(truck.time) + ", DISTANCE: " + str(final_mileage) + "\n" + str(
-            next_pkg) + "\033[40m\n")
+        print(
+            "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
+                f"{truck.time}") + ", DISTANCE: " + str(
+                final_mileage) + "\n" +
+            "{:15}".format(f"PACKAGE ID# |    ") +
+            "{:40}".format(f"ADDRESS") +
+            "{:23}".format(f"CITY") +
+            "{:8}".format(f"STATE") +
+            "{:8}".format(f"ZIPCODE") +
+            "{:5}".format(f"MASS") +
+            "{:12}".format(f"LOADTIME") +
+            "{:12}".format(f"DEADLINE") +
+            "{:30}".format(f"DELIVERY TIME") +
+            "{:30}".format(f"STATUS") +
+            "{:55}".format(f"SPECIAL MESSAGE")
+        )
+        print(str(next_pkg) + "\n")
+        print("_" * 250)
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
@@ -257,7 +272,8 @@ def pkg_distribution_r2(truck):
         final_mileage = "{:.2f}".format(truck.tot_miles)
         # time.sleep(1.5) //will set this to ten seconds for the evaluator
         print(
-            "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(f"{truck.time}") + ", DISTANCE: " + str(
+            "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
+                f"{truck.time}") + ", DISTANCE: " + str(
                 final_mileage) + "\n" +
             "{:15}".format(f"PACKAGE ID# |    ") +
             "{:40}".format(f"ADDRESS") +
@@ -270,7 +286,7 @@ def pkg_distribution_r2(truck):
             "{:30}".format(f"DELIVERY TIME") +
             "{:30}".format(f"STATUS") +
             "{:55}".format(f"SPECIAL MESSAGES")
-            )
+        )
         print(str(next_pkg) + "\n")
         print("_" * 250)
 
@@ -301,7 +317,8 @@ will be passed to another function. These O(1) operations make this function O(1
 def greet():
     try:
         print("")
-        print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER🦉\033[0m\033[94m\033[4m\033[40m---------\033[0m\033[40m")
+        print(
+            "\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER🦉\033[0m\033[94m\033[4m\033[40m---------\033[0m\033[40m")
         print("\033[3m\033[1m\033[40mHello! Welcome to WGUPS DELIVERY TRACKER!!")
         print("Please select from one of the options below:\033[0m\033[40m\n")
         print(  # "1. No longer available for evaluators\n"
@@ -404,6 +421,7 @@ def track_one():
         id_searched = input("Please enter the ID of the package you would like to search!")
         pkg_searched = pkg_hash_table.lookup(int(id_searched))
         time_searched = input("Please enter the time you would like to search in HH:mm format :\033[0m")
+        print("\n")
         (hh, mm) = time_searched.split(":")
         time_limit = datetime.timedelta(hours=23, minutes=59)
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
@@ -411,9 +429,11 @@ def track_one():
         if time_entered <= time_limit:
             if time_entered < pkg_searched.load_time:
                 pkg_searched.status = "\033[90mAt Hub\033[0m"
+                display_header()
                 print("\n" + str(pkg_searched) + "\n")
             elif time_entered < pkg_searched.delivery_time:
                 pkg_searched.status = "\033[33mEn route\033[0m"
+                display_header()
                 print(str(pkg_searched) + "\n")
             elif (time_entered >= correction_time) and (time_entered < pkg_searched.delivery_time):
                 spc_pkg = pkg_hash_table.lookup(9)
@@ -424,6 +444,7 @@ def track_one():
                 spc_pkg = pkg_hash_table.lookup(9)
                 spc_pkg.address = "410 S. State St."
                 spc_pkg.zipcode = "84111"
+                display_header()
                 print(str(pkg_searched) + "\n")
         else:
             print("\nInvalid input. Please decide if you would like to try again.")
@@ -433,6 +454,22 @@ def track_one():
         select_again()
     except KeyboardInterrupt:
         exit()
+
+
+def display_header():
+    print("{:12}".format(f"\033[40m\n" +
+                         "{:15}".format(f"PACKAGE ID# |    ") +
+                         "{:40}".format(f"ADDRESS") +
+                         "{:23}".format(f"CITY") +
+                         "{:8}".format(f"STATE") +
+                         "{:8}".format(f"ZIPCODE") +
+                         "{:5}".format(f"MASS") +
+                         "{:12}".format(f"LOADTIME") +
+                         "{:12}".format(f"DEADLINE") +
+                         "{:30}".format(f"DELIVERY TIME") +
+                         "{:30}".format(f"STATUS") +
+                         "{:55}".format(f"SPECIAL MESSAGES")))
+    print("_" * 250)
 
 
 """This major function block known as display_all() is O(n) since it has one for loop in which the output is 
