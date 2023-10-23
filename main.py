@@ -187,19 +187,8 @@ def pkg_distribution_r1(truck):
         print(
             "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
                 f"{truck.time}") + ", DISTANCE: " + str(
-                final_mileage) + "\n" +
-            "{:15}".format(f"PACKAGE ID# |    ") +
-            "{:40}".format(f"ADDRESS") +
-            "{:23}".format(f"CITY") +
-            "{:8}".format(f"STATE") +
-            "{:8}".format(f"ZIPCODE") +
-            "{:5}".format(f"MASS") +
-            "{:12}".format(f"LOADTIME") +
-            "{:12}".format(f"DEADLINE") +
-            "{:30}".format(f"DELIVERY TIME") +
-            "{:30}".format(f"STATUS") +
-            "{:55}".format(f"SPECIAL MESSAGE")
-        )
+                final_mileage))
+        display_header()
         print(str(next_pkg) + "\n")
         print("_" * 250)
         times_list.append(next_pkg.delivery_time)
@@ -275,19 +264,9 @@ def pkg_distribution_r2(truck):
         print(
             "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
                 f"{truck.time}") + ", DISTANCE: " + str(
-                final_mileage) + "\n" +
-            "{:15}".format(f"PACKAGE ID# |    ") +
-            "{:40}".format(f"ADDRESS") +
-            "{:23}".format(f"CITY") +
-            "{:8}".format(f"STATE") +
-            "{:8}".format(f"ZIPCODE") +
-            "{:5}".format(f"MASS") +
-            "{:12}".format(f"LOADTIME") +
-            "{:12}".format(f"DEADLINE") +
-            "{:30}".format(f"DELIVERY TIME") +
-            "{:30}".format(f"STATUS") +
-            "{:55}".format(f"SPECIAL MESSAGES")
+                final_mileage) + "\n"
         )
+        display_header()
         print(str(next_pkg) + "\n")
         print("_" * 250)
 
@@ -457,7 +436,7 @@ def track_one():
 
 
 def display_header():
-    print("{:12}".format(f"\033[40m\n" +
+    print("{:12}".format(f"\033[40m" +
                          "{:15}".format(f"PACKAGE ID# |    ") +
                          "{:40}".format(f"ADDRESS") +
                          "{:23}".format(f"CITY") +
@@ -501,6 +480,7 @@ def display_all():
         print(pkg_item)
 
 
+
 """
 #This major function block a.k.a track_all() also classifies as an O(n^2) much like track_one() due to the same
 time validation executed by the nested looping. Most technically it is O(n^3), but that is a form of O(n^2).
@@ -529,6 +509,7 @@ def track_all():
                     spc_pkg.zipcode = "84111"
                 else:
                     pkg_item.status = "\033[92mDelivered\033[0m"
+            print("\n")
             display_all()
         else:
             print("\nInvalid input. Please decide if you would like to try again.")
