@@ -26,7 +26,7 @@ from Truck import calc_distance, address_index, Truck
 This section first instantiates objects through pulling attribute data from class files, csv files, and libraries
  native to python (such as datetime, and time). The objects will be used in the next section for major algorithms
  to deliver packages per the project requisites, and to output data to show that those requisites are met."""
-
+global time
 
 # This block instantiates the series of packages and loads csv column data to package attributes
 def load_package_data(csvfile, p_hash_table):
@@ -132,8 +132,7 @@ or divided by a constant amount.
 
 def pkg_distribution_r1(truck):
     # Define an array of packages for distribution
-    print("_" * 250)
-    global time
+    # print("_" * 250)
     pkg_inventory = []
     for pid in truck.pkg_load:
         pkg_item = pkg_hash_table.lookup(pid)
@@ -182,8 +181,9 @@ def pkg_distribution_r1(truck):
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
-        # time.sleep(1.5)
+        time.sleep(1.5)
         final_mileage = "{:.2f}".format(truck.tot_miles)
+        print("\033[40m_" * 250)
         print(
             "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
                 f"{truck.time}") + ", DISTANCE: " + str(
@@ -210,7 +210,7 @@ def pkg_distribution_r1(truck):
     print("\n\033[1mTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
           "\033[40m\033[32m's FIRST ROUTE")
     print("_" * 250 + "\033[0m\n\n")
-    # time.sleep(5)
+    time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -223,7 +223,7 @@ times_list = []
 
 # Major block O(n^2)
 def pkg_distribution_r2(truck):
-    print("_" * 250)
+    # print("_" * 250)
     global time
     pkg_inventory_two = []
     for pid in truck.pkg_load_r2:
@@ -270,7 +270,8 @@ def pkg_distribution_r2(truck):
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        # time.sleep(1.5) //will set this to ten seconds for the evaluator
+        time.sleep(1.5) #will set this to ten seconds for the evaluator
+        print("\033[40m_" * 250)
         print(
             "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
                 f"{truck.time}") + ", DISTANCE: " + str(
@@ -298,8 +299,7 @@ def pkg_distribution_r2(truck):
     print("\n\033[1mTHE CURRENT DELIVERY STATUS OF ALL PACKAGES IS THE RESULT OF " + truck.truck_name +
           "\033[40m\033[32m's SECOND ROUTE")
     print("_" * 250 + "\033[0m\n\n\n")
-
-    # time.sleep(1)
+    time.sleep(5)
     # print(truck.tot_miles, truck.time)
 
 
@@ -552,6 +552,7 @@ def delivery_status():
     display_all()
     print("\033[40m\033[1m_" * 250)
     print("\033[0m")
+    time.sleep(5)
     truck_one_mileage = "{:.2f}".format(first_truck.tot_miles)
     truck_two_mileage = "{:.2f}".format(second_truck.tot_miles)
     tot_mileage = "{:.2f}".format(first_truck.tot_miles + second_truck.tot_miles)
@@ -563,6 +564,8 @@ def delivery_status():
           ", DISTANCE: " + truck_two_mileage + " MILES \n")
     print("TOTAL DISTANCE: " + str(tot_mileage) + " MILES\033[40m\n")
     print("*" * 250 + "\n\033[0m")
+    time.sleep(5)
+
 
 
 """This major block define_options() has O(1) Time complexity as it only outputs strings of text.
@@ -767,8 +770,7 @@ greet()
 
 # --final tasks
 # --input a header X
-# --record a panopto - 4
-# --rewrite your paper - 3
-# --write instructions for the evaluator  - 1
-# --make a function explaining how to use the program  - 2
+# --record a panopto - 2
+# --rewrite your paper - 1
+# --write instructions for the evaluator  - 3
 # --input a truck name field x
