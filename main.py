@@ -63,11 +63,11 @@ pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 # The instantiation of the trucks are both O(1) instructions
-first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 34, 26, 25, 22, 11, 23, 24, 12, 18, 13, 19],
-                    [7, 38, 5, 8, 9, 27, 35, 32], 0.0, 0, "4001 South 700 East",
+first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 34, 26, 25, 22, 11, 23, 24, 12, 13, 19],
+                    [7, 5, 8, 9, 27, 35, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mTruck_One\033[0m")
-second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 29, 10, 37, 30, 3, 39, 36, 17, 31],
-                     [6], 0.0,
+second_truck = Truck(16, 18, [40, 4, 33, 2, 1, 29, 10, 38, 37, 30, 3, 39, 36, 6, 17, 31],
+                     [21, 18], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
                      "\033[3mTruck_Two\033[0m")
 
@@ -378,12 +378,12 @@ def deliver_all():
 
         spaces = '' * 1000
         print("\rA7 Software presents..", end='')
-        time.sleep(2)
+        time.sleep(5)
         print("\rin Affiliation with H2APPs ", end='')
-        time.sleep(2)
+        time.sleep(5)
         print("\rWGUPS DELIVERY TRACKER v4.0", end='')
         # print("WGUPS DELIVERY TRACKER v3.0")
-        time.sleep(2)
+        time.sleep(7)
         print('\r' + spaces, end="")
         print("\033[42m\033[30m_" * 250)
         print("\nWGUPS Delivery Tracker simulates delivering 40 packages per each one's delivery requirements"
@@ -406,46 +406,42 @@ def deliver_all():
         print("\033[42m\033[30m_" * 250)
         print("\nThis results in the four sets of output  printed out to show each route traveled by each truck,\n"
               "along with mileage reports, and updates for the delivery status of all 40 packages after each\n"
-              "segment.This This takes 120 seconds on average to complete and enables the supervisor to see\n,"
+              "segment.This takes 120 seconds on average to complete and enables the supervisor to see\n"
               "at each assigned point,the progress of each truck and its packages, with the attribute details\n"
               "of each package. Once all four segments are complete,and the fourth mileage report shows the final\n"
               "mileage for both trucks,then the user can select one of three options to continue with the\n"
               "application's execution.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        time.sleep(25)
+        time.sleep(18)
 
         print("\033[32m\033[40m_" * 250)
-        print("\nThe total distance for all routes will show as 114.30 miles.This is achieved by the usage of the "
+        print("\nThe total distance for all routes will show as 117.10 miles.This is achieved by the usage of the "
               "\nNearest Neighbor Algorithm which finds the minimum distance between a grouping of points before"
               "\nmapping to the next smallest distance in range.This method produces the most optimized paths for"
               "\ndelivering all packages quickly and well within the required distance limit of 140 miles\n")
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        time.sleep(25)
+        time.sleep(18)
 
         print("\033[42m\033[30m_" * 250)
         print("\nOnce  all packages have been delivered one can search for any one of forty packages by selecting the\n"
               "option '1.TRACK PACKAGE'. Then enter the PACKAGE ID# for the hashmap to identify the correct package\n"
-              "for retrieval by the id number. Finally, input the time you would like to search in military format,\n"
+              "for retrieval by the id number. Finally, input the time you would like to search in military time,\n"
               "also known as 24h format.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        time.sleep(20)
+        time.sleep(15)
 
         print("\033[32m\033[40m_" * 250)
         print("\nTo track all packages for any given time you can select the option '2. TRACK ALL PACKAGES'"
-              "\nand then enter the time you would like to search in military format a.k.a. 24h format.\n")
+              "\nand then enter the time you would like to search in military time a.k.a. 24h format."
+              "\nIf you need help with converting to military time/24h time please click the link below:\n"
+              "https://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n"
+              )
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        time.sleep(20)
-
-        print("\033[42m\033[30m_" * 250)
-        print("\nIf you need help with converting to military time/24h time please visit the link below:\n "
-              "https://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n")
-        print("\033[42m\033[30m_" * 250)
-        print("\033[0m")
-        time.sleep(20)
+        time.sleep(15)
 
         print('\r' + spaces, end="")
         print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER v4.0🦉\033[0m\033["
