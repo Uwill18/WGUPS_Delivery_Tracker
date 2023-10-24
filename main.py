@@ -11,6 +11,8 @@
 # https://www.linkedin.com/learning/python-essential-training-18764650/csv?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
+import os
+import sys, subprocess
 # from datetime import datetime
 from csv import writer
 from datetime import timedelta
@@ -21,12 +23,14 @@ import time
 from MyHashMap import MyHashMap
 from Package import Package
 from Truck import calc_distance, address_index, Truck
+import os
 
 """##########################################OBJECT INSTANTIATION START###########################################
 This section first instantiates objects through pulling attribute data from class files, csv files, and libraries
  native to python (such as datetime, and time). The objects will be used in the next section for major algorithms
  to deliver packages per the project requisites, and to output data to show that those requisites are met."""
 global time
+
 
 # This block instantiates the series of packages and loads csv column data to package attributes
 def load_package_data(csvfile, p_hash_table):
@@ -61,11 +65,11 @@ load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 # The instantiation of the trucks are both O(1) instructions
 first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 34, 26, 25, 22, 11, 23, 24, 12, 18, 13, 19],
                     [7, 38, 5, 8, 9, 27, 35, 32], 0.0, 0, "4001 South 700 East",
-                    datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mFirst_Truck\033[0m")
+                    datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mTruck_One\033[0m")
 second_truck = Truck(16, 18, [21, 40, 4, 33, 2, 1, 29, 10, 37, 30, 3, 39, 36, 17, 31],
-                     [6, 18], 0.0,
+                     [6], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
-                     "\033[3mSecond_Truck\033[0m")
+                     "\033[3mTruck_Two\033[0m")
 
 """""""""###LIST REFACTOR####""""""""""""
 THIS INFORMATION SHOWS THE ALIGNMENT OF PACKAGES
@@ -259,7 +263,7 @@ def pkg_distribution_r2(truck):
         next_pkg.departure_time = truck.depart_time
         pkg_hash_table.insert(next_pkg)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        time.sleep(1.5) #will set this to ten seconds for the evaluator
+        time.sleep(1.5)  # will set this to ten seconds for the evaluator
         print("\033[40m_" * 250)
         print(
             "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
@@ -370,22 +374,112 @@ also O(n^2)"""
 
 
 def deliver_all():
-    pkg_distribution_r1(first_truck)
-    delivery_status()
-    # print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
-    #       "truck one")
-    pkg_distribution_r1(second_truck)
-    delivery_status()
-    # print("the status of all packages are the result of being loaded, en route, and delivered by the first route of "
-    #       "truck two")
-    pkg_distribution_r2(first_truck)
-    delivery_status()
-    # print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
-    #       "truck one")
-    pkg_distribution_r2(second_truck)
-    delivery_status()
-    # print("the status of all packages are the result of being loaded, en route, and delivered by the second route of "
-    #       "truck two")
+    try:
+
+        spaces = '' * 1000
+        print("\rA7 Software presents..", end='')
+        time.sleep(2)
+        print("\rin Affiliation with H2APPs ", end='')
+        time.sleep(2)
+        print("\rWGUPS DELIVERY TRACKER v4.0", end='')
+        # print("WGUPS DELIVERY TRACKER v3.0")
+        time.sleep(2)
+        print('\r' + spaces, end="")
+        print("\033[42m\033[30m_" * 250)
+        print("\nWGUPS Delivery Tracker simulates delivering 40 packages per each one's delivery requirements"
+              "\nand deadlines while also keeping the total travel distance for all delivery trucks under 140 miles.\n")
+        print("\033[42m\033[30m_" * 250)
+        print("\033[0m")
+        time.sleep(10)
+
+        # subprocess.run('cls', shell=True)
+        # print("\033[1A")
+        # subprocess.run('cls', shell=True)
+        print("\033[32m\033[40m_" * 250)
+        print("\nTo achieve these objectives two routes were mapped out from the attached SLC downtown map routes,\n"
+              "and each truck is assigned a route of delivery for its first round, then both trucks swap routes for\n"
+              "their second route.")
+        print("\033[32m\033[40m_" * 250)
+        print("\033[0m")
+        time.sleep(10)
+
+        print("\033[42m\033[30m_" * 250)
+        print("\nThis results in the four sets of output  printed out to show each route traveled by each truck,\n"
+              "along with mileage reports, and updates for the delivery status of all 40 packages after each\n"
+              "segment.This This takes 120 seconds on average to complete and enables the supervisor to see\n,"
+              "at each assigned point,the progress of each truck and its packages, with the attribute details\n"
+              "of each package. Once all four segments are complete,and the fourth mileage report shows the final\n"
+              "mileage for both trucks,then the user can select one of three options to continue with the\n"
+              "application's execution.\n")
+        print("\033[42m\033[30m_" * 250)
+        print("\033[0m")
+        time.sleep(25)
+
+        print("\033[32m\033[40m_" * 250)
+        print("\nThe total distance for all routes will show as 114.30 miles.This is achieved by the usage of the "
+              "\nNearest Neighbor Algorithm which finds the minimum distance between a grouping of points before"
+              "\nmapping to the next smallest distance in range.This method produces the most optimized paths for"
+              "\ndelivering all packages quickly and well within the required distance limit of 140 miles\n")
+        print("\033[32m\033[40m_" * 250)
+        print("\033[0m")
+        time.sleep(25)
+
+        print("\033[42m\033[30m_" * 250)
+        print("\nOnce  all packages have been delivered one can search for any one of forty packages by selecting the\n"
+              "option '1.TRACK PACKAGE'. Then enter the PACKAGE ID# for the hashmap to identify the correct package\n"
+              "for retrieval by the id number. Finally, input the time you would like to search in military format,\n"
+              "also known as 24h format.\n")
+        print("\033[42m\033[30m_" * 250)
+        print("\033[0m")
+        time.sleep(20)
+
+        print("\033[32m\033[40m_" * 250)
+        print("\nTo track all packages for any given time you can select the option '2. TRACK ALL PACKAGES'"
+              "\nand then enter the time you would like to search in military format a.k.a. 24h format.\n")
+        print("\033[32m\033[40m_" * 250)
+        print("\033[0m")
+        time.sleep(20)
+
+        print("\033[42m\033[30m_" * 250)
+        print("\nIf you need help with converting to military time/24h time please visit the link below:\n "
+              "https://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n")
+        print("\033[42m\033[30m_" * 250)
+        print("\033[0m")
+        time.sleep(20)
+
+        print('\r' + spaces, end="")
+        print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER v4.0🦉\033[0m\033["
+              "94m\033[4m\033[40m---------\033[0m\033[40m", end="")
+        # LINE_CLEAR = '\x1b[2K'
+
+        # sys.stdout.write("\x1b[1A")  # cursor up one line
+        # sys.stdout.write("\x1b[2K")  # delete the last line
+        # print("hello")
+        # print("this line will be delete after 2 seconds")
+        # time.sleep(2)
+        # delete_last_line()
+        # sys.stdout.write('\033[D \033[D')
+        # sys.stdout.flush()
+        # time.sleep(1)
+        # print("\033[H\033[Jtest")
+        # print("\033[H\033[J")
+        # print(end = LINE_CLEAR)
+
+        # print(" ", end="\r")
+        # time.sleep(1)
+        # print("WGUPS DELIVERY TRACKER", end="\r")
+        # time.sleep(1)
+        # print(("\033[1A"+"\x1b[2K")*2)
+        pkg_distribution_r1(first_truck)
+        delivery_status()
+        pkg_distribution_r1(second_truck)
+        delivery_status()
+        pkg_distribution_r2(first_truck)
+        delivery_status()
+        pkg_distribution_r2(second_truck)
+        delivery_status()
+    except KeyboardInterrupt:
+        exit()
 
 
 """This major block known as track_one() is also O(n^2) due to the nested if statements for time comparisons.
@@ -397,9 +491,11 @@ that the time entered is not out of range.
 
 def track_one():
     try:
+        print("\nIf you need help with converting to military/24h time please visit the link below:"
+              "\nhttps://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n")
         id_searched = input("Please enter the ID of the package you would like to search!")
         pkg_searched = pkg_hash_table.lookup(int(id_searched))
-        time_searched = input("Please enter the time you would like to search in HH:mm format :\033[0m")
+        time_searched = input("Please enter the time you would like to search in military time (HH:mm format):\033[0m")
         print("\n")
         (hh, mm) = time_searched.split(":")
         time_limit = datetime.timedelta(hours=23, minutes=59)
@@ -443,10 +539,10 @@ def display_header():
                          "{:8}".format(f"STATE") +
                          "{:8}".format(f"ZIPCODE") +
                          "{:5}".format(f"MASS") +
-                         "{:12}".format(f"LOADTIME") +
+                         "{:15}".format(f"LOADTIME") +
+                         "{:22}".format(f"STATUS") +
+                         "{:16}".format(f"DELIVERY TIME") +
                          "{:12}".format(f"DEADLINE") +
-                         "{:30}".format(f"DELIVERY TIME") +
-                         "{:30}".format(f"STATUS") +
                          "{:55}".format(f"SPECIAL MESSAGES")))
     print("_" * 250)
 
@@ -468,17 +564,16 @@ def display_all():
           "{:8}".format(f"STATE") +
           "{:8}".format(f"ZIPCODE") +
           "{:5}".format(f"MASS") +
-          "{:12}".format(f"LOADTIME") +
+          "{:15}".format(f"LOADTIME") +
+          "{:23}".format(f"STATUS") +
+          "{:16}".format(f"DELIVERY TIME") +
           "{:12}".format(f"DEADLINE") +
-          "{:30}".format(f"DELIVERY TIME") +
-          "{:30}".format(f"STATUS") +
           "{:55}".format(f"SPECIAL MESSAGES"))
     print("\033[40m_" * 250)
     # print("\033[40m\033[0m")
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
-
 
 
 """
@@ -489,7 +584,9 @@ time validation executed by the nested looping. Most technically it is O(n^3), b
 
 def track_all():
     try:
-        time_searched = input("Please enter the time you would like to search in HH:mm format :")
+        print("\nIf you need help with converting to military/24h time please visit the link below:"
+              "\nhttps://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n")
+        time_searched = input("Please enter the time you would like to search in military time (HH:mm format):")
         (hh, mm) = time_searched.split(":")
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
         correction_time = datetime.timedelta(hours=10, minutes=20)
@@ -541,12 +638,11 @@ def delivery_status():
     print("\n\033[1m🚚MILEAGE REPORT⛟:\033[0m\033[40m\n")
     print("\033[40m\033[3m" + str(first_truck.truck_name) + "\033[40m | TIME:" + str(first_truck.time) +
           ", DISTANCE: " + truck_one_mileage + " MILES \n")  # format function like pkg_distro
-    print(str(second_truck.truck_name) + "\033[40m| TIME:" + str(second_truck.time) +
+    print(str(second_truck.truck_name) + "\033[40m | TIME:" + str(second_truck.time) +
           ", DISTANCE: " + truck_two_mileage + " MILES \n")
     print("TOTAL DISTANCE: " + str(tot_mileage) + " MILES\033[40m\n")
     print("*" * 250 + "\n\033[0m")
     time.sleep(5)
-
 
 
 """This major block define_options() has O(1) Time complexity as it only outputs strings of text.
@@ -575,7 +671,8 @@ will be passed to another function. These O(1) operations make this function O(1
 
 def select_again():
     try:
-        new_selection = input("\033[0m\033[1m\nIf you would like to make a new selection either 'y' or 'Y'. ")
+        new_selection = input("\033[0m\033[1m\nIf you would like to make a new selection type 'Y'."
+                              "To exit, type any other key. ")
         match new_selection:
             case "y" | "Y":
                 print("\n")
@@ -676,6 +773,12 @@ def program_exit_msg():
 deliver_all()
 greet()
 
+#
+# for i in range(10):
+#     print("Loading" + "." * i)
+#     # sys.stdout.write("\033[F\033[K") # Cursor up one line
+#     sys.stdout.flush()
+#     time.sleep(1)
 # add_package()
 # program_exit_msg()
 # spc_pkg = pkg_hash_table.lookup(9)
