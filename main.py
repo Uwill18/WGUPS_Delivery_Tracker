@@ -332,7 +332,7 @@ https://discuss.codechef.com/t/switch-vs-if-else/13183/4
 
 def select_option():
     try:
-        option = input("\033[0m\033[3m\nPlease enter your option here:")
+        option = input("\033[0m\033[3m\nPlease enter your option number here:")
         match option:
             # case "1":
             #     deliver_all()
