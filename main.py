@@ -120,6 +120,16 @@ County Gov't -- 31| 32
 177 W Price Avenue,South Salt Lake, 84115
 WGU HUB,4001 South 700 East,8410"""
 """""" """"""
+"""""""""
+TEXT FORMATTING SOURCES:
+https://www.sololearn.com/discuss/2359764/how-can-i-put-formated-text-in-python-bold-italic-etc
+https://gist.github.com/dnmellen/5584007
+https://www.kodeclik.com/how-to-bold-text-in-python/
+https://stackoverflow.com/questions/40419276/python-how-to-print-text-to-console-as-hyperlink#:~:text=If%20you%20print%20a%20URL,options%20is%20%22Open%20link%22.&text=You%20just%20print%20it%20syntactically,job%20of%20the%20terminal%20application.
+https://docs.python.org/2/library/string.html#format-specification-mini-language
+https://i.stack.imgur.com/lZr23.png
+https://www.youtube.com/watch?v=LXV53NKfKQI&t=595s
+"""""""""
 
 times_list = []
 
