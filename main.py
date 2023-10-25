@@ -191,6 +191,7 @@ def pkg_distribution_r1(truck):
         # This line updates the truck's current address to the address where it had last delivered a package
         truck.address = next_pkg.address
         # This reflects the time taken for the truck to drive to the nearest package
+        pkg_hash_table.insert(next_pkg)
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
@@ -214,6 +215,7 @@ def pkg_distribution_r1(truck):
           "\033[40m\033[32m's FIRST ROUTE")
     print("_" * 250 + "\033[0m\n\n")
     time.sleep(5)
+
     # print(truck.tot_miles, truck.time)
 
 
@@ -268,12 +270,12 @@ def pkg_distribution_r2(truck):
         # Updates truck's current address attribute to the package it drove to
         truck.address = next_pkg.address
         # Updates the time it took for the truck to drive to the nearest package
+        pkg_hash_table.insert(next_pkg)
         truck.time += datetime.timedelta(hours=next_address / 18)
         next_pkg.delivery_time = truck.time
         next_pkg.departure_time = truck.depart_time
-        pkg_hash_table.insert(next_pkg)
         final_mileage = "{:.2f}".format(truck.tot_miles)
-        time.sleep(1.5)  # will set this to ten seconds for the evaluator
+        time.sleep(1.5)
         print("\033[40m_" * 250)
         print(
             "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
@@ -392,7 +394,6 @@ def deliver_all():
         print("\rin Affiliation with H2APPs ", end='')
         time.sleep(5)
         print("\rWGUPS DELIVERY TRACKER v4.0", end='')
-        # print("WGUPS DELIVERY TRACKER v3.0")
         time.sleep(7)
         print('\r' + spaces, end="")
         print("\033[42m\033[30m_" * 250)
@@ -400,7 +401,7 @@ def deliver_all():
               "\nand deadlines while also keeping the total travel distance for all delivery trucks under 140 miles.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        time.sleep(10)
+        # time.sleep(8)
 
         # subprocess.run('cls', shell=True)
         # print("\033[1A")
@@ -411,7 +412,7 @@ def deliver_all():
               "their second route.")
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        time.sleep(10)
+        # time.sleep(10)
 
         print("\033[42m\033[30m_" * 250)
         print("\nThis results in the four sets of output  printed out to show each route traveled by each truck,\n"
@@ -423,16 +424,16 @@ def deliver_all():
               "application's execution.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        time.sleep(18)
+        # time.sleep(15)
 
         print("\033[32m\033[40m_" * 250)
         print("\nThe total distance for all routes will show as 117.10 miles.This is achieved by the usage of the "
               "\nNearest Neighbor Algorithm which finds the minimum distance between a grouping of points before"
               "\nmapping to the next smallest distance in range.This method produces the most optimized paths for"
-              "\ndelivering all packages quickly and well within the required distance limit of 140 miles\n")
+              "\ndelivering all packages quickly and well within the required distance limit of 140 miles.\n")
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        time.sleep(18)
+        # time.sleep(15)
 
         print("\033[42m\033[30m_" * 250)
         print("\nOnce  all packages have been delivered one can search for any one of forty packages by selecting the\n"
@@ -441,7 +442,7 @@ def deliver_all():
               "also known as 24h format.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        time.sleep(15)
+        # time.sleep(8)
 
         print("\033[32m\033[40m_" * 250)
         print("\nTo track all packages for any given time you can select the option '2. TRACK ALL PACKAGES'"
@@ -451,7 +452,7 @@ def deliver_all():
               )
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        time.sleep(15)
+        # time.sleep(10)
 
         print('\r' + spaces, end="")
         print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER v4.0🦉\033[0m\033["
@@ -513,13 +514,21 @@ def track_one():
                 display_header()
                 print("\n" + str(pkg_searched) + "\n")
             elif time_entered < pkg_searched.delivery_time:
-                pkg_searched.status = "\033[33mEn route\033[0m"
-                display_header()
-                print(str(pkg_searched) + "\n")
-            elif (time_entered >= correction_time) and (time_entered < pkg_searched.delivery_time):
                 spc_pkg = pkg_hash_table.lookup(9)
-                spc_pkg.address = "410 S. State St."
-                spc_pkg.zipcode = "84111"
+                if time_entered < correction_time:
+                    pkg_searched.status = "\033[33mEn route\033[0m"
+                    display_header()
+                    print(str(pkg_searched) + "\n")
+                else:
+                    spc_pkg.address = "410 S. State St."
+                    spc_pkg.zipcode = "84111"
+                    spc_pkg.status = "\033[33mEn route\033[0m"
+                    display_header()
+                    print(str(pkg_searched) + "\n")
+            # elif (time_entered >= correction_time) and (time_entered < pkg_searched.delivery_time):
+            #         spc_pkg = pkg_hash_table.lookup(9)
+            #         spc_pkg.address = "410 S. State St."
+            #         spc_pkg.zipcode = "84111"
             else:
                 pkg_searched.status = "\033[92mDelivered\033[0m"
                 spc_pkg = pkg_hash_table.lookup(9)
@@ -527,6 +536,7 @@ def track_one():
                 spc_pkg.zipcode = "84111"
                 display_header()
                 print(str(pkg_searched) + "\n")
+
         else:
             print("\nInvalid input. Please decide if you would like to try again.")
             select_again()
@@ -605,11 +615,10 @@ def track_all():
 
                 elif time_entered < pkg_item.delivery_time:
                     pkg_item.status = "\033[33mEn route\033[0m"
-
-                elif (time_entered >= correction_time) and (time_entered < pkg_item.delivery_time):
                     spc_pkg = pkg_hash_table.lookup(9)
-                    spc_pkg.address = "410 S. State St."
-                    spc_pkg.zipcode = "84111"
+                    if time_entered >= correction_time:
+                        spc_pkg.address = "410 S. State St."
+                        spc_pkg.zipcode = "84111"
                 else:
                     pkg_item.status = "\033[92mDelivered\033[0m"
             print("\n")

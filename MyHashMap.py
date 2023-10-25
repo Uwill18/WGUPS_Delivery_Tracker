@@ -70,7 +70,7 @@ class MyHashMap:
         # setting up the inner lists for hashmap
         # i.e. for each bucket this function creates ten inner arrays
         for i in range(1, 41):
-            lookup(i)
+            self.lookup(i)
             return self.package_list
 
     def __str__(self):
