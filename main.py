@@ -11,18 +11,12 @@
 # https://www.linkedin.com/learning/python-essential-training-18764650/csv?contextUrn=urn%3Ali%3AlyndaLearningPath%3A5f6cf9fe498e1b8929698639&resume=false&u=2045532
 # https://www.youtube.com/watch?v=efSjcrp87OY
 import csv
-import os
-import sys, subprocess
-# from datetime import datetime
-from csv import writer
-from datetime import timedelta
 from datetime import datetime
 import datetime
 import time
-
 from MyHashMap import MyHashMap
 from Package import Package
-from Truck import calc_distance, address_index, Truck
+from Truck import (calc_distance, address_index, Truck)
 import os
 
 """##########################################OBJECT INSTANTIATION START###########################################
@@ -156,6 +150,12 @@ def pkg_distribution_r1(truck):
         pkg_item.load_time = truck.depart_time
         pkg_item.truck_name = truck.truck_name
 
+        # correction_time = datetime.timedelta(hours=10, minutes=20)
+        # spc_pkg = pkg_hash_table.lookup(9)
+        # if (truck.time >= correction_time) and (spc_pkg == pkg_item):
+        #     pkg_item.address = "410 S. State St."
+        #     pkg_item.zipcode = "84111"
+
         # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
         # print(pkg_inventory)
 
@@ -174,6 +174,7 @@ def pkg_distribution_r1(truck):
         for p in pkg_inventory:
             p.status = "En route"
             p.delivery_time = truck.time
+
             if calc_distance(address_index(truck.address),
                              address_index(p.address)) <= next_address:
                 next_address = calc_distance(address_index(truck.address),
@@ -215,7 +216,14 @@ def pkg_distribution_r1(truck):
           "\033[40m\033[32m's FIRST ROUTE")
     print("_" * 250 + "\033[0m\n\n")
     time.sleep(5)
-
+    # solution 1
+    correction_time = datetime.timedelta(hours=10, minutes=20)
+    spc_pkg = pkg_hash_table.lookup(9)
+    if truck.time >= correction_time:
+        spc_pkg.address = "410 S. State St."
+        spc_pkg.zipcode = "84111"
+    # print(spc_pkg)
+    # print(pkg_hash_table)
     # print(truck.tot_miles, truck.time)
 
 
@@ -238,6 +246,12 @@ def pkg_distribution_r2(truck):
         pkg_item.delivery_time = truck.time
         pkg_item.load_time = truck.depart_time
         pkg_item.truck_name = truck.truck_name
+
+        # correction_time = datetime.timedelta(hours=10, minutes=20)
+        # spc_pkg = pkg_hash_table.lookup(9)
+        # if (truck.time >= correction_time) and (spc_pkg == pkg_item):
+        #     pkg_item.address = "410 S. State St."
+        #     pkg_item.zipcode = "84111"
 
     # Cycle through the list of pkg_inventory_two until none remain in the list
     # Adds the nearest package into the truck.pkg_load_r2 list one by one
@@ -295,6 +309,11 @@ def pkg_distribution_r2(truck):
           "\033[40m\033[32m's SECOND ROUTE")
     print("_" * 250 + "\033[0m\n\n\n")
     time.sleep(5)
+    # correction_time = datetime.timedelta(hours=10, minutes=20)
+    # spc_pkg = pkg_hash_table.lookup(9)
+    # if truck.time >= correction_time:
+    #     spc_pkg.address = "410 S. State St."
+    #     spc_pkg.zipcode = "84111"
     # print(truck.tot_miles, truck.time)
 
 
@@ -587,6 +606,7 @@ def display_all():
           "{:55}".format(f"SPECIAL MESSAGES"))
     print("\033[40m_" * 250)
     # print("\033[40m\033[0m")
+    #place code here for solution 2
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)

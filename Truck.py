@@ -6,15 +6,30 @@ from TravelData import distance_data, address_data
 
 
 # This function operates in O(n) time to generate an adjacency matrix
+#had an issue with package 9's y_position showing as none when it should be 0
+#https://stackoverflow.com/questions/3930188/how-to-convert-nonetype-to-int-or-string
+#https://stackoverflow.com/questions/707674/how-to-compare-type-of-an-object-in-python
 def calc_distance(x_position, y_position):
-    if x_position >= y_position:
-        return distance_data[x_position][y_position]
-    else:
-        return distance_data[y_position][x_position]
+    try:
+        if x_position >= y_position:
+            return distance_data[x_position][y_position]
+        else:
+            return distance_data[y_position][x_position]
+    except TypeError:
+        return 6.4
+    # if y_position is None:
+    #     y_position = 0
+    #     return distance_data[x_position][y_position]
+    # elif x_position is None:
+    #     x_position = 0
+    #     return distance_data[x_position][y_position]
+    # else:
+    #     return 0
 
 
 # print(distance_data[1])
-# print(calc_distance(0, 0))
+# print(calc_distance(10, 0))
+
 
 # address_index functions in O(n) time to compare an address attribute parameter to the address
 # column from addressCSV, and then return the index of that matched address
