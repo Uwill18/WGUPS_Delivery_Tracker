@@ -17,14 +17,14 @@ def calc_distance(x_position, y_position):
             return distance_data[y_position][x_position]
     except TypeError:
         return 2.7
-    # if y_position is None:
-    #     y_position = 0
-    #     return distance_data[x_position][y_position]
-    # elif x_position is None:
-    #     x_position = 0
-    #     return distance_data[x_position][y_position]
-    # else:
-    #     return 0
+        # if y_position is None:
+        #     y_position = 0
+        #     return distance_data[x_position][y_position]
+        # elif x_position is None:
+        #     x_position = 0
+        #     return distance_data[y_position][x_position]
+        # else:
+        #     return 0
 
 
 # print(distance_data[1])

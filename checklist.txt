@@ -21,3 +21,17 @@ then explain and execute track one C
 g,h - run codestatus of all packages at a time between 8:35 a.m. and 9:25 a.m. (9a) status of all packages at a time between 9:35 a.m. and 10:25 a.m.(10a) status of all packages at a time between 12:03 p.m. and 1:12 p.m.(1245p)
 h - exit code
 can conclude with b,j, k
+
+--next explain fixes along the way
+Section B
+The submission describes the IDE and the version of Python used in the application. A description of the hardware is not observed.
+
+
+Section C
+The submission includes original Python code that runs without error.  The submission is insufficient because each time option one is selected, it increments the truck mileage and it increases to over 140 miles.
+The submission presents Python code. A solution that runs without errors or warnings is not observed. A program that runs successfully, including option 3 upon entering a time, is needed to meet standards.
+
+
+section G
+The submission delivers packages within 117.10 miles when option one is run the first time. The submission is insufficient because the results do not indicate the truck the packages are loaded on.
+--explain paper

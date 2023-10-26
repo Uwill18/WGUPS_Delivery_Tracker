@@ -58,7 +58,7 @@ load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 # The instantiation of the trucks are both O(1) instructions
 first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 34, 26, 25, 22, 11, 23, 24, 12, 13, 19],
-                    [7, 5, 8, 9, 27, 35, 32], 0.0, 0, "4001 South 700 East",
+                    [7, 5, 9, 8, 27, 35, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mTruck_One\033[0m")
 second_truck = Truck(16, 18, [40, 4, 33, 2, 1, 29, 10, 38, 37, 30, 3, 39, 36, 6, 17, 31],
                      [21, 18], 0.0,
@@ -102,8 +102,8 @@ route two list :
 195 W Oakland Ave,South Salt Lake,84115 -- 1
 1330 E 2100 S, Salt Lake City, UT,84105 -- 7 | 29
 600 S 900 E, Salt Lake City, UT,84102 -- 10
-410 S State St, Salt Lake,84111 -- 38,5
-300 S State St, Salt Lake,84111 -- 30, 8 | 9
+410 S State St, Salt Lake,84111 -- 38,5 | 9
+300 S State St, Salt Lake,84111 -- 30, 8 
 233 N. Canyon Rd., Salt Lake City, UT,84103 -- 3
 2010 W. 500 S., Salt Lake City, UT,84104 -- 13|39
 1060 W Dalton Avenue, Salt Lake City, UT,84104 -- | 27,35
