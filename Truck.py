@@ -16,7 +16,7 @@ def calc_distance(x_position, y_position):
         else:
             return distance_data[y_position][x_position]
     except TypeError:
-        return 6.4
+        return 2.7
     # if y_position is None:
     #     y_position = 0
     #     return distance_data[x_position][y_position]
