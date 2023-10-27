@@ -10,13 +10,14 @@ from TravelData import distance_data, address_data
 #https://stackoverflow.com/questions/3930188/how-to-convert-nonetype-to-int-or-string
 #https://stackoverflow.com/questions/707674/how-to-compare-type-of-an-object-in-python
 def calc_distance(x_position, y_position):
-    try:
-        if x_position >= y_position:
-            return distance_data[x_position][y_position]
-        else:
-            return distance_data[y_position][x_position]
-    except TypeError:
-        return 2.7
+    if x_position >= y_position:
+        return distance_data[x_position][y_position]
+    else:
+        return distance_data[y_position][x_position]
+    # try:
+
+    # except TypeError:
+    #     return 2.7
         # if y_position is None:
         #     y_position = 0
         #     return distance_data[x_position][y_position]

@@ -217,11 +217,11 @@ def pkg_distribution_r1(truck):
     print("_" * 250 + "\033[0m\n\n")
     time.sleep(5)
     # solution 1
-    correction_time = datetime.timedelta(hours=10, minutes=20)
-    spc_pkg = pkg_hash_table.lookup(9)
-    if truck.time >= correction_time:
-        spc_pkg.address = "410 S. State St."
-        spc_pkg.zipcode = "84111"
+    # correction_time = datetime.timedelta(hours=10, minutes=20)
+    # spc_pkg = pkg_hash_table.lookup(9)
+    # if truck.time >= correction_time:
+    #     spc_pkg.address = "410 S. State St."
+    #     spc_pkg.zipcode = "84111"
     # print(spc_pkg)
     # print(pkg_hash_table)
     # print(truck.tot_miles, truck.time)
