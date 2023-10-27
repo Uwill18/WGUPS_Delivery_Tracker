@@ -9,12 +9,42 @@ from TravelData import distance_data, address_data
 #had an issue with package 9's y_position showing as none when it should be 0
 #https://stackoverflow.com/questions/3930188/how-to-convert-nonetype-to-int-or-string
 #https://stackoverflow.com/questions/707674/how-to-compare-type-of-an-object-in-python
-def calc_distance(x_position, y_position):
-    if x_position >= y_position:
-        return distance_data[x_position][y_position]
+print(address_data)
+def calc_distance(address1, address2):
+
+    if address1 not in address_data or address2 not in address_data:
+        print("Address one:" +address1)
+        print("Address two:" +address2)
+        print("One or Both Locations is INVALID")
+
+        return
+
     else:
-        return distance_data[y_position][x_position]
-    # try:
+
+        i = address_data.index(address1)
+
+        j = address_data.index(address2)
+
+        if i > j:
+
+            return distance_data[i][j]
+
+        else:
+
+            return distance_data[j][i]
+
+
+
+
+
+# def calc_distance(x_position, y_position):
+#     # try:
+#     #     if x_position >= y_position:
+#     #         return distance_data[x_position][y_position]
+#     #     else:
+#     #         return distance_data[y_position][x_position]
+
+
 
     # except TypeError:
     #     return 2.7
