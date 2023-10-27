@@ -150,15 +150,6 @@ def pkg_distribution_r1(truck):
         pkg_item.load_time = truck.depart_time
         pkg_item.truck_name = truck.truck_name
 
-        # correction_time = datetime.timedelta(hours=10, minutes=20)
-        # spc_pkg = pkg_hash_table.lookup(9)
-        # if (truck.time >= correction_time) and (spc_pkg == pkg_item):
-        #     pkg_item.address = "410 S. State St."
-        #     pkg_item.zipcode = "84111"
-
-        # print(pkg_item) #this line shows how each package item's status changes from at hub to loaded
-        # print(pkg_inventory)
-
     # Cycle through the pkg_inventory list until no packages remain in the list
     # Adds the nearest package into the truck.pkg_load one by one
     while len(pkg_inventory) > 0:
@@ -217,19 +208,14 @@ def pkg_distribution_r1(truck):
     print("_" * 250 + "\033[0m\n\n")
     time.sleep(5)
     # solution 1
-    # correction_time = datetime.timedelta(hours=10, minutes=20)
-    # spc_pkg = pkg_hash_table.lookup(9)
-    # if truck.time >= correction_time:
-    #     spc_pkg.address = "410 S. State St."
-    #     spc_pkg.zipcode = "84111"
-    # print(spc_pkg)
-    # print(pkg_hash_table)
-    # print(truck.tot_miles, truck.time)
-
+    correction_time = datetime.timedelta(hours=10, minutes=20)
+    spc_pkg = pkg_hash_table.lookup(9)
+    if truck.time >= correction_time:
+        spc_pkg.address = "410 S State St"
+        spc_pkg.zipcode = "84111"
 
 times_list.clear()
 
-# pkg_hash_table.update_hash()
 
 times_list = []
 
@@ -246,12 +232,6 @@ def pkg_distribution_r2(truck):
         pkg_item.delivery_time = truck.time
         pkg_item.load_time = truck.depart_time
         pkg_item.truck_name = truck.truck_name
-
-        # correction_time = datetime.timedelta(hours=10, minutes=20)
-        # spc_pkg = pkg_hash_table.lookup(9)
-        # if (truck.time >= correction_time) and (spc_pkg == pkg_item):
-        #     pkg_item.address = "410 S. State St."
-        #     pkg_item.zipcode = "84111"
 
     # Cycle through the list of pkg_inventory_two until none remain in the list
     # Adds the nearest package into the truck.pkg_load_r2 list one by one
@@ -291,11 +271,9 @@ def pkg_distribution_r2(truck):
         final_mileage = "{:.2f}".format(truck.tot_miles)
         time.sleep(1.5)
         print("\033[40m_" * 250)
-        print(
-            "{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
+        print("{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
                 f"{truck.time}") + ", DISTANCE: " + str(
-                final_mileage) + "\n"
-        )
+                final_mileage) + "\n")
         display_header()
         print(str(next_pkg) + "\n")
         print("_" * 250)
@@ -309,12 +287,11 @@ def pkg_distribution_r2(truck):
           "\033[40m\033[32m's SECOND ROUTE")
     print("_" * 250 + "\033[0m\n\n\n")
     time.sleep(5)
-    # correction_time = datetime.timedelta(hours=10, minutes=20)
-    # spc_pkg = pkg_hash_table.lookup(9)
-    # if truck.time >= correction_time:
-    #     spc_pkg.address = "410 S. State St."
-    #     spc_pkg.zipcode = "84111"
-    # print(truck.tot_miles, truck.time)
+    correction_time = datetime.timedelta(hours=10, minutes=20)
+    spc_pkg = pkg_hash_table.lookup(9)
+    if truck.time >= correction_time:
+        spc_pkg.address = "410 S State St"
+        spc_pkg.zipcode = "84111"
 
 
 """#############################################MAJOR ALGORITHM END##############################################"""
@@ -373,19 +350,6 @@ def select_option():
                 track_all()
             case "3":
                 program_exit_msg()
-            #     # pkg_distribution_r1(first_truck)
-            # case "5":
-            #     pkg_distribution_r1(second_truck)
-            # case "6":
-            #     pkg_distribution_r2(first_truck)
-            # case "7":
-            #     pkg_distribution_r2(second_truck)
-            # case "8":
-            #     delivery_status()
-            # case "9":
-            #     define_options()
-            # case "10":
-            #     program_exit_msg()
             case _:
                 print("No option has been selected. Exiting program ")
                 exit()
@@ -406,7 +370,6 @@ also O(n^2)"""
 
 def deliver_all():
     try:
-
         spaces = '' * 1000
         print("\rA7 Software presents..", end='')
         time.sleep(5)
@@ -420,11 +383,8 @@ def deliver_all():
               "\nand deadlines while also keeping the total travel distance for all delivery trucks under 140 miles.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        # time.sleep(8)
 
-        # subprocess.run('cls', shell=True)
-        # print("\033[1A")
-        # subprocess.run('cls', shell=True)
+
         print("\033[32m\033[40m_" * 250)
         print("\nTo achieve these objectives two routes were mapped out from the attached SLC downtown map routes,\n"
               "and each truck is assigned a route of delivery for its first round, then both trucks swap routes for\n"
@@ -443,7 +403,7 @@ def deliver_all():
               "application's execution.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        # time.sleep(15)
+        time.sleep(15)
 
         print("\033[32m\033[40m_" * 250)
         print("\nThe total distance for all routes will show as 117.10 miles.This is achieved by the usage of the "
@@ -452,7 +412,7 @@ def deliver_all():
               "\ndelivering all packages quickly and well within the required distance limit of 140 miles.\n")
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        # time.sleep(15)
+        time.sleep(15)
 
         print("\033[42m\033[30m_" * 250)
         print("\nOnce  all packages have been delivered one can search for any one of forty packages by selecting the\n"
@@ -461,7 +421,7 @@ def deliver_all():
               "also known as 24h format.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
-        # time.sleep(8)
+        time.sleep(8)
 
         print("\033[32m\033[40m_" * 250)
         print("\nTo track all packages for any given time you can select the option '2. TRACK ALL PACKAGES'"
@@ -471,31 +431,12 @@ def deliver_all():
               )
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        # time.sleep(10)
+        time.sleep(10)
 
         print('\r' + spaces, end="")
         print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER v4.0🦉\033[0m\033["
               "94m\033[4m\033[40m---------\033[0m\033[40m", end="")
-        # LINE_CLEAR = '\x1b[2K'
 
-        # sys.stdout.write("\x1b[1A")  # cursor up one line
-        # sys.stdout.write("\x1b[2K")  # delete the last line
-        # print("hello")
-        # print("this line will be delete after 2 seconds")
-        # time.sleep(2)
-        # delete_last_line()
-        # sys.stdout.write('\033[D \033[D')
-        # sys.stdout.flush()
-        # time.sleep(1)
-        # print("\033[H\033[Jtest")
-        # print("\033[H\033[J")
-        # print(end = LINE_CLEAR)
-
-        # print(" ", end="\r")
-        # time.sleep(1)
-        # print("WGUPS DELIVERY TRACKER", end="\r")
-        # time.sleep(1)
-        # print(("\033[1A"+"\x1b[2K")*2)
         pkg_distribution_r1(first_truck)
         delivery_status()
         pkg_distribution_r1(second_truck)
@@ -528,18 +469,22 @@ def track_one():
         time_entered = datetime.timedelta(hours=int(hh), minutes=int(mm))
         correction_time = datetime.timedelta(hours=10, minutes=20)
         if time_entered <= time_limit:
+            spc_pkg = pkg_hash_table.lookup(9)
             if time_entered < pkg_searched.load_time:
                 pkg_searched.status = "\033[90mAt Hub\033[0m"
+                spc_pkg.address = "300 State St"
+                spc_pkg.zipcode = "84103"
                 display_header()
                 print("\n" + str(pkg_searched) + "\n")
             elif time_entered < pkg_searched.delivery_time:
-                spc_pkg = pkg_hash_table.lookup(9)
                 if time_entered < correction_time:
                     pkg_searched.status = "\033[33mEn route\033[0m"
+                    spc_pkg.address = "300 State St"
+                    spc_pkg.zipcode = "84103"
                     display_header()
                     print(str(pkg_searched) + "\n")
                 else:
-                    spc_pkg.address = "410 S. State St."
+                    spc_pkg.address = "410 S State St"
                     spc_pkg.zipcode = "84111"
                     spc_pkg.status = "\033[33mEn route\033[0m"
                     display_header()
@@ -620,7 +565,7 @@ time validation executed by the nested looping. Most technically it is O(n^3), b
 
 def track_all():
     try:
-        print("\nIf you need help with converting to military/24h time please visit the link below:"
+        print("\nIf you need help with converting to military time/24h format please visit the link below:"
               "\nhttps://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n")
         time_searched = input("Please enter the time you would like to search in military time (HH:mm format):")
         (hh, mm) = time_searched.split(":")
@@ -630,15 +575,20 @@ def track_all():
         if time_entered <= time_limit:
             for i in range(1, 41):
                 pkg_item = pkg_hash_table.lookup(i)
+                spc_pkg = pkg_hash_table.lookup(9)
                 if time_entered < pkg_item.load_time:
                     pkg_item.status = "\033[90mAt Hub\033[0m"
+                    spc_pkg.address = "300 State St"
+                    spc_pkg.zipcode = "84103"
 
                 elif time_entered < pkg_item.delivery_time:
                     pkg_item.status = "\033[33mEn route\033[0m"
-                    spc_pkg = pkg_hash_table.lookup(9)
                     if time_entered >= correction_time:
-                        spc_pkg.address = "410 S. State St."
+                        spc_pkg.address = "410 S State St"
                         spc_pkg.zipcode = "84111"
+                    else:
+                        spc_pkg.address = "300 State St"
+                        spc_pkg.zipcode = "84103"
                 else:
                     pkg_item.status = "\033[92mDelivered\033[0m"
             print("\n")
