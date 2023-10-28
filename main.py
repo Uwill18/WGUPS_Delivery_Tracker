@@ -315,12 +315,6 @@ def greet():
         print(  # "1. No longer available for evaluators\n"
             "\033[1m\033[40m1. TRACK PACKAGE \n"
             "2. TRACK ALL PACKAGES \n"
-            # "4. CHECK ROUTE ONE OF FIRST TRUCK \n"
-            # "5. CHECK ROUTE ONE OF SECOND TRUCK \n"
-            # "6. CHECK ROUTE TWO OF FIRST TRUCK \n"
-            # "7. CHECK ROUTE TWO OF SECOND TRUCK \n"
-            # "8. VERIFY DELIVERY STATUS \n"
-            # "9. DEFINE ALL OPTIONS\n"
             "3. PROGRAM EXIT \033[0m\033[40m\n")
         print("\033[34m------------------------------------------\033[0m\033[40m\n\033[40m")
         select_option()
