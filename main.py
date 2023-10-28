@@ -1,6 +1,6 @@
 # Name: Uri W. Easter
 # Student ID: 001433968
-# Date:
+# Date: 10/27/2023
 
 # Proverbs 16:9
 # Psalm 32: 8
@@ -207,15 +207,14 @@ def pkg_distribution_r1(truck):
           "\033[40m\033[32m's FIRST ROUTE")
     print("_" * 250 + "\033[0m\n\n")
     time.sleep(5)
-    # solution 1
     correction_time = datetime.timedelta(hours=10, minutes=20)
     spc_pkg = pkg_hash_table.lookup(9)
     if truck.time >= correction_time:
         spc_pkg.address = "410 S State St"
         spc_pkg.zipcode = "84111"
 
-times_list.clear()
 
+times_list.clear()
 
 times_list = []
 
@@ -272,8 +271,8 @@ def pkg_distribution_r2(truck):
         time.sleep(1.5)
         print("\033[40m_" * 250)
         print("{:12}".format(f"\033[40m{truck.truck_name}") + "\033[40m TIME: " + "{:10}".format(
-                f"{truck.time}") + ", DISTANCE: " + str(
-                final_mileage) + "\n")
+            f"{truck.time}") + ", DISTANCE: " + str(
+            final_mileage) + "\n")
         display_header()
         print(str(next_pkg) + "\n")
         print("_" * 250)
@@ -378,7 +377,6 @@ def deliver_all():
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
 
-
         print("\033[32m\033[40m_" * 250)
         print("\nTo achieve these objectives two routes were mapped out from the attached SLC downtown map routes,\n"
               "and each truck is assigned a route of delivery for its first round, then both trucks swap routes for\n"
@@ -452,7 +450,7 @@ that the time entered is not out of range.
 
 def track_one():
     try:
-        print("\nIf you need help with converting to military/24h time please visit the link below:"
+        print("\nIf you need help with converting to military time/24h format please visit the link below:"
               "\nhttps://helpingwithmath.com/wp-content/uploads/2022/12/image-1024x625.png\n")
         id_searched = input("Please enter the ID of the package you would like to search!")
         pkg_searched = pkg_hash_table.lookup(int(id_searched))
@@ -483,10 +481,6 @@ def track_one():
                     spc_pkg.status = "\033[33mEn route\033[0m"
                     display_header()
                     print(str(pkg_searched) + "\n")
-            # elif (time_entered >= correction_time) and (time_entered < pkg_searched.delivery_time):
-            #         spc_pkg = pkg_hash_table.lookup(9)
-            #         spc_pkg.address = "410 S. State St."
-            #         spc_pkg.zipcode = "84111"
             else:
                 pkg_searched.status = "\033[92mDelivered\033[0m"
                 spc_pkg = pkg_hash_table.lookup(9)
@@ -545,7 +539,7 @@ def display_all():
           "{:55}".format(f"SPECIAL MESSAGES"))
     print("\033[40m_" * 250)
     # print("\033[40m\033[0m")
-    #place code here for solution 2
+    # place code here for solution 2
     for i in range(1, 41):
         pkg_item = pkg_hash_table.lookup(i)
         print(pkg_item)
@@ -585,6 +579,8 @@ def track_all():
                         spc_pkg.zipcode = "84103"
                 else:
                     pkg_item.status = "\033[92mDelivered\033[0m"
+                    spc_pkg.address = "410 S State St"
+                    spc_pkg.zipcode = "84111"
             print("\n")
             display_all()
         else:
