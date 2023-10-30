@@ -57,11 +57,11 @@ pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 # The instantiation of the trucks are both O(1) instructions
-first_truck = Truck(16, 18, [28, 20, 14, 15, 16, 34, 26, 25, 22, 11, 23, 24, 12, 13, 19],
-                    [7, 5, 9, 8, 27, 35, 32], 0.0, 0, "4001 South 700 East",
+first_truck = Truck(16, 18, [20, 14, 15, 16, 34, 26, 22, 11, 23, 24, 12, 13, 19],
+                    [6, 7, 5, 9, 8, 27, 35, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mTruck_One\033[0m")
-second_truck = Truck(16, 18, [40, 4, 33, 2, 1, 29, 10, 38, 37, 30, 3, 39, 36, 6, 17, 31],
-                     [21, 18], 0.0,
+second_truck = Truck(16, 18, [40, 4, 33, 2, 1, 29, 10, 38, 37, 30, 3, 39, 36, 17, 31],
+                     [21, 18, 25, 28], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
                      "\033[3mTruck_Two\033[0m")
 
@@ -376,6 +376,7 @@ def deliver_all():
               "\nand deadlines while also keeping the total travel distance for all delivery trucks under 140 miles.\n")
         print("\033[42m\033[30m_" * 250)
         print("\033[0m")
+        time.sleep(8)
 
         print("\033[32m\033[40m_" * 250)
         print("\nTo achieve these objectives two routes were mapped out from the attached SLC downtown map routes,\n"
@@ -383,7 +384,7 @@ def deliver_all():
               "their second route.")
         print("\033[32m\033[40m_" * 250)
         print("\033[0m")
-        # time.sleep(10)
+        time.sleep(10)
 
         print("\033[42m\033[30m_" * 250)
         print("\nThis results in the four sets of output  printed out to show each route traveled by each truck,\n"
