@@ -370,9 +370,10 @@ def deliver_all():
         time.sleep(5)
         print("\r\033[3min Affiliation with H2APPs \033[0m", end='')
         time.sleep(5)
-        print("\r\033[1m WGUPS DELIVERY TRACKER VERSION 5.0\033[0m", end='')
+        print("\r\033[1m\033[3m\033[4m WGUPS DELIVERY TRACKER VERSION 5.0 \033[0m", end='')
         time.sleep(7)
-        print('\r' + spaces, end="")
+        # print('\r' + spaces, end="")
+        print("\n")
         print("\033[42m\033[30m_" * 250)
         print("\nWGUPS Delivery Tracker simulates delivering 40 packages per each one's delivery requirements"
               "\nand deadlines while also keeping the total travel distance for all delivery trucks under 140 miles.\n")
@@ -429,7 +430,7 @@ def deliver_all():
         time.sleep(10)
 
         print('\r' + spaces, end="")
-        print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER v4.0🦉\033[0m\033["
+        print("\033[0;34;40m\033[4m\033[3m-------\033[0m\033[40m\033[1m🦉WGUPS DELIVERY TRACKER v5.0🦉\033[0m\033["
               "94m\033[4m\033[40m---------\033[0m\033[40m", end="")
 
         pkg_distribution_r1(first_truck)
