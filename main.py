@@ -41,7 +41,6 @@ def load_package_data(csvfile, p_hash_table):
             pkg_msg = pkg_row[7]
             pkg_status = "At Hub"
             pkg_loadtime = datetime.timedelta(hours=8)
-            # pkg_dt = pkg_loadtime
             pkg_dt = pkg_loadtime
             pkg_truck = "\033[3mLoading Dock\033[0m"
 
@@ -57,11 +56,11 @@ pkg_hash_table = MyHashMap()
 load_package_data('csv_files/packageCSV.csv', pkg_hash_table)
 
 # The instantiation of the trucks are both O(1) instructions
-first_truck = Truck(16, 18, [20, 14, 15, 16, 34, 26, 22, 11, 23, 24, 12, 13, 19],
-                    [6, 7, 5, 9, 8, 27, 35, 32], 0.0, 0, "4001 South 700 East",
+first_truck = Truck(16, 18, [20, 21, 14, 15, 16, 34, 26, 22, 11, 23, 24, 12, 13, 19],
+                    [7, 5, 9, 8, 27, 35, 6, 32], 0.0, 0, "4001 South 700 East",
                     datetime.timedelta(hours=8), datetime.timedelta(hours=8), "\033[3mTruck_One\033[0m")
 second_truck = Truck(16, 18, [40, 4, 33, 2, 1, 29, 10, 38, 37, 30, 3, 39, 36, 17, 31],
-                     [21, 18, 25, 28], 0.0,
+                     [18, 25, 28], 0.0,
                      0, "4001 South 700 East", datetime.timedelta(hours=8), datetime.timedelta(hours=8),
                      "\033[3mTruck_Two\033[0m")
 
@@ -198,6 +197,11 @@ def pkg_distribution_r1(truck):
         display_header()
         print(str(next_pkg) + "\n")
         print("_" * 250)
+        correction_time = datetime.timedelta(hours=10, minutes=20)
+        spc_pkg = pkg_hash_table.lookup(9)
+        if next_pkg.delivery_time >= correction_time:
+            spc_pkg.address = "410 S State St"
+            spc_pkg.zipcode = "84111"
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
@@ -207,11 +211,7 @@ def pkg_distribution_r1(truck):
           "\033[40m\033[32m's FIRST ROUTE")
     print("_" * 250 + "\033[0m\n\n")
     time.sleep(5)
-    correction_time = datetime.timedelta(hours=10, minutes=20)
-    spc_pkg = pkg_hash_table.lookup(9)
-    if truck.time >= correction_time:
-        spc_pkg.address = "410 S State St"
-        spc_pkg.zipcode = "84111"
+
 
 
 times_list.clear()
@@ -276,7 +276,11 @@ def pkg_distribution_r2(truck):
         display_header()
         print(str(next_pkg) + "\n")
         print("_" * 250)
-
+        correction_time = datetime.timedelta(hours=10, minutes=20)
+        spc_pkg = pkg_hash_table.lookup(9)
+        if next_pkg.delivery_time >= correction_time:
+            spc_pkg.address = "410 S State St"
+            spc_pkg.zipcode = "84111"
         times_list.append(next_pkg.delivery_time)
     distance_to_hub = calc_distance(address_index(truck.address), 0)
     truck.tot_miles += distance_to_hub
@@ -286,11 +290,11 @@ def pkg_distribution_r2(truck):
           "\033[40m\033[32m's SECOND ROUTE")
     print("_" * 250 + "\033[0m\n\n\n")
     time.sleep(5)
-    correction_time = datetime.timedelta(hours=10, minutes=20)
-    spc_pkg = pkg_hash_table.lookup(9)
-    if truck.time >= correction_time:
-        spc_pkg.address = "410 S State St"
-        spc_pkg.zipcode = "84111"
+    # correction_time = datetime.timedelta(hours=10, minutes=20)
+    # spc_pkg = pkg_hash_table.lookup(9)
+    # if truck.time >= correction_time:
+    #     spc_pkg.address = "410 S State St"
+    #     spc_pkg.zipcode = "84111"
 
 
 """#############################################MAJOR ALGORITHM END##############################################"""
@@ -335,8 +339,6 @@ def select_option():
     try:
         option = input("\033[0m\033[3m\nPlease enter your option number here:")
         match option:
-            # case "1":
-            #     deliver_all()
             case "1":
                 track_one()
             case "2":
@@ -364,11 +366,11 @@ also O(n^2)"""
 def deliver_all():
     try:
         spaces = '' * 1000
-        print("\rA7 Software presents..", end='')
+        print("\r\033[3mA7 Software presents..\033[0m", end='')
         time.sleep(5)
-        print("\rin Affiliation with H2APPs ", end='')
+        print("\r\033[3min Affiliation with H2APPs \033[0m", end='')
         time.sleep(5)
-        print("\rWGUPS DELIVERY TRACKER v4.0", end='')
+        print("\r\033[1m WGUPS DELIVERY TRACKER VERSION 5.0\033[0m", end='')
         time.sleep(7)
         print('\r' + spaces, end="")
         print("\033[42m\033[30m_" * 250)
@@ -399,7 +401,7 @@ def deliver_all():
         time.sleep(15)
 
         print("\033[32m\033[40m_" * 250)
-        print("\nThe total distance for all routes will show as 117.10 miles.This is achieved by the usage of the "
+        print("\nThe total distance for all routes will show as 117.70 miles.This is achieved by the usage of the "
               "\nNearest Neighbor Algorithm which finds the minimum distance between a grouping of points before"
               "\nmapping to the next smallest distance in range.This method produces the most optimized paths for"
               "\ndelivering all packages quickly and well within the required distance limit of 140 miles.\n")
@@ -524,9 +526,6 @@ characters%2C%20with%202%20decimal%20places."""
 
 
 def display_all():
-    # print("PACKAGE # |\t\t\tADDRESS\t\t\t|\tCITY\t|STATE|ZIP|"
-    #       "MASS| LOAD TIME | DEADLINE | DELIVERY TIME "
-    #       "| STATUS | SPECIAL MESSAGE ")
     print("{:15}".format(f"\033[40mALL PACKAGES|    ") +
           "{:40}".format(f"ADDRESS") +
           "{:23}".format(f"CITY") +
@@ -749,88 +748,3 @@ def program_exit_msg():
 deliver_all()
 greet()
 
-#
-# for i in range(10):
-#     print("Loading" + "." * i)
-#     # sys.stdout.write("\033[F\033[K") # Cursor up one line
-#     sys.stdout.flush()
-#     time.sleep(1)
-# add_package()
-# program_exit_msg()
-# spc_pkg = pkg_hash_table.lookup(9)
-# print(spc_pkg.address)
-# print(spc_pkg.city)
-# print(spc_pkg.state)
-# print(spc_pkg.zipcode)
-
-
-# deliver_all()
-# track_one()
-# pkg_distribution_r1(first_truck)  # 36.0
-# track_one()
-
-
-# track_all()
-# pkg_distribution_r1(second_truck)  # 33.6
-# delivery_status()
-# track_all()
-
-# pkg_distribution_r2(first_truck)  # 71.4
-# track_one()
-# track_all()
-# display_all()
-# pkg_hash_table.check_timeline(29)
-# track_one()
-# print("verifying " + str(pkg_hash_table.lookup(14).status))
-
-# track_all()
-# pkg_distribution_r2(second_truck)  # 30.0
-# track_all()
-# print(first_truck.tot_miles + second_truck.tot_miles)  # 69.6
-# pkg_distribution_r3(first_truck, second_truck)
-
-
-# print("🚚🦉WGUPS DELIVERY TRACKER🦉⛟")
-
-# implement rounds of packages  Tuesday x
-# get concurrent time working x
-# Call package distribution functions x
-# reviewing resources x Wednesday
-# based on research I think I want to implement multiprocessing techniques for the trucks x  Weekend
-# threading could be used for the files x Weekend
-# continue testing mileage, Monday x
-# find how to get arrival time for each package x
-# cast back everything back to time x
-# implement the sleep function x
-# find out how to search for each package as the function goes x
-# find how to print out all packages, with statuses at end of both routes(3) x
-# revise track_one() function for pkg_item.loaded comparison Saturday x
-# decide how you want info to display in the CLI Sunday x
-# create an update function to update the delivery address of package #9 Monday x
-# implement UI, its exit, exceptions next options loop Monday x
-
-
-# -------------------------------------------------
-# Review project in context of WGU requirements, Monday x
-# Review project in context of Goodell requirements, Monday x
-# PARTS: A,G,H,J Monday,
-#        B, C,(L) Tuesday
-#        D, K,(L) Wednesday
-#        I,(L) Thursday
-#
-#
-# Finish last parts of paper, Friday
-# Submit Project, Friday
-# ----------------------------------------------------------------------------------
-# 1. total mileage + final statuses of all packages
-# with comments, and time of loading the truck
-# 2. status of the package, given a time and package id
-# 3. status of all packages at a given time
-# 4. exit the program
-
-# --final tasks
-# --input a header X
-# --record a panopto - 2
-# --rewrite your paper - 1
-# --write instructions for the evaluator  - 3
-# --input a truck name field x
